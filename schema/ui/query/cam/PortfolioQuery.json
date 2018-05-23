@@ -1,0 +1,133 @@
+{
+	"baseDate": {
+		"type": "text",
+		"required": true,
+		"label": "Date",
+		"id": "baseDate",
+		"defaultValue": "22-03-2018"
+	},
+	"currency": {
+		"type": "text",
+		"required": false,
+		"label": "Currency",
+		"id": "currency"
+	},
+	"accountNo": {
+		"type": "text",
+		"required": false,
+		"label": "Account No",
+		"id": "accountNo",
+		"defaultValue": "C0000001-7"
+	},
+	"agentCode": {
+		"type": "text",
+		"required": false,
+		"label": "Agent Code",
+		"id": "agentCode"
+	},
+	"securityCode": {
+		"type": "text",
+		"required": false,
+		"label": "Security Code",
+		"id": "securityCode"
+	},
+	"issueCurrency": {
+		"type": "text",
+		"required": false,
+		"label": "Issue Currency",
+		"id": "issueCurrency"
+	},
+	"instrumentType": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "instrumentTypeId"
+	},
+	"strategyCode": {
+		"type": "text",
+		"required": false,
+		"label": "Strategy Code",
+		"id": "strategyCode"
+	},
+	"counterPartyCode": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "counterPartyCode"
+	},
+	"salesCode": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "salesCode"
+	},
+	"accountBalanceType": {
+		"type": "select",
+		"required": false,
+		"label": "Account Balance Type",
+		"id": "accountBalanceType"
+	},
+	"balanceBasis": {
+		"type": "select",
+		"required": true,
+		"label": "Balance Basis",
+		"id": "balanceBasis",
+		"defaultValue": "TRADE DATE"
+	},
+	"inventoryAccountType": {
+		"type": "select",
+		"required": false,
+		"label": "Inventory Account Type",
+		"id": "inventoryAccountType"
+	},
+	"longShortCategory": {
+		"type": "select",
+		"required": false,
+		"label": "Long/Short Category",
+		"id": "longShortCategory"
+	},
+	"balancePl": {
+		"type": "select",
+		"required": false,
+		"label": "Include Zero Balance Portfolios",
+		"id": "balancePl",
+		"defaultValue": "N"
+	},
+	"counterPartyType": {
+		"type": "select",
+		"required": false,
+		"label": "Counter Party Code",
+		"id": "counterPartyType"
+	},
+	"sortField1": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField1",
+		"defaultValue": "ACCOUNT_NO"
+	},
+	"sortField2": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField2"
+	},
+	"sortField3": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField3"
+	},
+	"sortField4": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField4"
+	},
+	"sortField5": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField5"
+	}
+}

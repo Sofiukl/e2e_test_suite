@@ -1,0 +1,109 @@
+{
+	"dateFrom": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "dateFrom",
+		"defaultValue": "08-03-2018"
+	},
+	"dateTo": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "dateTo",
+		"defaultValue": "07-04-2018"
+	},
+	"accountNo": {
+		"type": "text",
+		"required": false,
+		"label": "Account No",
+		"id": "accountNo",
+		"defaultValue": "C0000003-8"
+	},
+	"agentCode": {
+		"type": "text",
+		"required": false,
+		"label": "Agent Code",
+		"id": "agentCode"
+	},
+	"currency": {
+		"type": "text",
+		"required": false,
+		"label": "Currency",
+		"id": "currency"
+	},
+	"instrumentType": {
+		"type": "text",
+		"required": false,
+		"label": "Instrument Type",
+		"id": "instrumentTypeId"
+	},
+	"securityCode": {
+		"type": "text",
+		"required": false,
+		"label": "Security",
+		"id": "securityCode"
+	},
+	"appUpdDate": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "appUpdDate"
+	},
+	"accountFrom": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "accountFrom"
+	},
+	"accountTo": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "accountTo"
+	},
+	"movementBasis": {
+		"type": "select",
+		"required": true,
+		"label": "Movement Basis",
+		"id": "movementBasis",
+		"defaultValue": "VALUE DATE"
+	},
+	"accountBalanceType": {
+		"type": "select",
+		"required": false,
+		"label": "Account Balance Type",
+		"id": "accountBalanceType"
+	},
+	"form": {
+		"type": "select",
+		"required": false,
+		"label": "Form",
+		"id": "form"
+	},
+	"sortField1": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField1",
+		"defaultValue": "ACCOUNT_NO"
+	},
+	"sortField2": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField2"
+	},
+	"sortField3": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField3"
+	},
+	"sortField4": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField4"
+	}
+}

@@ -1,0 +1,184 @@
+{
+	"baseDate": {
+		"type": "text",
+		"required": true,
+		"label": "Date",
+		"id": "baseDate",
+		"defaultValue": "23-03-2018"
+	},
+	"accountNo": {
+		"type": "text",
+		"required": false,
+		"label": "Account No",
+		"id": "accountNo",
+		"defaultValue": "C0000001-7"
+	},
+	"salesId": {
+		"type": "text",
+		"required": false,
+		"label": "Sales Id",
+		"id": "salesId"
+	},
+	"accountFrom": {
+		"type": "text",
+		"required": false,
+		"label": "Account Range(From - To)",
+		"id": "accountFrom"
+	},
+	"accountTo": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "accountTo"
+	},
+	"currency": {
+		"type": "text",
+		"required": false,
+		"label": "Ccy",
+		"id": "currency"
+	},
+	"securityCode": {
+		"type": "text",
+		"required": false,
+		"label": "Security",
+		"id": "securityCode"
+	},
+	"agentCode": {
+		"type": "text",
+		"required": false,
+		"label": "Agent Code",
+		"id": "agentCode"
+	},
+	"instrumentType": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "instrumentTypeId"
+	},
+	"counterPartyCode": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "counterPartyCode"
+	},
+	"issueCurrency": {
+		"type": "text",
+		"required": false,
+		"label": "Issue Currency",
+		"id": "issueCurrency"
+	},
+	"balanceBasis": {
+		"type": "select",
+		"required": true,
+		"label": "Balance Basis",
+		"id": "balanceBasis",
+		"defaultValue": "VALUE DATE"
+	},
+	"accountBalanceType": {
+		"type": "select",
+		"required": false,
+		"label": "Account Balance Type",
+		"id": "accountBalanceType"
+	},
+	"ledgerId": {
+		"type": "select",
+		"required": false,
+		"label": "Ledger",
+		"id": "ledgerId"
+	},
+	"form": {
+		"type": "select",
+		"required": false,
+		"label": "Form",
+		"id": "form"
+	},
+	"displayByAcBalanceType": {
+		"type": "select",
+		"required": false,
+		"label": "Display by A/C Balance Type",
+		"id": "displayByAcBalanceType",
+		"defaultValue": "Y"
+	},
+	"displayZeroBalance": {
+		"type": "select",
+		"required": false,
+		"label": "Display 0 balance",
+		"id": "displayZeroBalance",
+		"defaultValue": "N"
+	},
+	"ledgerLevelReqd": {
+		"type": "select",
+		"required": false,
+		"label": "Ledger Level Balance",
+		"id": "ledgerLevelReqd",
+		"defaultValue": "NOT REQUIRED"
+	},
+	"complianceType": {
+		"type": "select",
+		"required": false,
+		"label": "Compliance Type",
+		"id": "complianceType"
+	},
+	"counterPartyType": {
+		"type": "select",
+		"required": false,
+		"label": "Counter Party Code",
+		"id": "counterPartyType"
+	},
+	"displayLongShortBalance": {
+		"type": "select",
+		"required": false,
+		"label": "Security Balance",
+		"id": "displayLongShortBalance"
+	},
+	"groupingLevel": {
+		"type": "select",
+		"required": false,
+		"label": "Grouping Level",
+		"id": "groupingLevel",
+		"defaultValue": "ACCOUNT"
+	},
+	"defaultAccountBalance": {
+		"type": "select",
+		"required": false,
+		"label": "Display Default Account Balance",
+		"id": "defaultAccountBalance"
+	},
+	"sortField1": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField1",
+		"defaultValue": "ACCOUNT_NO"
+	},
+	"sortField2": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField2"
+	},
+	"sortField3": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField3"
+	},
+	"sortField4": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField4"
+	},
+	"sortField5": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField5"
+	},
+	"sortField6": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField6"
+	}
+}
