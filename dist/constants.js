@@ -25,7 +25,8 @@ class Constants {
 }
 Constants._restUser = "gmo-api:welcome@123:GMO";
 Constants._restPassword = "welcome@123";
-Constants._appUser = "gmo-ops";
+// private static _appUser : string="gmo-ops"
+Constants._appUser = "nri-admin@z.com";
 Constants._appPassword = "welcome@123";
 Constants._batchBasePath = "D:\\code\\igv\\nrithai\\BR-GV-THAGMO-PROD-02102017\\console\\igv-console\\launch.bat";
 Constants._uiBasePath = "http://localhost:8080/igv-tomcat/";

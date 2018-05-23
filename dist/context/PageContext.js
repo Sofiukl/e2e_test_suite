@@ -26,7 +26,7 @@ class PageContext {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this._initialized) {
                 this._initialized = true;
-                this._browser = yield puppeteer_1.launch({ headless: true, args: ['--start-maximized'] });
+                this._browser = yield puppeteer_1.launch({ headless: false, args: ['--start-maximized'] });
                 const page = yield this._browser.newPage();
                 page.setViewport({
                     height: 800, width: 1820

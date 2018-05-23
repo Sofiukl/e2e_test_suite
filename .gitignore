@@ -61,4 +61,6 @@ typings/
 .next
 
 #Output folder
-dit/
+dist/
+*.png
+*.jpg

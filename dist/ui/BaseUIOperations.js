@@ -52,6 +52,7 @@ class BaseUIOperations {
             var nav = this._page.waitForNavigation({ waitUntil: 'networkidle2' });
             for (var i = 0; i < elements.length; i++) {
                 yield elements[i].click();
+                yield this.sleep(50);
             }
             yield nav;
             yield this.waitPageLoad();
@@ -120,6 +121,9 @@ class BaseUIOperations {
             else if (operation == WizardAction.Next) {
                 yield this._page.click('div.wizNext input');
             }
+            else if (operation == WizardAction.QuerySubmit) {
+                yield this._page.click('div.qrySubmitBtn input');
+            }
             yield this.waitPageLoad();
         });
     }
@@ -130,6 +134,7 @@ var WizardAction;
     WizardAction[WizardAction["Submit"] = 0] = "Submit";
     WizardAction[WizardAction["Confirm"] = 1] = "Confirm";
     WizardAction[WizardAction["Next"] = 2] = "Next";
+    WizardAction[WizardAction["QuerySubmit"] = 3] = "QuerySubmit";
     //Previous,
 })(WizardAction = exports.WizardAction || (exports.WizardAction = {}));
 //# sourceMappingURL=BaseUIOperations.js.map

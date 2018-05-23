@@ -60,6 +60,7 @@ export abstract class BaseUIOperations {
         var nav = this._page.waitForNavigation({ waitUntil: 'networkidle2' }); 
         for(var i=0;i<elements.length;i++){
             await elements[i].click()
+            await this.sleep(50)
         }
         await nav
 
@@ -136,6 +137,8 @@ export abstract class BaseUIOperations {
               await this._page.click('div.wizConfirm input')
           } else if (operation == WizardAction.Next) {
               await this._page.click('div.wizNext input')
+          }else if(operation == WizardAction.QuerySubmit){
+              await this._page.click('div.qrySubmitBtn input')
           }
           await this.waitPageLoad()
       }
@@ -150,5 +153,6 @@ export enum WizardAction {
     Submit,
     Confirm,
     Next,
+    QuerySubmit,
     //Previous,
 }

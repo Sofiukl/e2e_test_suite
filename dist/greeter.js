@@ -12,11 +12,12 @@ const PageContext_1 = require("./context/PageContext");
 const LoginOperation_1 = require("./ui/common/LoginOperation");
 const ExecutionEntry_1 = require("./ui/entry/trd/ExecutionEntry");
 const Customer_1 = require("./rest/Customer");
-const Context_1 = require("./context/Context");
+const BalanceQuery_1 = require("./ui/query/cam/BalanceQuery");
 class TC {
     constructor() {
         this.login = new LoginOperation_1.Login();
         this.execution = new ExecutionEntry_1.ExecutionEntry();
+        this.query = new BalanceQuery_1.BalanceQuery();
         this.cust = new Customer_1.Customer();
     }
     tcBasicEntryTrade() {
@@ -24,7 +25,10 @@ class TC {
             yield this.cust.create("12345699");
             yield PageContext_1.PageContext.getInstance().initPage();
             yield this.login.execute();
-            yield this.execution.applicationDate("20-09-2018").time("11:11:11").buy().instrument("BBL").quantity("100").bookCost("10").account(Context_1.Context.getInstance().cashAccount()).execute();
+            //  await this.execution.applicationDate("20-09-2018").time("11:11:11").buy()
+            //             .instrument("BBL").quantity("100").bookCost("10").account(Context.getInstance().cashAccount())
+            //             .execute()
+            yield this.query.execute();
             yield PageContext_1.PageContext.getInstance().close();
         });
     }

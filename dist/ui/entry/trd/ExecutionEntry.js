@@ -30,7 +30,8 @@ class ExecutionEntry extends BaseUIOperations_1.BaseUIOperations {
         });
     }
     command() {
-        return [{ type: 'select', selector: 'select[name="execScreenData.tradeType"]', value: 'EQUITY' },
+        return [
+            { type: 'select', selector: 'select[name="execScreenData.tradeType"]', value: 'EQUITY' },
             { type: 'text', selector: 'input[name="execScreenData.tradeDateStr"]', value: this._applicationDate },
             { type: 'text', selector: 'input[name="execScreenData.executionTime"]', value: this._time },
             { type: 'select', selector: 'select[name="execScreenData.buySellOrientation"]', value: this._isBuy ? 'FB' : 'FS' },
@@ -51,7 +52,8 @@ class ExecutionEntry extends BaseUIOperations_1.BaseUIOperations {
             { type: 'text', selector: 'input[name="execScreenData.senderReferenceNo"]', value: 'OD-000000001' },
             { type: 'text', selector: 'input[name="execScreenData.sourceReferenceNo"]', value: 'TD-000000001' },
             { type: 'text', selector: 'input[name="execScreenData.cpAccountNo"]', value: this._account },
-            { type: 'select', selector: 'select[name="tradeChannel"]', value: 'INTERNET' }];
+            { type: 'select', selector: 'select[name="tradeChannel"]', value: 'INTERNET' }
+        ];
     }
     time(t) {
         this._time = t;

@@ -8,6 +8,7 @@ export class ConnectionPool {
 
     public getInstance() : ConnectionPool {
 
+        return null
 
 
     }
