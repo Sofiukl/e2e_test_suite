@@ -1,13 +1,40 @@
 const fs = require('fs')
 
-var fileName = "BalanceQuery"
+var walk = require('fs-walker');
 
-var schemaContents = fs.readFileSync(`./ui/query/cam/${fileName}.json`)
+
+
+var schemaList = walk.files.sync("schema");
+
+
+
+for(var x=0;x<schemaList.length;x++){
+
+    if(schemaList[x].name.endsWith(".json")){
+        //console.log(schemaList[x].directory +"\\"+ schemaList[x].name);
+    
+    
+
+var fileName = schemaList[x].name.substring(0,schemaList[x].name.length-5)
+
+var schemaContents = fs.readFileSync(schemaList[x].directory +"\\"+ schemaList[x].name)
+
+//console.log(schemaList[x].directory +"\\"+ schemaList[x].name);
+//console.log(schemaContents);
+
+
 var schemaObject = JSON.parse(schemaContents)
 classData=""
-classData+=(`export class ${fileName}  extends BaseUIOperations {`)
+
+classData=`
+import { BaseUIOperations } from "../../BaseUIOperations";
+import { Assert } from "../../common/Assert";
+
+`
+
+classData+=(`export abstract class Abstract${fileName}  extends BaseUIOperations {`)
 classData+=(`\r\n`)
-classData+=(`    async doExecute() : Promise<any>{`)
+classData+=(`    async doValidate() : Promise<any>{`)
 classData+=(`\r\n`)
 
 for( var key in schemaObject){
@@ -23,7 +50,10 @@ classData+=(` } `)
 
 classData+=(`\r\n`)
 for( var key in schemaObject){
-    var label = schemaObject[key].label
+    
+
+    
+    
 
     
     var defaulValue = schemaObject[key].defaulValue
@@ -38,11 +68,12 @@ for( var key in schemaObject){
 
 
 for( var key in schemaObject){
+    var label = schemaObject[key].label
     classData+=(`
     /** This is the value of ${label} 
      * with a default Value "${defaulValue}" 
      * of type ${type} */
-    public ${key}(v : string) : ${fileName} {
+    public ${key}(v : string) : Abstract${fileName} {
         this._${key}=v;
         return this;
     }
@@ -54,4 +85,7 @@ for( var key in schemaObject){
 
 classData+=("}")
 
-fs.writeFileSync(fileName+".ts",classData);
+fs.writeFileSync("src"+schemaList[x].directory.substring(6) + "\\"+"Abstract"+fileName+".ts",classData);
+
+}
+}
