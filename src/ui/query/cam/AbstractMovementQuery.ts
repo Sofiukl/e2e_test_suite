@@ -177,4 +177,45 @@ Assert.notNull(this._movementBasis)
         this._sortField4=v;
         return this;
     }
+    
+    protected fetchFields() : any[] {
+        let fields :any[] = []
+    if(this._dateFrom!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="dateFrom"]' , value : this._dateFrom});
+        }if(this._dateTo!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="dateTo"]' , value : this._dateTo});
+        }if(this._accountNo!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountNo"]' , value : this._accountNo});
+        }if(this._agentCode!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="agentCode"]' , value : this._agentCode});
+        }if(this._currency!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="currency"]' , value : this._currency});
+        }if(this._instrumentType!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="instrumentType"]' , value : this._instrumentType});
+        }if(this._securityCode!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="securityCode"]' , value : this._securityCode});
+        }if(this._appUpdDate!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="appUpdDate"]' , value : this._appUpdDate});
+        }if(this._accountFrom!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountFrom"]' , value : this._accountFrom});
+        }if(this._accountTo!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountTo"]' , value : this._accountTo});
+        }if(this._movementBasis!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="movementBasis"]' , value : this._movementBasis});
+        }if(this._accountBalanceType!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="accountBalanceType"]' , value : this._accountBalanceType});
+        }if(this._form!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="form"]' , value : this._form});
+        }if(this._sortField1!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField1"]' , value : this._sortField1});
+        }if(this._sortField2!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField2"]' , value : this._sortField2});
+        }if(this._sortField3!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField3"]' , value : this._sortField3});
+        }if(this._sortField4!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField4"]' , value : this._sortField4});
+        }
+    return fields;
+
     }
+}

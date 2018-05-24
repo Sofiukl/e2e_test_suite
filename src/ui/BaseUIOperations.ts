@@ -17,9 +17,9 @@ export abstract class BaseUIOperations {
     }
 
 
-    protected async waitTillNetwork() : Promise<any>{
-        await this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
-    }
+    // protected async waitTillNetwork() : Promise<any>{
+    //     await this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
+    // }
     
     
     protected async screenshot(name? : string)    {
@@ -57,30 +57,26 @@ export abstract class BaseUIOperations {
             }
         }
 
-        var nav = this._page.waitForNavigation({ waitUntil: 'networkidle2' }); 
-        for(var i=0;i<elements.length;i++){
-            await elements[i].click()
-            await this.sleep(50)
-        }
-        await nav
+        
 
-        await this.waitPageLoad()
-    }
-
-
-
-    protected async waitPageLoad() : Promise<any> {
-        let delta = Date.now() - PageContext.getInstance().getLastRequest()
-        do{
-          await this.sleep(1000)
-          delta = Date.now() - PageContext.getInstance().getLastRequest()
-        }while (delta < 2000) ;  
+        // var nav = this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
+         for(var i=0;i<elements.length;i++){
+             await elements[i].click()
+             await PageContext.getInstance().sleep(50)
+         }
+        // await nav
+        
+        await PageContext.getInstance().waitToNavigate()
 
     }
 
-    private sleep(time : number) :Promise<any>{
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
+
+
+    
+
+    // private sleep(time : number) :Promise<any>{
+    //     return new Promise(resolve => setTimeout(resolve, time));
+    // }
     
 
 
@@ -95,13 +91,15 @@ export abstract class BaseUIOperations {
 
     protected async populateFields(customCommands : any[]){
 
-        
-        for( var i=0;i<customCommands.length;i++){
-            if(customCommands[i].type == 'select'){
-              await this._page.select(customCommands[i].selector,customCommands[i].value)
-            }else if(customCommands[i].type == 'text'){
-              await this.typeInText(customCommands[i].selector,customCommands[i].value)
+        if(customCommands!=undefined){
+            for( var i=0;i<customCommands.length;i++){
+                if(customCommands[i].type == 'select'){
+                  await this._page.select(customCommands[i].selector,customCommands[i].value)
+                }else if(customCommands[i].type == 'text'){
+                  await this.typeInText(customCommands[i].selector,customCommands[i].value)
             }
+        }
+        
         }
      
     }
@@ -140,8 +138,13 @@ export abstract class BaseUIOperations {
           }else if(operation == WizardAction.QuerySubmit){
               await this._page.click('div.qrySubmitBtn input')
           }
-          await this.waitPageLoad()
+
+          await PageContext.getInstance().waitToNavigate()
+
       }
+
+
+      
 
       
 }

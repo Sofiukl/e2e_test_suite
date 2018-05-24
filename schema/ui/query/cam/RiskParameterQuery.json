@@ -4,7 +4,7 @@
 		"required": false,
 		"label": "Account No",
 		"id": "accountNo",
-		"defaultValue": "C0000001-7"
+		"defaultValue": ""
 	},
 	"currency": {
 		"type": "text",
@@ -17,14 +17,14 @@
 		"required": true,
 		"label": "Base Date From-To",
 		"id": "baseDateFrom",
-		"defaultValue": "23-03-2018"
+		"defaultValue": ""
 	},
 	"baseDateTo": {
 		"type": "text",
 		"required": false,
 		"label": "",
 		"id": "baseDateTo",
-		"defaultValue": "23-03-2018"
+		"defaultValue": ""
 	},
 	"daysOfCallFrom": {
 		"type": "text",

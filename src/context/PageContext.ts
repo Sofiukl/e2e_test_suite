@@ -12,6 +12,8 @@ export class PageContext {
     private _initialized : boolean;
 
     private _lastRequest : number;
+
+    private _openConnections : number = 0;
   
 
     private constructor() {
@@ -34,21 +36,66 @@ export class PageContext {
     public async initPage(){
         if(!this._initialized){
             this._initialized=true
-             this._browser = await launch({ headless : true , args : [ '--start-maximized']})
+             this._browser = await launch({ headless : false , args : [ '--start-maximized']})
             const page = await this._browser.newPage()
             
             page.setViewport({
                 height:800,width:1820
             })
             this._page=page
-            this._page.on("requestfinished", ()=>{ this._lastRequest = Date.now()})
-        }
+            
 
+
+
+
+            this._page.on('request', ()=>{ 
+                this._openConnections++
+                this._lastRequest = Date.now()
+            }
+            )
+            this._page.on("requestfinished", ()=>{ 
+                this._openConnections--
+            })
+            this._page.on('requestfailed', ()=>{
+                this._openConnections--
+            })
+        }
     }
 
-    public getLastRequest() : number{ 
+
+    public sleep(time : number) :Promise<any>{
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+
+
+    public async waitToNavigate(waitForMinConnections? : number) {
+
+        console.log("Start waiting...")
+
+        waitForMinConnections = waitForMinConnections == undefined ? 0 : waitForMinConnections
+
+        let delta = 0
+        do{
+          await this.sleep(1000)
+          
+          delta = Date.now() - this._lastRequest
+
+          if(delta>60*1000){
+              console.log("Exiting the connection due to timeout...");
+              
+              break;
+          }
+          console.log("Open Connections.. " + this._openConnections + " : " + delta + " - " + waitForMinConnections)
+          //atleast wait for 1 seconds before exiting because of 0 connections
+        }while ( (delta < 1000) ||  this._openConnections > waitForMinConnections );
+
+        console.log("Done... ")
+
         return this._lastRequest;
     }
+
+    
 
     public async  close(){
         await this._page.close()

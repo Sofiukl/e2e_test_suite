@@ -298,4 +298,69 @@ Assert.notNull(this._balanceBasis)
         this._sortField6=v;
         return this;
     }
+    
+    protected fetchFields() : any[] {
+        let fields :any[] = []
+    if(this._baseDate!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="baseDate"]' , value : this._baseDate});
+        }if(this._accountNo!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountNo"]' , value : this._accountNo});
+        }if(this._salesId!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="salesId"]' , value : this._salesId});
+        }if(this._accountFrom!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountFrom"]' , value : this._accountFrom});
+        }if(this._accountTo!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountTo"]' , value : this._accountTo});
+        }if(this._currency!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="currency"]' , value : this._currency});
+        }if(this._securityCode!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="securityCode"]' , value : this._securityCode});
+        }if(this._agentCode!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="agentCode"]' , value : this._agentCode});
+        }if(this._instrumentType!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="instrumentType"]' , value : this._instrumentType});
+        }if(this._counterPartyCode!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="counterPartyCode"]' , value : this._counterPartyCode});
+        }if(this._issueCurrency!=undefined){
+            fields.push({ 'type' : 'text' , 'selector' : 'input[name="issueCurrency"]' , value : this._issueCurrency});
+        }if(this._balanceBasis!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="balanceBasis"]' , value : this._balanceBasis});
+        }if(this._accountBalanceType!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="accountBalanceType"]' , value : this._accountBalanceType});
+        }if(this._ledgerId!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="ledgerId"]' , value : this._ledgerId});
+        }if(this._form!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="form"]' , value : this._form});
+        }if(this._displayByAcBalanceType!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="displayByAcBalanceType"]' , value : this._displayByAcBalanceType});
+        }if(this._displayZeroBalance!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="displayZeroBalance"]' , value : this._displayZeroBalance});
+        }if(this._ledgerLevelReqd!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="ledgerLevelReqd"]' , value : this._ledgerLevelReqd});
+        }if(this._complianceType!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="complianceType"]' , value : this._complianceType});
+        }if(this._counterPartyType!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="counterPartyType"]' , value : this._counterPartyType});
+        }if(this._displayLongShortBalance!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="displayLongShortBalance"]' , value : this._displayLongShortBalance});
+        }if(this._groupingLevel!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="groupingLevel"]' , value : this._groupingLevel});
+        }if(this._defaultAccountBalance!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="defaultAccountBalance"]' , value : this._defaultAccountBalance});
+        }if(this._sortField1!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField1"]' , value : this._sortField1});
+        }if(this._sortField2!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField2"]' , value : this._sortField2});
+        }if(this._sortField3!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField3"]' , value : this._sortField3});
+        }if(this._sortField4!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField4"]' , value : this._sortField4});
+        }if(this._sortField5!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField5"]' , value : this._sortField5});
+        }if(this._sortField6!=undefined){
+            fields.push({ 'type' : 'select' , 'selector' : 'select[name="sortField6"]' , value : this._sortField6});
+        }
+    return fields;
+
     }
+}

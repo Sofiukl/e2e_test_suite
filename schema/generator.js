@@ -79,7 +79,25 @@ for( var key in schemaObject){
     }
     `);
 }
+    classData+=`
+    protected fetchFields() : any[] {
+        let fields :any[] = []
+    `
+       
+    for( let key in schemaObject){
+        let type = schemaObject[key].type
+        let selector = type=='text' ? 'input' : 'select'
+        classData+=`if(this._${key}!=undefined){
+            fields.push({ 'type' : '${type}' , 'selector' : '${selector}[name="${key}"]' , value : this._${key}});
+        }`
+    }
 
+        
+        classData+=`
+    return fields;
+
+    }
+`
 
 
 
