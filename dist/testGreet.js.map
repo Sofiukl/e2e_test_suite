@@ -1,1 +1,0 @@
-{"version":3,"file":"testGreet.js","sourceRoot":"","sources":["../src/testGreet.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,0DAAuD;AAKvD;IAAA;QAEI,QAAG,GAAqB,IAAI,iCAAe,EAAE,CAAA;IAWjD,CAAC;IARO,iBAAiB;;YAGjB,MAAM,IAAI,CAAC,GAAG,CAAC,UAAU,EAAE,CAAA;QAE/B,CAAC;KAAA;CAGJ;AAED,IAAI,EAAE,GAAG,IAAI,EAAE,EAAE,CAAA;AACjB,EAAE,CAAC,iBAAiB,EAAE,CAAC,IAAI,EAAE,CAAA"}
