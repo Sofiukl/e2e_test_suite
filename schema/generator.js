@@ -51,10 +51,6 @@ classData+=(` } `)
 classData+=(`\r\n`)
 for( var key in schemaObject){
     
-
-    
-    
-
     
     var defaulValue = schemaObject[key].defaulValue
     defaulValue = defaulValue == undefined ? "" : defaulValue

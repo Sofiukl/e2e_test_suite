@@ -1,45 +1,16 @@
 {
 	"requestDataMap": {
+		"accountNo": "C9500015-8",
 		"wireType": "FIRM_RECEIPT",
-		"accountNo": "",
 		"currencyCode": "THB",
-		"valueDate": "",
-		"txnReferenceNo": "CP0000649",
+		"accountBalanceType": "10",
+		"markAsIncomplete": "Y",
 		"paymentDetail": [{
-				"wireAmount": "",
-				"reasonCode": "STK_XFER_EXT_FEE"
-			}, {
-				"wireAmount": "",
-				"reasonCode": "VAT_BANK"
+				"wireAmount": "100",
+				"reasonCode": "STAMP_DUTY"
 			}
 		],
-		"accountBalanceType": "10",
-		"projectId": "",
-		"tradeType": "",
-		"subTradeType": "",
-		"inventoryAccount": "",
-		"salesCode": "",
-		"clearingParty": "",
-		"dvpEligibleFlag": "",
-		"firmCollateral": "",
-		"correspondingSecurityId": "",
-		"otherLedger": "",
-		"remarks": "",
-		"remarksForReport": "",
-		"chequeDate": "",
-		"beneficiaryName": "",
-		"cashTxnStatus": "",
-		"wayOfPayment": "",
-		"settlementFor": "",
-		"cashSecurity": "",
-		"paymentReceipt": "",
-		"priority": "",
-		"cpSettleAccountNo": "",
-		"cpSettleAccountName": "",
-		"ourSettleAcNo": "",
-		"ourIntermediaryInfo": "",
-		"externalReferenceNo": "",
-		"payInSlipFileReferenceName": "",
-		"markAsIncomplete": "Y"
+		"txnReferenceNo": "201801100000015",
+		"externalReferenceNo": "1014362018014889277"
 	}
 }

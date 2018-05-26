@@ -53,7 +53,7 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
     });
     proxyRes.on('end', function () {
         body = body.toString(); 
-      processResponse(body)
+      processResponse(req.url,body)
     });
   }
 
@@ -141,7 +141,10 @@ var body = new Buffer('');
 
 var selVal = {}
 
-function processResponse(response){
+function processResponse(url,response){
+
+  console.log(url);
+  
   
   selVal = {}
 
@@ -153,8 +156,6 @@ function processResponse(response){
   $('input[type="text"]').each(function(i,element){
     
     let selector = `label[for="${element.attribs['name']}"]`;
-    console.log(selector);
-    
 
     selVal[element.attribs['name']] = {
       type : 'text',
@@ -169,8 +170,6 @@ function processResponse(response){
 
   $('input[type="password"]').each(function(i,element){
     let selector = `label[for="${element.attribs['name']}"]`;
-    console.log(selector);
-    
 
     selVal[element.attribs['name']] = {
       type : 'password',
