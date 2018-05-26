@@ -29,7 +29,7 @@ var proxy = httpProxy.createServer({
 });
 
 proxy.listen(9876);
-
+console.log("Litening at http://localhost:9876/igv-tomcat/")
 
 //
 // Listen for the `proxyRes` event on `proxy`.
@@ -76,7 +76,7 @@ function someCrappyRequestProcessor(req){
         
 ////////////////////////////////////////
 
-if(url.endsWith("/entry/submit") || url.indexOf('query/result')>-1){
+if(url.endsWith("/entry/submit") || url.indexOf('query/result')>-1 || url.indexOf('/query/submit')){
 
 var body = new Buffer('');
     req.on('data', function (data) {
@@ -108,7 +108,8 @@ var body = new Buffer('');
       object = []
       for( var selector in keys){
         defaultValue = keys[selector];
-        type = inputType[selector]
+        // if(inputType!=undefined)
+        //   type = inputType[selector]
         //req = reqired[selector]
 
 
@@ -144,17 +145,21 @@ function processResponse(response){
   
   selVal = {}
 
-  inputType={}
+  //inputType={}
   required=[]
   inputLabel={}
 
   const $ =cheerio.load(response)
   $('input[type="text"]').each(function(i,element){
+    
+    let selector = `label[for="${element.attribs['name']}"]`;
+    console.log(selector);
+    
 
     selVal[element.attribs['name']] = {
       type : 'text',
-      required : $("label[for='"+element.attribs['name']+"']").hasClass('required') ,
-      label : $("label[for='"+element.attribs['name']+"']").text(),
+      required : $(selector).hasClass('required') ,
+      label : $(selector).text(),
       id : element.attribs['id']
     }
 
@@ -163,20 +168,27 @@ function processResponse(response){
   });
 
   $('input[type="password"]').each(function(i,element){
+    let selector = `label[for="${element.attribs['name']}"]`;
+    console.log(selector);
+    
+
     selVal[element.attribs['name']] = {
       type : 'password',
-      required : $("label[for='"+element.attribs['name']+"']").hasClass('required') ,
-      label : $("label[for='"+element.attribs['name']+"']").text(),
+      required : $(selector).hasClass('required') ,
+      label : $(selector).text(),
       id : element.attribs['id']
     }
   });
 
   $('select').each(function(i,element){
 
+    let selector = `label[for="${element.attribs['name']}"]`;
+    console.log(selector);
+    
     selVal[element.attribs['name']] = {
       type : 'select',
-      required : $("label[for='"+element.attribs['name']+"']").hasClass('required') ,
-      label : $("label[for='"+element.attribs['name']+"']").text(),
+      required : $(selector).hasClass('required') ,
+      label : $(selector).text(),
       id : element.attribs['id']
     }
 

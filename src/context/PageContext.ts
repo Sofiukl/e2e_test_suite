@@ -1,6 +1,8 @@
 
 import { Browser,  Page , launch} from "puppeteer"
 
+import {silly, debug , info , error } from "winston"
+
 
 export class PageContext {
 
@@ -41,15 +43,12 @@ export class PageContext {
             
             page.setViewport({
                 height:800,width:1820
+                //height:700,width:1250
             })
             this._page=page
             
-
-
-
-
             this._page.on('request', ()=>{ 
-                this._openConnections++
+                this._openConnections++ 
                 this._lastRequest = Date.now()
             }
             )
@@ -71,28 +70,24 @@ export class PageContext {
 
     public async waitToNavigate(waitForMinConnections? : number) {
 
-        console.log("Start waiting...")
+        silly("Start waitToNavigate... with minimum : " + waitForMinConnections)
 
         waitForMinConnections = waitForMinConnections == undefined ? 0 : waitForMinConnections
 
         let delta = 0
         do{
           await this.sleep(1000)
-          
           delta = Date.now() - this._lastRequest
 
           if(delta>60*1000){
-              console.log("Exiting the connection due to timeout...");
-              
+              error("Exiting the connection wait  due to timeout...");
               break;
           }
-          console.log("Open Connections.. " + this._openConnections + " : " + delta + " - " + waitForMinConnections)
+          silly("Open Connections.. " + this._openConnections + " < "+ waitForMinConnections + " & " + delta )
           //atleast wait for 1 seconds before exiting because of 0 connections
         }while ( (delta < 1000) ||  this._openConnections > waitForMinConnections );
 
-        console.log("Done... ")
-
-        return this._lastRequest;
+        silly("Done waitToNavigate... ")
     }
 
     

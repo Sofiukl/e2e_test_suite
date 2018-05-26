@@ -1,6 +1,7 @@
 import request  from "request"
 import {Constants} from "../Constants"
 import { Context } from "../context/Context"
+import winston from "winston"
 
 export  class Customer {
 
@@ -12,17 +13,28 @@ export  class Customer {
 
 
 	public create() : Promise<any>  {
+
+
+		
 		return new Promise( (resolve) => {
+
+			winston.debug("Creating Customer...")
 		
 			request.post(Constants.restBasePath + '/ref/clientonboarding/1/entry/all' , {
 				json: JSON.parse(this.getRequest())
-			} , function(err,data){
+			} , function(err,resp,body){
 				
+				winston.debug("Creating Customer Response Received")
+				winston.debug("Error : ")
+				winston.debug(err)
+				winston.debug("Body : ")
+				winston.debug(body)
+
 				if(err!=undefined){
 					throw new Error("Unable to create customer - account ")
 				}
-				Context.getInstance().cashAccount(`C0${this._applicationDate}-7`)
-				Context.getInstance().creditAccount(`C0${this._applicationDate}-8`)
+				Context.getInstance().cashAccount(`C0${this._customerCode}-7`)
+				Context.getInstance().creditAccount(`C0${this._customerCode}-8`)
 				resolve()
 			}).auth(Constants.restUser ,Constants.restPassword ,false)
 		
@@ -227,7 +239,7 @@ private getRequest() : string {
 					],
 					"salesInformation": [{
 							"salesRole": "MAIN",
-							"salesCode": "98765"
+							"salesCode": "9999"
 						}
 					],
 					"commissionCategory": "BOX",
@@ -289,7 +301,7 @@ private getRequest() : string {
 					],
 					"salesInformation": [{
 							"salesRole": "MAIN",
-							"salesCode": "98765"
+							"salesCode": "9999"
 						}
 					],
 					"commissionCategory": "BOX",
@@ -314,7 +326,7 @@ private getRequest() : string {
 							"cashLocalCustodianBankCode": "004-0003",
 							"cashLocalBankAccountType": "SAVINGS",
 							"cashLocalSettlementAccount": "0200${this._customerCode}",
-							"priority": "1"
+							"priority": "2"
 						}, {
 							"settlementFor": "WIRE_INSTRUCTION",
 							"cashSecurity": "",
@@ -323,7 +335,7 @@ private getRequest() : string {
 							"cashLocalCustodianBankCode": "004-0003",
 							"cashLocalBankAccountType": "SAVINGS",
 							"cashLocalSettlementAccount": "0200${this._customerCode}",
-							"priority": "2"
+							"priority": "1"
 						}
 					],
 					"serviceOffice": "001",

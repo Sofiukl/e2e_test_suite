@@ -1,0 +1,16 @@
+{
+	"requestDataMap": {
+		"accountNo": "C012345699-8",
+		"ourSettlementAccountNo": "B000000281568817",
+		"currencyCode": "THB",
+		"paymentDate": "03-07-2018",
+		"transactionDate": "03-07-2018",
+		"withdrawableAmount": "3000",
+		"settlementFor": "WIRE_INSTRUCTION",
+		"cashSecurity": "CASH",
+		"paymentReceipt": "P",
+		"priority": "2",
+		"txnReferenceNo": "PR2017111100108",
+		"externalReferenceNo": "EXT123408"
+	}
+}

@@ -21,21 +21,63 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
         await this.screenshot()
         
         await this.wizardNavigate(WizardAction.QuerySubmit)
+
+        //Determine the acual width
+        //$("div.slick-viewport")[0].scrollWidth
+
         await this.screenshot()
         
 
-        let query = new QueryRetriever()
-        var matchingCriteria = [
-                                { column : 'Account No' , value : 'C0000001-7'} 
-                                , { column : 'Security Code Default' , value : 'AAV-R'}
-                            ]
-
-        var returnColumn = ['Balance' , 'Account Balance Type']        
-
-        query.setMatchingCriteria(matchingCriteria)
-        query.setReturnColumn(returnColumn)
-        var results=await query.fetch()
         
+        
+    }
+
+    private _column : string;
+    private _matchingCriteria : any[] = []
+
+
+    /**
+     * query
+     */
+    public query() : RiskParameterQuery{
+        return this
+    }
+
+    /**
+     * where()
+     */
+    public where(v : string) : RiskParameterQuery {
+
+        this._column = v
+        return this;
+    }
+
+    /**
+     * equalTo
+     */
+    public equalTo(v : string) : RiskParameterQuery {
+        this._matchingCriteria.push({column : this._column , value : v})
+        //this._matchingCriteria =  undefined
+        return this
+    }
+
+    /**
+     * 
+     * @param columnsToReturn - The columns which should be returned by this query
+     */
+    public async fetch( ...columnsToReturn : string[]) : Promise<any[]> {
+
+
+        let query = new QueryRetriever()
+        
+        query.setMatchingCriteria(this._matchingCriteria)
+        query.setReturnColumn(columnsToReturn)
+        var results=await query.fetch()
+        this._matchingCriteria=[]
+        return results;
+
+
+
     }
 
 }
