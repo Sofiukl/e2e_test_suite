@@ -1,0 +1,16 @@
+{
+	"requestDataMap": {
+		"accountNo": "C9500015-8",
+		"wireType": "FIRM_RECEIPT",
+		"currencyCode": "THB",
+		"accountBalanceType": "10",
+		"markAsIncomplete": "Y",
+		"paymentDetail": [{
+				"wireAmount": "100",
+				"reasonCode": "STAMP_DUTY"
+			}
+		],
+		"txnReferenceNo": "201801100000015",
+		"externalReferenceNo": "1014362018014889277"
+	}
+}

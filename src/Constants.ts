@@ -2,7 +2,8 @@
 
     private static _restUser : string   = "gmo-api:welcome@123:GMO"
     private static _restPassword : string = "welcome@123"
-    private static _appUser : string="gmo-ops"
+    // private static _appUser : string="gmo-ops"
+    private static _appUser : string="nri-admin@z.com"
     private static _appPassword : string = "welcome@123"
     private static _batchBasePath :string = "D:\\code\\igv\\nrithai\\BR-GV-THAGMO-PROD-02102017\\console\\igv-console\\launch.bat"
     private static _uiBasePath :string = "http://localhost:8080/igv-tomcat/"

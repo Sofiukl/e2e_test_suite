@@ -1,6 +1,6 @@
 import {Page} from "puppeteer";
 import {PageContext} from "../context/PageContext"
-//import $ from "jquery"
+import winston from "winston"
 
 
 export abstract class BaseUIOperations {
@@ -17,14 +17,14 @@ export abstract class BaseUIOperations {
     }
 
 
-    protected async waitTillNetwork() : Promise<any>{
-        await this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
-    }
+    // protected async waitTillNetwork() : Promise<any>{
+    //     await this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
+    // }
     
     
     protected async screenshot(name? : string)    {
         
-
+        winston.silly("Taking a screenshot")
         await this._page.screenshot({path : ((name == undefined) ? Date.now()+"" : name )+".png"})
     }
 
@@ -43,6 +43,8 @@ export abstract class BaseUIOperations {
 
     protected  async navigate(...path : string[]){
 
+        winston.silly("Starting to navigate through : " + path)
+
         var anchors = await this._page.$$("#igvMenuContainer a")
         var elements = []
         var count = 0;
@@ -57,29 +59,27 @@ export abstract class BaseUIOperations {
             }
         }
 
-        var nav = this._page.waitForNavigation({ waitUntil: 'networkidle2' }); 
-        for(var i=0;i<elements.length;i++){
-            await elements[i].click()
-        }
-        await nav
+        
 
-        await this.waitPageLoad()
-    }
-
-
-
-    protected async waitPageLoad() : Promise<any> {
-        let delta = Date.now() - PageContext.getInstance().getLastRequest()
-        do{
-          await this.sleep(1000)
-          delta = Date.now() - PageContext.getInstance().getLastRequest()
-        }while (delta < 2000) ;  
+        // var nav = this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
+         for(var i=0;i<elements.length;i++){
+             winston.silly("Click ->  : " + elements[i])
+             await elements[i].click()
+             await PageContext.getInstance().sleep(50)
+         }
+        // await nav
+        
+        await PageContext.getInstance().waitToNavigate()
 
     }
 
-    private sleep(time : number) :Promise<any>{
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
+
+
+    
+
+    // private sleep(time : number) :Promise<any>{
+    //     return new Promise(resolve => setTimeout(resolve, time));
+    // }
     
 
 
@@ -94,13 +94,18 @@ export abstract class BaseUIOperations {
 
     protected async populateFields(customCommands : any[]){
 
+        if(customCommands!=undefined){
+            for( var i=0;i<customCommands.length;i++){
+                if(customCommands[i].type == 'select'){
+                  await this._page.select(customCommands[i].selector,customCommands[i].value)
+                }else if(customCommands[i].type == 'text'){
+                  await this.typeInText(customCommands[i].selector,customCommands[i].value)
+                }
+
+             await PageContext.getInstance().sleep(50)
+
+        }
         
-        for( var i=0;i<customCommands.length;i++){
-            if(customCommands[i].type == 'select'){
-              await this._page.select(customCommands[i].selector,customCommands[i].value)
-            }else if(customCommands[i].type == 'text'){
-              await this.typeInText(customCommands[i].selector,customCommands[i].value)
-            }
         }
      
     }
@@ -130,15 +135,35 @@ export abstract class BaseUIOperations {
 
       async wizardNavigate(operation : WizardAction) : Promise<any> {
 
+        winston.silly("Request Navigate :  ->  : " + operation)
+
           if (operation == WizardAction.Submit) {
+            winston.silly("Start the click for <div.wizSubmit input>")
               await this._page.click('div.wizSubmit input')
           } else if (operation == WizardAction.Confirm) {
+            winston.silly("Start the click for <div.wizConfirm input>")
               await this._page.click('div.wizConfirm input')
           } else if (operation == WizardAction.Next) {
+            winston.silly("Start the click for <div.wizNext input>")
               await this._page.click('div.wizNext input')
-          }
-          await this.waitPageLoad()
+          }else if(operation == WizardAction.QuerySubmit){
+            winston.silly("Start the click for <div.qrySubmitBtn input>")
+              await this._page.click('div.qrySubmitBtn input')
+          }else if(operation == WizardAction.QueryCompleteSubmit){
+            winston.silly("Start the click for <div.compSubmitBtn input>")
+            await this._page.click('div.compSubmitBtn input')
+        }else if(operation == WizardAction.QueryCompleteConfirm){
+            winston.silly("Start the click for <div.compCnfBtn input>")
+            await this._page.click('div.compCnfBtn input')
+        }
+
+         await PageContext.getInstance().waitToNavigate()
+         winston.silly("Navigation Complete")
+
       }
+
+
+      
 
       
 }
@@ -150,5 +175,9 @@ export enum WizardAction {
     Submit,
     Confirm,
     Next,
+    QuerySubmit,
+    QueryCompleteSubmit,
+    QueryCompleteConfirm,
+
     //Previous,
 }

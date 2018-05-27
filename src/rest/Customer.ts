@@ -1,29 +1,56 @@
 import request  from "request"
 import {Constants} from "../Constants"
 import { Context } from "../context/Context"
+import winston from "winston"
 
 export  class Customer {
+
+	private _applicationDate : string
+	private _customerCode : string
+
 
 	constructor(){}
 
 
-	public create(code:string ) : Promise<any>  {
+	public create() : Promise<any>  {
+
+
+		
 		return new Promise( (resolve) => {
+
+			winston.debug("Creating Customer...")
 		
 			request.post(Constants.restBasePath + '/ref/clientonboarding/1/entry/all' , {
-				json: JSON.parse(getRequest(code))
-			} , function(err,data){
+				json: JSON.parse(this.getRequest())
+			} , function(err,resp,body){
 				
+				winston.debug("Creating Customer Response Received")
+				winston.debug("Error : ")
+				winston.debug(err)
+				winston.debug("Body : ")
+				winston.debug(body)
+
 				if(err!=undefined){
 					throw new Error("Unable to create customer - account ")
 				}
-				Context.getInstance().cashAccount(`C0${code}-7`)
-				Context.getInstance().creditAccount(`C0${code}-8`)
+				Context.getInstance().cashAccount(`C0${this._customerCode}-7`)
+				Context.getInstance().creditAccount(`C0${this._customerCode}-8`)
 				resolve()
 			}).auth(Constants.restUser ,Constants.restPassword ,false)
 		
 		});
 	}
+
+	public applicationDate(v : string) : Customer {
+		this._applicationDate=v
+		return this
+	}
+
+	public customerCode(v : string) : Customer{
+		this._customerCode = v
+		return this
+	}
+
 
 	public async delete() : Promise<any>{
 
@@ -32,19 +59,17 @@ export  class Customer {
 		
 	}
 
-}
 
+	
 
-
-
-function getRequest(uniqueCode:string) : string {
+private getRequest() : string {
 
 	return `{
 		"requestDataMap": {
-			"customerOpenDate": "21-05-2018",
+			"customerOpenDate": "${this._applicationDate}",
 			"customerCodeInformation": [{
 					"customerCodeType": "GMO",
-					"customerCode": "C0${uniqueCode}"
+					"customerCode": "C0${this._customerCode}"
 				}
 			],
 			"customerType": "Individual",
@@ -191,9 +216,9 @@ function getRequest(uniqueCode:string) : string {
 			"spousePosition": "",
 			"spouseTelephone": "",
 			"creditLimit": "500000.000",
-			"approvedDate": "21-05-2018",
+			"approvedDate": "${this._applicationDate}",
 			"accountsInformation": [{
-					"accountOpenDate": "21-05-2018",
+					"accountOpenDate": "${this._applicationDate}",
 					"accountType": "B",
 					"accountClass": "CASH_BALANCE",
 					"residentCountry": "",
@@ -203,18 +228,18 @@ function getRequest(uniqueCode:string) : string {
 					"activityStatus": "ACTIVE",
 					"accountCodeInformation": [{
 							"accountNoType": "CS",
-							"accountNumber": "0${uniqueCode}-7"
+							"accountNumber": "0${this._customerCode}-7"
 						}, {
 							"accountNoType": "FO",
-							"accountNumber": "0${uniqueCode}7"
+							"accountNumber": "0${this._customerCode}7"
 						}, {
 							"accountNoType": "TSD",
-							"accountNumber": "052000${uniqueCode}7"
+							"accountNumber": "052000${this._customerCode}7"
 						}
 					],
 					"salesInformation": [{
 							"salesRole": "MAIN",
-							"salesCode": "98765"
+							"salesCode": "9999"
 						}
 					],
 					"commissionCategory": "BOX",
@@ -223,7 +248,7 @@ function getRequest(uniqueCode:string) : string {
 					"tradeActivity": "Y",
 					"creditLimit": "500000.000",
 					"custodianInfo": "",
-					"approvedDate": "21-05-2018",
+					"approvedDate": "${this._applicationDate}",
 					"netContractNoteGenFlag": "",
 					"groupCriteriaOfStock": "",
 					"residentialType": "",
@@ -255,7 +280,7 @@ function getRequest(uniqueCode:string) : string {
 					"serviceOffice": "001",
 					"openedBy": "automated"
 				}, {
-					"accountOpenDate": "21-05-2018",
+					"accountOpenDate": "${this._applicationDate}",
 					"accountType": "B",
 					"accountClass": "CREDIT_BALANCE",
 					"residentCountry": "",
@@ -265,18 +290,18 @@ function getRequest(uniqueCode:string) : string {
 					"activityStatus": "ACTIVE",
 					"accountCodeInformation": [{
 							"accountNoType": "CS",
-							"accountNumber": "0${uniqueCode}-8"
+							"accountNumber": "0${this._customerCode}-8"
 						}, {
 							"accountNoType": "FO",
-							"accountNumber": "0${uniqueCode}8"
+							"accountNumber": "0${this._customerCode}8"
 						}, {
 							"accountNoType": "TSD",
-							"accountNumber": "052000${uniqueCode}8"
+							"accountNumber": "052000${this._customerCode}8"
 						}
 					],
 					"salesInformation": [{
 							"salesRole": "MAIN",
-							"salesCode": "98765"
+							"salesCode": "9999"
 						}
 					],
 					"commissionCategory": "BOX",
@@ -285,7 +310,7 @@ function getRequest(uniqueCode:string) : string {
 					"tradeActivity": "Y",
 					"creditLimit": "0.000",
 					"custodianInfo": "",
-					"approvedDate": "21-05-2018",
+					"approvedDate": "${this._applicationDate}",
 					"netContractNoteGenFlag": "",
 					"groupCriteriaOfStock": "",
 					"residentialType": "",
@@ -300,8 +325,8 @@ function getRequest(uniqueCode:string) : string {
 							"wayOfPayment": "",
 							"cashLocalCustodianBankCode": "004-0003",
 							"cashLocalBankAccountType": "SAVINGS",
-							"cashLocalSettlementAccount": "0200${uniqueCode}",
-							"priority": "1"
+							"cashLocalSettlementAccount": "0200${this._customerCode}",
+							"priority": "2"
 						}, {
 							"settlementFor": "WIRE_INSTRUCTION",
 							"cashSecurity": "",
@@ -309,8 +334,8 @@ function getRequest(uniqueCode:string) : string {
 							"wayOfPayment": "ATS",
 							"cashLocalCustodianBankCode": "004-0003",
 							"cashLocalBankAccountType": "SAVINGS",
-							"cashLocalSettlementAccount": "0200${uniqueCode}",
-							"priority": "2"
+							"cashLocalSettlementAccount": "0200${this._customerCode}",
+							"priority": "1"
 						}
 					],
 					"serviceOffice": "001",
@@ -320,6 +345,11 @@ function getRequest(uniqueCode:string) : string {
 		}
 	}
 	`
+
+}
+
+
+
 
 }
 

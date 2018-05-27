@@ -1,0 +1,79 @@
+{
+	"accountNo": {
+		"type": "text",
+		"required": false,
+		"label": "Account No",
+		"id": "accountNo",
+		"defaultValue": ""
+	},
+	"currency": {
+		"type": "text",
+		"required": false,
+		"label": "Currency",
+		"id": "currency"
+	},
+	"baseDateFrom": {
+		"type": "text",
+		"required": true,
+		"label": "Base Date From-To",
+		"id": "baseDateFrom",
+		"defaultValue": ""
+	},
+	"baseDateTo": {
+		"type": "text",
+		"required": false,
+		"label": "",
+		"id": "baseDateTo",
+		"defaultValue": ""
+	},
+	"daysOfCallFrom": {
+		"type": "text",
+		"required": false,
+		"label": "From Days Of Call",
+		"id": "daysOfCallFrom"
+	},
+	"daysOfCallTo": {
+		"type": "text",
+		"required": false,
+		"label": "To Days Of Call",
+		"id": "daysOfCallTo"
+	},
+	"accountClass": {
+		"type": "select",
+		"required": false,
+		"label": "Account Class",
+		"id": "accountClass",
+		"defaultValue": " "
+	},
+	"balancePl": {
+		"type": "select",
+		"required": false,
+		"label": "Include Zero Balance",
+		"id": "balancePl",
+		"defaultValue": "Y"
+	},
+	"daysOfCall": {
+		"type": "select",
+		"required": false,
+		"label": "Include Days Of Call",
+		"id": "daysOfCall"
+	},
+	"action": {
+		"type": "select",
+		"required": false,
+		"label": "Action",
+		"id": "action"
+	},
+	"sortField1": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField1"
+	},
+	"sortField2": {
+		"type": "select",
+		"required": false,
+		"label": "",
+		"id": "sortField2"
+	}
+}
