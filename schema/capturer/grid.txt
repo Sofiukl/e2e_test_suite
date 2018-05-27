@@ -1,0 +1,106 @@
+<div class="blueBg paddingFour" id="formContainer"><script type="text/javascript" src="/igv-tomcat/scripts/jquery.file.download.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/igv.grid.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/slick.formatters.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/igv.editors.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/igv.formatters.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/jquery.event.drag-2.0.min.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/slick.core.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/igv.slick.checkboxselectcolumn.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/igv.slick.checkboxgroupselectcolumn.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/slick.rowselectionmodel.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/slick.grid.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/slick.dataview.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/igv.columnpicker.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/slick.autotooltips.js"></script><div class="transBg paddingFour"><form method="POST" action="/secure/cam/riskParam/query/back" id="queryResultForm"><input type="hidden" name="commandFormId" value="1527413991041"/><input value="CMRPR" name="screenId" type="hidden"/><input value="1.2" name="versionNo" type="hidden"/><div class="formHeader"><div class="title whiteFont left"><h1>CMRPR:Risk Parameter Query Result [03-07-2018]</h1></div><div class="tabArea right"><div class="tabs"><span class="left query-tab" title="Query">Query</span><span class="left active" title="Result">Result</span></div></div><div style="display: none;" class="formTabErrorIco right"><a title="Error message" href="#">Error</a></div><div class="clear"></div></div><div class="formContent"><div class="resultGridHeader"></div><div class="formItemArea queryResultformborder  paddingFour"><div style="display:none;" class="detailBlock paddingFour queryDetailBlck" id="grid-header"></div><div style="width:825px;height:550px;display:none;" class="igv-grid"></div></div><div><script type="text/javascript">
+            var isNext =  false;
+            var grid_result_data = [];
+            var grid_result_columns = [
+                                {name:"View",field:"view", id:"viewRiskExpDetails", width:49, sortable:false,formatter:Slick.Formatters.DetailViewFormater,option:{url:'/secure/cam/riskParam/query/details/',dialogTitle:"Margin Detail View",view:'riskParameterDetailView', pkFieldName:'marginValuationPk', popupIcon:true, extraPathVariablesInOrder:['accountPk']}},
+                                {name:"Account No", field:"accountNo",id:"accountNo", width:119,sortable:true,formatter:Slick.Formatters.AccountDetailViewFormater},
+                                {name:"Account Class", field:"serviceId",id:"serviceId", width:199,sortable:true},
+                                {name:"Currency", field:"securityId",id:"securityId", width:109,sortable:true,formatter:Slick.Formatters.MarginInstrumentDetailViewFormater},
+                                {name:"Base Date", field:"baseDateDisp",id:"baseDateDisp", width:199,sortable:true},
+                                {name:"Customer Code", field:"customerCode",id:"customerCode", width:199,sortable:true},
+                                {name:"Status", field:"status",id:"status",width:75,sortable:true,formatter:Slick.Formatters.CancelRecordFormatter},
+                                {name:"Cash Balance", field:"cashBalanceDisp",id:"cashBalanceDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Action", field:"action",id:"action", width:199,sortable:true},
+                                {name:"Running Cash Balance", field:"runningCashBalanceDisp",id:"runningCashBalanceDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Unsettled Withdraw Latest", field:"unsettledWithdrawLatestDisp",id:"unsettledWithdrawLatestDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"LMV (Sellable)", field:"marketValueSellableDisp",id:"marketValueSellableDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"LMV (Pledge)", field:"marketValuePledgeDisp",id:"marketValuePledgeDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"LMV (Rights)", field:"marketValueRightsDisp",id:"marketValueRightsDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"LMV (Expect Right)", field:"marketValueExpectRightsDisp",id:"marketValueExpectRightsDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Total LMV (Excl. Other Non-Sellable)", field:"marketValueDisp",id:"marketValueDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Liability", field:"marginValueDisp",id:"marginValueDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Withdraw Limit/Withdraw Limit (Next Business Day)", field:"withdrawLimitDisp",id:"withdrawLimitDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"MR (Sellable)", field:"marginRequiredSellableDisp",id:"marginRequiredSellableDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"MR (Pledge)", field:"marginRequiredPledgeDisp",id:"marginRequiredPledgeDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"MR (Rights)", field:"marginRequiredRightsDisp",id:"marginRequiredRightsDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"MR (Expect Right)", field:"marginRequiredExpectRightsDisp",id:"marginRequiredExpectRightsDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Total MR (Excld. Other  Non-Sellable)", field:"marginRequiredDisp",id:"marginRequiredDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Purchase Power", field:"purchasePowerDisp",id:"purchasePowerDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Other Collateral", field:"otherCollateralDisp",id:"otherCollateralDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Asset", field:"assetDisp",id:"assetDisp", cssClass:'igv-grid-number', width:199,sortable:true},
+                                {name:"Trading Limit", field:"tradingLimitDisp",id:"tradingLimitDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Margin Ratio", field:"marginRatio",id:"marginRatio", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Call Rate", field:"callRate",id:"callRate", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Force Rate", field:"forceRate",id:"forceRate", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Initial Margin Rate", field:"initialMarginRate",id:"initialMarginRate", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Equity", field:"equity",id:"equity", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Excess Equity", field:"excessEquity",id:"excessEquity", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Call Amount", field:"callAmount",id:"callAmount", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Force Amount", field:"forceAmount",id:"forceAmount", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Days Of Call", field:"daysOfCallDisp",id:"daysOfCallDisp", width:199, cssClass:'igv-grid-number',sortable:true},
+                                {name:"Margin Interest Latest/Margin Interest", field:"marginInterestDisp",id:"marginInterestDisp", width:199, cssClass:'igv-grid-number',sortable:true}
+
+            ];
+
+            var grid_result_settings = {
+                enableToolbar:true,
+                consolidateActionFlag:false,
+                buttons:{
+                    print:true,
+                    xls:true,
+                    pdf:true,
+                    columnPicker:true,
+                                        save:true
+                },
+                pagingInfo:{
+                    isNext : isNext,
+                    url: 'secure/cam/riskParam/query/count.json'
+                },
+                urls:{
+                    nextPage : '/secure/cam/riskParam/query/result.json?fetch=next',
+                    prevPage : '/secure/cam/riskParam/query/result.json?fetch=previous',
+                    pdfReport: '/secure/cam/riskParam/query/report.json?outputType=pdf',
+                    xlsReport: '/secure/cam/riskParam/query/report.json?outputType=xls'
+                },
+                                events:{
+                                        onDataUpdate: function(data, callback){
+                                                for(i in data.value){
+                                                        if(data.value[i].serviceId != 'CREDIT_BALANCE'){
+                                                        data.value[i].callRate="";
+                                                        data.value[i].forceRate="";
+                                                        data.value[i].initialMarginRate="";
+                                                        data.value[i].marginValueDisp="";
+
+                                                        }
+                                                        if(data.value[i].serviceId == null){
+                                                        data.value[i].withdrawLimitDisp="";
+                                                        }
+                                                }
+                                                callback(data);
+                                        }
+                                }
+            };
+
+            var row_id = 0;
+            var rec;
+                        </script></div><div class="resultGridFooter"></div></div></form></div><script type="text/javascript" src="/igv-tomcat/scripts/inf/jquery.jqdock.min.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/queryResult.js"></script><script type="text/javascript" src="/igv-tomcat/scripts/igv-consolidation.js"></script><script type="text/javascript">
+            // these i18n file(s) loading required when pages open in NEW TAB/NEW WINDOW
+                        // from feed or saved query even when open in same window (if specific page missing that script)
+                        // it's safe to load all i18n scripts (may be missing in corresponding page)
+            iGV.loadLocalizedScript([
+                                {path: iGV.context.path + '/scripts/ref/igv-ref-i18n.js', async: false},
+                                {path: iGV.context.path + '/scripts/trd/igv/igv-trd-i18n.js', async: false},
+                                {path: iGV.context.path + '/scripts/stl/igv-stl-i18n.js', async: false},
+                                {path: iGV.context.path + '/scripts/cam/igv-cam-i18n.js', async: false},
+                                {path: iGV.context.path + '/scripts/exm/igv/igv-exm-i18n.js', async: false},
+                                {path: iGV.context.path + '/scripts/cax/igv-cax-i18n.js', async: false}
+                        ]);
+
+                        var more_scripts = [
+                                {path: iGV.context.path + '/scripts/jquery.jscrollpane.min.js'},
+                                {path: iGV.context.path + '/scripts/jquery.mousewheel.min.js'}
+                        ];
+                        iGV.loadScript(more_scripts, {
+                                ordered: true
+                        });
+                </script></div>

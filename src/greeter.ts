@@ -212,6 +212,8 @@ export class TestRIskParameterConditon  {//implements Test {
 
 }
 
+
+/*
 winston.level = 'silly';
 
 let t  = new TestRIskParameterConditon()
