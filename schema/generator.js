@@ -10,25 +10,21 @@ for (let x = 0; x < schemaList.length; x++) {
         var schemaObject = JSON.parse(schemaContents)
         let classData = ""
         classData = `
+
 import { BaseUIOperations } from "../../BaseUIOperations";
 import { Assert } from "../../common/Assert";
 
-`
+export abstract class Abstract${fileName}  extends BaseUIOperations {
 
-        classData += (`export abstract class Abstract${fileName}  extends BaseUIOperations {`)
-        classData += (`\r\n`)
-        classData += (`    async doValidate() : Promise<any>{`)
-        classData += (`\r\n`)
+    async doValidate() : Promise<any>{
+`
 
         for (var key in schemaObject) {
             if (schemaObject[key].required) {
-                classData += (`Assert.notNull(this._${key})`);
-                classData += (`\r\n`)
+                classData += (`Assert.notNull(this._${key})
+                `);
             }
-
         }
-
-        classData += (`\r\n`)
         classData += (` } `)
 
         classData += (`\r\n`)

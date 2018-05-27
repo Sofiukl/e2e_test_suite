@@ -45,7 +45,7 @@ proxy.on('proxyReq', function (proxyRes, req, res) {
 
 proxy.on('proxyRes', function (proxyRes, req, res) {
   
-  if((req.url.indexOf('/init')>0) && (req.url.indexOf('/popup/')<0)){
+  if(((req.url.indexOf('/init')>0) && (req.url.indexOf('/popup/')<0) ) ||  req.url.indexOf('/query/submit')){
 
     var body = new Buffer('');
     proxyRes.on('data', function (data) {
@@ -76,7 +76,7 @@ function someCrappyRequestProcessor(req){
         
 ////////////////////////////////////////
 
-if(url.endsWith("/entry/submit") || url.indexOf('query/result')>-1 || url.indexOf('/query/submit')){
+if(url.endsWith("/entry/submit") || url.indexOf('query/result')>-1 || url.indexOf('/query/submit')>0){
 
 var body = new Buffer('');
     req.on('data', function (data) {
@@ -143,7 +143,10 @@ var selVal = {}
 
 function processResponse(url,response){
 
-  console.log(url);
+  
+  if(url.indexOf('/query/submit')>0){
+    extractHeaders(response)
+  }
   
   
   selVal = {}
