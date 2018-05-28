@@ -18,6 +18,7 @@ import { ClientFeePaymentConfirmDecided } from "./rest/entry/stl/ClientFeePaymen
 import { CashTransferEntry } from "./ui/entry/stl/CashTransferEntry";
 import { CashTransferAuthorization } from "./ui/query/stl/CashTransferAuthorization";
 import { AbstractCashTransferAuthorization } from "./ui/query/stl/AbstractCashTransferAuthorization";
+import { TaxAndCommCalculator } from "./batch/trd/TaxAndCommCalculator";
 
 
 
@@ -508,6 +509,24 @@ export class TestRIskParameterConditon {
 
         //Add execution
 
+        /*
+        let executionEntry : ExecutionEntry = new ExecutionEntry()
+
+        executionEntry.execScreenDatacpAccountNo("C012345699-8")
+        .execScreenDataquantityStr("100")
+        .execScreenDatasecurityInfo("AAV")
+        .execScreenDatasenderReferenceNo("OD-0000000001")
+        .execScreenDatasourceReferenceNo("TD-0000000001")
+        .execScreenDatatradeDateStr("03-07-2018")
+        .execute()
+*/
+            let taxAndCommCalculator : TaxAndCommCalculator = new TaxAndCommCalculator()
+            await taxAndCommCalculator.account("C012345699-8").applicationDate("03-07-2018").execute()
+
+
+
+        
+
 
 
     }
@@ -529,7 +548,11 @@ winston.level = 'debug';
 
 let t = new TestRIskParameterConditon()
 
-
+// //t.setup().then(()=>{
+//     t.testAddExecutionThenRunEODBatch().then(()=>{
+//         //t.destroy()
+//     })
+// //})
 
 
 
@@ -539,7 +562,7 @@ let t = new TestRIskParameterConditon()
 // })
 
 
-// /*
+ 
 try {
     t.setup().then(() => {
         t.testCreditBalanceAccountCreatedTodayShouldAppearInScreen().then(() => {
@@ -566,7 +589,7 @@ try {
     t.destroy()
 }
 
-// */
+
 
 
 

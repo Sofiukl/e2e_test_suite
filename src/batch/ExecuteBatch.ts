@@ -9,25 +9,37 @@ implementations of batch
 */
 
 export abstract class  ExecuteBatch {
-    async execute(args : string[]) : Promise<boolean> {
+    async execute() : Promise<boolean> {
 
         var command = Constants.batchBasePath + " " + this.batchName() + " " 
 
+        console.log(command);
         
-        if(this.defaultArguments() != undefined){
+
+        
+        if(this.defaultArguments() != undefined) {
             this.defaultArguments().forEach(element => {
                 command += " "+element +" "    
             });
         }
 
-        if(args != undefined){
-            args.forEach(element => {
-                command += " "+element +" "    
-            });
-        }
+        // if(args != undefined){
+        //     args.forEach(element => {
+        //         command += " "+element +" "    
+        //     });
+        // }
 
+        console.log(" To Execute" + command );
         try{
         const { stdout, stderr } = await exec(command);
+
+        console.log("stdout  ");
+        stdout.pipe(process.stdout);
+        stderr.pipe(process.stdout);
+        
+        
+        
+        
         
         console.log("Executed " + this.batchName() + "Successfully" );
         
@@ -44,16 +56,6 @@ export abstract class  ExecuteBatch {
 
     abstract defaultArguments() : string[];
 
-    addApplicationDate() : string[] {
-        
-        return ["-d" , Context.getInstance().applicationDate() ]
-
-    }
-
-    addAccount() : string[] {
-        
-        return ["-a " , Context.getInstance().creditAccount()] 
-
-    }
+   
 
 }

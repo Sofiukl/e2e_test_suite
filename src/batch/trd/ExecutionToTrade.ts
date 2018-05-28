@@ -10,7 +10,7 @@ class ExecutionToTrade extends ExecuteBatch {
 
    
    defaultArguments() : string[]{
-       return this.addAccount().concat(this.addApplicationDate())
+       return []//this.addAccount().concat(this.addApplicationDate())
    }
 
 }

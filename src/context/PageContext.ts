@@ -38,7 +38,7 @@ export class PageContext {
     public async initPage(){
         if(!this._initialized){
             this._initialized=true
-             this._browser = await launch({ headless : true , args : [ '--start-maximized']})
+             this._browser = await launch({ headless : false , args : [ '--start-maximized']})
             const page = await this._browser.newPage()
             
             page.setViewport({

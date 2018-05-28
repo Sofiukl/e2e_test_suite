@@ -10,7 +10,8 @@ class FIFOPLCalculator extends ExecuteBatch {
 
    
    defaultArguments() : string[]{
-       return this.addAccount()
+       //return this.addAccount()
+       return []
    }
 
 }

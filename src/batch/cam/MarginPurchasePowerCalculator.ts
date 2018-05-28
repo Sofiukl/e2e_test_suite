@@ -19,7 +19,7 @@ public setLmv(lmv? : boolean) : FIFOPLCalculator{
 
    
    defaultArguments() : string[]{
-       return this.addAccount().concat(this.addApplicationDate()).concat("-l",this._isLMVRequired ? "Y" : "N")
+       return []//this.addAccount().concat(this.addApplicationDate()).concat("-l",this._isLMVRequired ? "Y" : "N")
    }
 
 }

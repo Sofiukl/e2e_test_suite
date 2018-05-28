@@ -5,24 +5,6 @@ import { Assert } from "../../common/Assert";
 
 export abstract class AbstractExecutionEntry  extends BaseUIOperations {
 
-    async doValidate() : Promise<any>{
-Assert.notNull(this._execScreenData.tradeDateStr)
-                Assert.notNull(this._execScreenData.clientAccount)
-                Assert.notNull(this._execScreenData.inventoryAccountNo)
-                Assert.notNull(this._execScreenData.brokerAccount)
-                Assert.notNull(this._execScreenData.securityInfo)
-                Assert.notNull(this._execScreenData.quantityStr)
-                Assert.notNull(this._execScreenData.inputPriceStr)
-                Assert.notNull(this._execScreenData.senderReferenceNo)
-                Assert.notNull(this._execScreenData.sourceReferenceNo)
-                Assert.notNull(this._execScreenData.buySellOrientation)
-                Assert.notNull(this._execScreenData.grossNetType)
-                Assert.notNull(this._execScreenData.inputPriceFormat)
-                Assert.notNull(this._execScreenData.accountBalanceTypeStr)
-                Assert.notNull(this._execScreenData.compressionReqdFlag)
-                Assert.notNull(this._tradeChannel)
-                 } 
-
     /** private variable for execScreenData.tradeDateStr() */
     private _execScreenDatatradeDateStr : string  = ""   
     /** private variable for execScreenData.executionTime() */
@@ -46,7 +28,7 @@ Assert.notNull(this._execScreenData.tradeDateStr)
     /** private variable for execScreenData.salesCode() */
     private _execScreenDatasalesCode : string  = ""   
     /** private variable for execScreenData.tradeCurrency() */
-    private _execScreenDatatradeCurrency : string  = "THB/ISO3A"   
+    private _execScreenDatatradeCurrency : string  = ""   
     /** private variable for execScreenData.executionMarket() */
     private _execScreenDataexecutionMarket : string  = ""   
     /** private variable for execScreenData.settlementCurrency() */
