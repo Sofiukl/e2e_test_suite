@@ -1,11 +1,16 @@
 const fs = require('fs')
 const walk = require('fs-walker');
-const schemaList = walk.files.sync("schema/src");
+const schemaList = walk.files.sync("schema/");
 
 
 for (let x = 0; x < schemaList.length; x++) {
     if (schemaList[x].name.endsWith(".json") ) {
         var fileName = schemaList[x].name.substring(0, schemaList[x].name.length - 5)
+
+if(fileName!="CashTransferEntry"){
+    continue;
+}
+
         var schemaContents = fs.readFileSync(schemaList[x].directory + "\\" + schemaList[x].name)
         var schemaObject = JSON.parse(schemaContents)
         let classData = ""
@@ -40,7 +45,7 @@ export abstract class Abstract${fileName}  extends BaseUIOperations {
 
             classData += (`
     /** private variable for ${key}() */
-    private _${varKey} : string     `);
+    private _${varKey} : string  = "${defaulValue}"   `);
 
 
         }

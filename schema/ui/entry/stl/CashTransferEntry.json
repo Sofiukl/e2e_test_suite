@@ -1,0 +1,92 @@
+{
+    "currency": {
+        "type": "text",
+        "required": true,
+        "label": "Currency",
+        "id": "cashTransferCcy",
+        "defaultValue": "THB"
+    },
+    "fromAccount": {
+        "type": "text",
+        "required": true,
+        "label": "From Account No",
+        "id": "fromAccountNo",
+        "defaultValue": ""
+    },
+    "toAccount": {
+        "type": "text",
+        "required": true,
+        "label": "To Account No",
+        "id": "toAccountNo",
+        "defaultValue": ""
+    },
+    "transferAmount": {
+        "type": "text",
+        "required": true,
+        "label": "Transfer Amount",
+        "id": "transferAmount",
+        "defaultValue": ""
+    },
+    "externalReferenceNo": {
+        "type": "text",
+        "required": false,
+        "label": "External Reference No",
+        "id": "externalReferenceNo"
+    },
+    "txnReferenceNo": {
+        "type": "text",
+        "required": false,
+        "label": "Txn Reference No",
+        "id": "txnReferenceNo",
+        "defaultValue": ""
+    },
+    "transferType": {
+        "type": "select",
+        "required": true,
+        "label": "Transfer Type",
+        "id": "transferType",
+        "defaultValue": "TRANSFER_INTERNAL_OWN"
+    },
+    "cam01Required": {
+        "type": "select",
+        "required": true,
+        "label": "No CAM01 Required",
+        "id": "cam01Required",
+        "defaultValue": "N"
+    },
+    "accountBalanceTypeFrom": {
+        "type": "select",
+        "required": true,
+        "label": "From Account Balance Type",
+        "id": "accountBalanceTypeFrom",
+        "defaultValue": "10"
+    },
+    "accountBalanceTypeTo": {
+        "type": "select",
+        "required": true,
+        "label": "To Account Balance Type",
+        "id": "accountBalanceTypeTo",
+        "defaultValue": "10"
+    },
+    "authorizationRequired": {
+        "type": "select",
+        "required": true,
+        "label": "Authorization Required",
+        "id": "authorizationRequired",
+        "defaultValue": "Y"
+    },
+    "creditLedgerCode": {
+        "type": "select",
+        "required": true,
+        "label": "Credit Ledger Code",
+        "id": "creditLedgerCode",
+        "defaultValue": "600005"
+    },
+    "debitLedgerCode": {
+        "type": "select",
+        "required": true,
+        "label": "Debit Ledger Code",
+        "id": "debitLedgerCode",
+        "defaultValue": "600005"
+    }
+}

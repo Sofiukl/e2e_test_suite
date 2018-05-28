@@ -15,6 +15,7 @@ import { ClientWithdrawEntry } from "./rest/entry/stl/ClientWithdrawEntry";
 import { lobPrefetchSize } from "oracledb";
 import { ClientFeePaymentUndecidedEntry } from "./rest/entry/stl/ClientFeePaymentUndecidedEntry";
 import { ClientFeePaymentConfirmDecided } from "./rest/entry/stl/ClientFeePaymentConfirmDecided";
+import { CashTransferEntry } from "./ui/entry/stl/CashTransferEntry";
 
 
 
@@ -33,6 +34,8 @@ export class TestRIskParameterConditon {
     clientFeePaymentUndecidedEntry: ClientFeePaymentUndecidedEntry = new ClientFeePaymentUndecidedEntry()
 
     clientFeePaymentConfirmDecided: ClientFeePaymentConfirmDecided = new ClientFeePaymentConfirmDecided();
+
+    cashTransferEntry : CashTransferEntry = new CashTransferEntry()
 
 
 
@@ -404,7 +407,7 @@ export class TestRIskParameterConditon {
 
     async testCashTransferBeforeAuthorization() {
         //create cash balance in CASH_BALANCE_ACCOUNT
-
+        /*
         //Create Client Receipt Pay-In
         var settlementReferenceNo = await this.clientReceipt
             .receivedAmount("5000.00")
@@ -415,8 +418,33 @@ export class TestRIskParameterConditon {
 
         //Mark for completion
         await this.completion.settlementReferenceNo(settlementReferenceNo).execute();
-
+        */
         //Perform Cash Transfer
+        await this.cashTransferEntry.fromAccount("C012345699-7").toAccount("C012345699-7").transferAmount("200").execute()
+
+        await this.riskParameterQuery.accountClass('')
+        .accountNo("C012345699-8")
+        .execute()
+
+ let   results = await this.riskParameterQuery.where("Account No").equalTo("C012345699-8")
+        .fetch('Cash Balance', 'Action', 'Running Cash Balance'
+            , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
+            , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+
+    expect(results).not.null
+    expect(results).to.have.lengthOf(1)
+    expect(results[0]['Cash Balance']).to.equal("1,500.00")
+    expect(results[0]['Running Cash Balance']).to.equal("1,500.00")
+    expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
+    expect(results[0]['Liability']).to.equal("0.00")
+    expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("1,500.00")
+    expect(results[0]['Purchase Power']).to.equal("0.00")
+    expect(results[0]['Asset']).to.equal("1,500.00")
+    expect(results[0]['Equity']).to.equal("1,500.00")
+    expect(results[0]['Excess Equity']).to.equal("1,500.00")
+    expect(results[0]['Call Amount']).to.equal("1,500.00")
+    expect(results[0]['Force Amount']).to.equal("1,500.00")
+    expect(results[0]['Action']).to.equal("No Action")
 
 
     }
