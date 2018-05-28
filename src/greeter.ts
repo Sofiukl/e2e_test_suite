@@ -19,6 +19,8 @@ import { CashTransferEntry } from "./ui/entry/stl/CashTransferEntry";
 import { CashTransferAuthorization } from "./ui/query/stl/CashTransferAuthorization";
 import { AbstractCashTransferAuthorization } from "./ui/query/stl/AbstractCashTransferAuthorization";
 import { TaxAndCommCalculator } from "./batch/trd/TaxAndCommCalculator";
+import { ExecutionToTrade } from "./batch/trd/ExecutionToTrade";
+import { MarginPurchasePowerCalculator } from "./batch/cam/MarginPurchasePowerCalculator";
 
 
 
@@ -509,22 +511,35 @@ export class TestRIskParameterConditon {
 
         //Add execution
 
-        /*
+
+       /*
+
         let executionEntry : ExecutionEntry = new ExecutionEntry()
 
-        executionEntry.execScreenDatacpAccountNo("C012345699-8")
+        await executionEntry.execScreenDatacpAccountNo("C012345699-8")
         .execScreenDataquantityStr("100")
         .execScreenDatasecurityInfo("AAV")
         .execScreenDatasenderReferenceNo("OD-0000000001")
         .execScreenDatasourceReferenceNo("TD-0000000001")
+        .execScreenDatainputPriceStr("20")
         .execScreenDatatradeDateStr("03-07-2018")
         .execute()
-*/
+
+
+            let executionToTrade : ExecutionToTrade = new ExecutionToTrade();
+            await executionToTrade.account("C012345699-8").tradedate("20180703").execute()
+
+            
             let taxAndCommCalculator : TaxAndCommCalculator = new TaxAndCommCalculator()
-            await taxAndCommCalculator.account("C012345699-8").applicationDate("03-07-2018").execute()
+            await taxAndCommCalculator.account("C012345699-8").date("20180703").execute()
 
 
+          
 
+*/
+
+        let marginPurchasePowerCalculator : MarginPurchasePowerCalculator = new MarginPurchasePowerCalculator()
+        await marginPurchasePowerCalculator.accountno("C012345699-8").rundate("20180703").lmvrequired("Y").execute()
         
 
 
@@ -548,11 +563,11 @@ winston.level = 'debug';
 
 let t = new TestRIskParameterConditon()
 
-// //t.setup().then(()=>{
-//     t.testAddExecutionThenRunEODBatch().then(()=>{
-//         //t.destroy()
-//     })
-// //})
+t.setup().then(()=>{
+    t.testAddExecutionThenRunEODBatch().then(()=>{
+        t.destroy()
+    })
+})
 
 
 
@@ -561,7 +576,7 @@ let t = new TestRIskParameterConditon()
 //     t.testCashTransferAfterAuthorization()
 // })
 
-
+/*
  
 try {
     t.setup().then(() => {
@@ -589,7 +604,7 @@ try {
     t.destroy()
 }
 
-
+*/
 
 
 

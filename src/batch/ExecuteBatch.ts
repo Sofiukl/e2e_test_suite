@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import  child  from "child_process";
 import {Constants} from "../Constants";
 import { Context } from "../context/Context";
 
@@ -11,7 +11,7 @@ implementations of batch
 export abstract class  ExecuteBatch {
     async execute() : Promise<boolean> {
 
-        var command = Constants.batchBasePath + " " + this.batchName() + " " 
+        var command = Constants.batchBasePath + " -e GMO " + this.batchName() + "" 
 
         console.log(command);
         
@@ -31,11 +31,13 @@ export abstract class  ExecuteBatch {
 
         console.log(" To Execute" + command );
         try{
-        const { stdout, stderr } = await exec(command);
+            
+            
+        const result = await child.execSync(command , {stdio:[0,1,2]});
 
-        console.log("stdout  ");
-        stdout.pipe(process.stdout);
-        stderr.pipe(process.stdout);
+        console.log("stdout  " + result);
+        //stdout.pipe(process.stdout);
+        //stderr.pipe(process.stdout);
         
         
         
