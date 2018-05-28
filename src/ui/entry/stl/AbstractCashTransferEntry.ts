@@ -20,7 +20,7 @@ Assert.notNull(this._currency)
                  } 
 
     /** private variable for currency() */
-    private _currency : string  = ""   
+    private _currency : string  = "THB"   
     /** private variable for fromAccount() */
     private _fromAccount : string  = ""   
     /** private variable for toAccount() */
@@ -32,22 +32,22 @@ Assert.notNull(this._currency)
     /** private variable for txnReferenceNo() */
     private _txnReferenceNo : string  = ""   
     /** private variable for transferType() */
-    private _transferType : string  = ""   
+    private _transferType : string  = "TRANSFER_INTERNAL_OWN"   
     /** private variable for cam01Required() */
-    private _cam01Required : string  = ""   
+    private _cam01Required : string  = "N"   
     /** private variable for accountBalanceTypeFrom() */
-    private _accountBalanceTypeFrom : string  = ""   
+    private _accountBalanceTypeFrom : string  = "10"   
     /** private variable for accountBalanceTypeTo() */
-    private _accountBalanceTypeTo : string  = ""   
+    private _accountBalanceTypeTo : string  = "10"   
     /** private variable for authorizationRequired() */
-    private _authorizationRequired : string  = ""   
+    private _authorizationRequired : string  = "Y"   
     /** private variable for creditLedgerCode() */
-    private _creditLedgerCode : string  = ""   
+    private _creditLedgerCode : string  = "600005"   
     /** private variable for debitLedgerCode() */
-    private _debitLedgerCode : string  = ""   
+    private _debitLedgerCode : string  = "600005"   
     /** This is the value of Currency 
-     * with a default Value "" 
-     * of type select */
+     * with a default Value "THB" 
+     * of type text */
     public currency(v : string) : AbstractCashTransferEntry {
         this._currency=v;
         return this;
@@ -55,7 +55,7 @@ Assert.notNull(this._currency)
     
     /** This is the value of From Account No 
      * with a default Value "" 
-     * of type select */
+     * of type text */
     public fromAccount(v : string) : AbstractCashTransferEntry {
         this._fromAccount=v;
         return this;
@@ -63,7 +63,7 @@ Assert.notNull(this._currency)
     
     /** This is the value of To Account No 
      * with a default Value "" 
-     * of type select */
+     * of type text */
     public toAccount(v : string) : AbstractCashTransferEntry {
         this._toAccount=v;
         return this;
@@ -71,7 +71,7 @@ Assert.notNull(this._currency)
     
     /** This is the value of Transfer Amount 
      * with a default Value "" 
-     * of type select */
+     * of type text */
     public transferAmount(v : string) : AbstractCashTransferEntry {
         this._transferAmount=v;
         return this;
@@ -79,7 +79,7 @@ Assert.notNull(this._currency)
     
     /** This is the value of External Reference No 
      * with a default Value "" 
-     * of type select */
+     * of type text */
     public externalReferenceNo(v : string) : AbstractCashTransferEntry {
         this._externalReferenceNo=v;
         return this;
@@ -87,14 +87,14 @@ Assert.notNull(this._currency)
     
     /** This is the value of Txn Reference No 
      * with a default Value "" 
-     * of type select */
+     * of type text */
     public txnReferenceNo(v : string) : AbstractCashTransferEntry {
         this._txnReferenceNo=v;
         return this;
     }
     
     /** This is the value of Transfer Type 
-     * with a default Value "" 
+     * with a default Value "TRANSFER_INTERNAL_OWN" 
      * of type select */
     public transferType(v : string) : AbstractCashTransferEntry {
         this._transferType=v;
@@ -102,7 +102,7 @@ Assert.notNull(this._currency)
     }
     
     /** This is the value of No CAM01 Required 
-     * with a default Value "" 
+     * with a default Value "N" 
      * of type select */
     public cam01Required(v : string) : AbstractCashTransferEntry {
         this._cam01Required=v;
@@ -110,7 +110,7 @@ Assert.notNull(this._currency)
     }
     
     /** This is the value of From Account Balance Type 
-     * with a default Value "" 
+     * with a default Value "10" 
      * of type select */
     public accountBalanceTypeFrom(v : string) : AbstractCashTransferEntry {
         this._accountBalanceTypeFrom=v;
@@ -118,7 +118,7 @@ Assert.notNull(this._currency)
     }
     
     /** This is the value of To Account Balance Type 
-     * with a default Value "" 
+     * with a default Value "10" 
      * of type select */
     public accountBalanceTypeTo(v : string) : AbstractCashTransferEntry {
         this._accountBalanceTypeTo=v;
@@ -126,7 +126,7 @@ Assert.notNull(this._currency)
     }
     
     /** This is the value of Authorization Required 
-     * with a default Value "" 
+     * with a default Value "Y" 
      * of type select */
     public authorizationRequired(v : string) : AbstractCashTransferEntry {
         this._authorizationRequired=v;
@@ -134,7 +134,7 @@ Assert.notNull(this._currency)
     }
     
     /** This is the value of Credit Ledger Code 
-     * with a default Value "" 
+     * with a default Value "600005" 
      * of type select */
     public creditLedgerCode(v : string) : AbstractCashTransferEntry {
         this._creditLedgerCode=v;
@@ -142,7 +142,7 @@ Assert.notNull(this._currency)
     }
     
     /** This is the value of Debit Ledger Code 
-     * with a default Value "" 
+     * with a default Value "600005" 
      * of type select */
     public debitLedgerCode(v : string) : AbstractCashTransferEntry {
         this._debitLedgerCode=v;

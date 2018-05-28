@@ -36,28 +36,32 @@ export abstract class Abstract${fileName}  extends BaseUIOperations {
         for (var key in schemaObject) {
 
 
-            var defaulValue = schemaObject[key].defaulValue
-            defaulValue = defaulValue == undefined ? "" : defaulValue
-            var type = schemaObject[key].type
+            let defaultValue = schemaObject[key].defaultValue
+            defaultValue = defaultValue == undefined ? "" : defaultValue
+            let type = schemaObject[key].type
 
-            var varKey = key.replace(".","")
+            let varKey = key.replace(".","")
 
 
             classData += (`
     /** private variable for ${key}() */
-    private _${varKey} : string  = "${defaulValue}"   `);
+    private _${varKey} : string  = "${defaultValue}"   `);
 
 
         }
 
 
-        for (var key in schemaObject) {
-            var label = schemaObject[key].label
-            var varKey = key.replace(".","")
+        for (let key in schemaObject) {
+            let defaultValue = schemaObject[key].defaultValue
+            defaultValue = defaultValue == undefined ? "" : defaultValue
+            let type = schemaObject[key].type
+
+            let label = schemaObject[key].label
+            let varKey = key.replace(".","")
 
             classData += (`
     /** This is the value of ${label} 
-     * with a default Value "${defaulValue}" 
+     * with a default Value "${defaultValue}" 
      * of type ${type} */
     public ${varKey}(v : string) : Abstract${fileName} {
         this._${varKey}=v;
@@ -71,7 +75,7 @@ export abstract class Abstract${fileName}  extends BaseUIOperations {
     `
 
         for (let key in schemaObject) {
-            var varKey = key.replace(".","")
+            let varKey = key.replace(".","")
 
             let type = schemaObject[key].type
             let selector = type == 'text' ? 'input' : 'select'
