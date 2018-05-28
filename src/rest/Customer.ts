@@ -275,6 +275,15 @@ private getRequest() : string {
 							"cashLocalBankAccountType": "SAVINGS",
 							"cashLocalSettlementAccount": "0208283189",
 							"priority": "2"
+						}, {
+							"settlementFor": "WIRE_INSTRUCTION",
+							"cashSecurity": "",
+							"paymentReceipt": "R",
+							"wayOfPayment": "E_PAYMENT",
+							"cashLocalCustodianBankCode": "004-0003",
+							"cashLocalBankAccountType": "SAVINGS",
+							"cashLocalSettlementAccount": "0200${this._customerCode}",
+							"priority": "3"
 						}
 					],
 					"serviceOffice": "001",
@@ -336,6 +345,15 @@ private getRequest() : string {
 							"cashLocalBankAccountType": "SAVINGS",
 							"cashLocalSettlementAccount": "0200${this._customerCode}",
 							"priority": "1"
+						}, {
+							"settlementFor": "WIRE_INSTRUCTION",
+							"cashSecurity": "",
+							"paymentReceipt": "R",
+							"wayOfPayment": "E_PAYMENT",
+							"cashLocalCustodianBankCode": "004-0003",
+							"cashLocalBankAccountType": "SAVINGS",
+							"cashLocalSettlementAccount": "0200${this._customerCode}",
+							"priority": "3"
 						}
 					],
 					"serviceOffice": "001",

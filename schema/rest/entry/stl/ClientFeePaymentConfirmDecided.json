@@ -1,0 +1,19 @@
+{
+	"requestDataMap": {
+		"txnReferenceNo": ["201803160000457"],
+		"valueDate": "",
+		"settlementFor": "WIRE_INSTRUCTION",
+		"cashSecurity": "CASH",
+		"paymentReceipt": "R",
+		"priority": "6",
+		"wayOfPayment": "PAY_IN",
+		"cpBankCode": "",
+		"cpSettleAccountName": "",
+		"cpSettleAccountNo": "",
+		"ourBankCode": "004-003",
+		"ourSettleAcNo": "B000000281568817",
+		"payInSlipFileReferenceName": "",
+		"externalReferenceNo": "201804110000000012",
+		"isAuthorizationReqd": "N"
+	}
+}

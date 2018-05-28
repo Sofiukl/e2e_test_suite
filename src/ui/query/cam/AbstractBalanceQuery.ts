@@ -1,13 +1,14 @@
 
+
 import { BaseUIOperations } from "../../BaseUIOperations";
 import { Assert } from "../../common/Assert";
 
 export abstract class AbstractBalanceQuery  extends BaseUIOperations {
+
     async doValidate() : Promise<any>{
 Assert.notNull(this._baseDate)
-Assert.notNull(this._balanceBasis)
-
- } 
+                Assert.notNull(this._balanceBasis)
+                 } 
 
     /** private variable for baseDate() */
     private _baseDate : string     

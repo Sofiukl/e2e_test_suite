@@ -1,10 +1,10 @@
 const fs = require('fs')
 const walk = require('fs-walker');
-const schemaList = walk.files.sync("schema");
+const schemaList = walk.files.sync("schema/src");
 
 
 for (let x = 0; x < schemaList.length; x++) {
-    if (schemaList[x].name.endsWith(".json")) {
+    if (schemaList[x].name.endsWith(".json") ) {
         var fileName = schemaList[x].name.substring(0, schemaList[x].name.length - 5)
         var schemaContents = fs.readFileSync(schemaList[x].directory + "\\" + schemaList[x].name)
         var schemaObject = JSON.parse(schemaContents)
@@ -34,9 +34,13 @@ export abstract class Abstract${fileName}  extends BaseUIOperations {
             var defaulValue = schemaObject[key].defaulValue
             defaulValue = defaulValue == undefined ? "" : defaulValue
             var type = schemaObject[key].type
+
+            var varKey = key.replace(".","")
+
+
             classData += (`
     /** private variable for ${key}() */
-    private _${key} : string     `);
+    private _${varKey} : string     `);
 
 
         }
@@ -44,12 +48,14 @@ export abstract class Abstract${fileName}  extends BaseUIOperations {
 
         for (var key in schemaObject) {
             var label = schemaObject[key].label
+            var varKey = key.replace(".","")
+
             classData += (`
     /** This is the value of ${label} 
      * with a default Value "${defaulValue}" 
      * of type ${type} */
-    public ${key}(v : string) : Abstract${fileName} {
-        this._${key}=v;
+    public ${varKey}(v : string) : Abstract${fileName} {
+        this._${varKey}=v;
         return this;
     }
     `);
@@ -60,10 +66,12 @@ export abstract class Abstract${fileName}  extends BaseUIOperations {
     `
 
         for (let key in schemaObject) {
+            var varKey = key.replace(".","")
+
             let type = schemaObject[key].type
             let selector = type == 'text' ? 'input' : 'select'
-            classData += `if(this._${key}!=undefined){
-            fields.push({ 'type' : '${type}' , 'selector' : '${selector}[name="${key}"]' , value : this._${key}});
+            classData += `if(this._${varKey}!=undefined){
+            fields.push({ 'type' : '${type}' , 'selector' : '${selector}[name="${key}"]' , value : this._${varKey}});
         }`
         }
 

@@ -1,0 +1,191 @@
+{
+    "cashInDateStr": {
+        "type": "text",
+        "required": false,
+        "label": "Cash In Date",
+        "id": "inDateStr",
+        "defaultValue": "03-07-2018"
+    },
+    "cashInTime": {
+        "type": "text",
+        "required": false,
+        "label": "",
+        "id": "cashInTime",
+        "defaultValue": "13:57:42"
+    },
+    "cashOutDateStr": {
+        "type": "text",
+        "required": false,
+        "label": "Cash Out Date",
+        "id": "outDateStr",
+        "defaultValue": "03-07-2018"
+    },
+    "cashOutTime": {
+        "type": "text",
+        "required": false,
+        "label": "",
+        "id": "cashOutTime"
+    },
+    "entry.currency": {
+        "type": "text",
+        "required": false,
+        "label": "Ccy",
+        "id": "currency",
+        "defaultValue": "THB"
+    },
+    "entry.amountStr": {
+        "type": "text",
+        "required": false,
+        "label": "Amount",
+        "id": "amountStr",
+        "defaultValue": "5,000.00"
+    },
+    "entry.externalReferenceNo": {
+        "type": "text",
+        "required": false,
+        "label": "External Reference No",
+        "id": "externalReferenceNo"
+    },
+    "entry.chequeNo": {
+        "type": "text",
+        "required": false,
+        "label": "Cheque/Reference Number",
+        "id": "chequeNo"
+    },
+    "entry.custodianBank": {
+        "type": "text",
+        "required": false,
+        "label": "Our Bank",
+        "id": "custodianBank"
+    },
+    "entry.accountSubCodeDisp": {
+        "type": "text",
+        "required": false,
+        "label": "GLE Sub Code",
+        "id": "accountSubCodeDisp"
+    },
+    "entry.sourceInstrument": {
+        "type": "text",
+        "required": false,
+        "label": "Security Code",
+        "id": "sourceInstrument"
+    },
+    "entry.remarks": {
+        "type": "text",
+        "required": false,
+        "label": "Remarks",
+        "id": "remarks"
+    },
+    "entry.remarksForReport": {
+        "type": "text",
+        "required": false,
+        "label": "Remarks For Report",
+        "id": "remarksForReport"
+    },
+    "entry.statementDescription": {
+        "type": "text",
+        "required": false,
+        "label": "Statement Description",
+        "id": "statementDescription"
+    },
+    "cashInAccountNo": {
+        "type": "text",
+        "required": false,
+        "label": "Account No",
+        "id": "cashInAccountNo",
+        "defaultValue": "C012345699-7"
+    },
+    "cashInOtherGleLedgerCode": {
+        "type": "text",
+        "required": false,
+        "label": "Other GLE Ledger Code",
+        "id": "otherGleLedgerCode"
+    },
+    "cashOutAccountNo": {
+        "type": "text",
+        "required": false,
+        "label": "Account No",
+        "id": "cashOutAccountNo"
+    },
+    "cashOutOtherGleLedgerCode": {
+        "type": "text",
+        "required": false,
+        "label": "Other GLE Ledger Code",
+        "id": "otherGleLedgerCode"
+    },
+    "entry.inOut": {
+        "type": "select",
+        "required": false,
+        "label": "Cash In/Out",
+        "id": "inOut",
+        "defaultValue": "I"
+    },
+    "entry.taxIncomeType": {
+        "type": "select",
+        "required": false,
+        "label": "Tax Income Type",
+        "id": "taxIncomeType",
+        "defaultValue": "CASH_ADJUSTMENT"
+    },
+    "entry.wayOfSettlement": {
+        "type": "select",
+        "required": false,
+        "label": "Way Of Settlement",
+        "id": "wayOfSettlement",
+        "defaultValue": "CHEQUE"
+    },
+    "entry.mode": {
+        "type": "select",
+        "required": false,
+        "label": "Mode",
+        "id": "mode",
+        "defaultValue": "INTERNAL_BOOKING"
+    },
+    "cashInReason": {
+        "type": "select",
+        "required": true,
+        "label": "Cash In Reason Code",
+        "id": "cashInReasonCode",
+        "defaultValue": "WRITE_OFF"
+    },
+    "cashOutReason": {
+        "type": "select",
+        "required": true,
+        "label": "Cash Out Reason Code",
+        "id": "cashOutReasonCode"
+    },
+    "entry.noCam01Required": {
+        "type": "select",
+        "required": false,
+        "label": "No CAM01 Required",
+        "id": "noCam01RequiredFlag",
+        "defaultValue": "N"
+    },
+    "cashInAccountCode": {
+        "type": "select",
+        "required": false,
+        "label": "GLE Ledger Code",
+        "id": "gleLedgerCode",
+        "defaultValue": "600005"
+    },
+    "cashInAccountBalanceTypeStr": {
+        "type": "select",
+        "required": false,
+        "label": "Account Balance Type ",
+        "id": "accountBalanceTypeStr",
+        "defaultValue": "10"
+    },
+    "cashOutAccountCode": {
+        "type": "select",
+        "required": false,
+        "label": "GLE Ledger Code",
+        "id": "gleLedgerCode"
+    },
+    "cashOutAccountBalanceTypeStr": {
+        "type": "select",
+        "required": false,
+        "label": "Account Balance Type ",
+        "id": "accountBalanceTypeStr",
+        "defaultValue": "10"
+    }
+}

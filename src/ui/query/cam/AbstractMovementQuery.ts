@@ -1,12 +1,13 @@
 
+
 import { BaseUIOperations } from "../../BaseUIOperations";
 import { Assert } from "../../common/Assert";
 
 export abstract class AbstractMovementQuery  extends BaseUIOperations {
+
     async doValidate() : Promise<any>{
 Assert.notNull(this._movementBasis)
-
- } 
+                 } 
 
     /** private variable for dateFrom() */
     private _dateFrom : string     

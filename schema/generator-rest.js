@@ -86,6 +86,33 @@ function generateRestAPI(path, fileName){
 
 
         classData+=`
+        /* Clear method */
+        public clear() : ${className} {
+`
+
+for(var key in elements){
+
+    
+    let value = `"${elements[key]}"`
+    if(Array.isArray(elements[key])){
+    
+        value="[]"
+    }
+
+
+    classData+=`
+    this. _${key} = ${value}
+    `
+
+}
+
+         classData+=`      
+            return this
+        }
+        `
+
+
+        classData+=`
         
          getRequest() : any {
             let requestDataMap : any = {}
@@ -128,4 +155,4 @@ classData+=`
 
 
 }
-generateRestAPI("schema/rest/entry/stl","ClientFeePaymentEntry.json")
+generateRestAPI("schema/rest/entry/stl","ClientFeePaymentUndecidedEntry.json")
