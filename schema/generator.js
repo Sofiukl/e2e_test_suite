@@ -7,7 +7,7 @@ for (let x = 0; x < schemaList.length; x++) {
     if (schemaList[x].name.endsWith(".json") ) {
         var fileName = schemaList[x].name.substring(0, schemaList[x].name.length - 5)
 
-if(fileName!="CashTransferEntry"){
+if(fileName!="ExecutionEntry"){
     continue;
 }
 

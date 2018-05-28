@@ -1,0 +1,90 @@
+{
+    "fromAccountNo": {
+        "type": "text",
+        "required": false,
+        "label": "From Account No",
+        "id": "fromAccountNo",
+        "defaultValue": ""
+    },
+    "toAccountNo": {
+        "type": "text",
+        "required": false,
+        "label": "To Account No",
+        "id": "toAccountNo",
+        "defaultValue": ""
+    },
+    "referenceNo": {
+        "type": "text",
+        "required": false,
+        "label": "",
+        "id": "referenceNo"
+    },
+    "transactionDateFrom": {
+        "type": "text",
+        "required": false,
+        "label": "Transaction Date (From-To)",
+        "id": "transactionDateFrom"
+    },
+    "transactionDateTo": {
+        "type": "text",
+        "required": false,
+        "label": "",
+        "id": "transactionDateTo"
+    },
+    "txnReferenceNo": {
+        "type": "text",
+        "required": false,
+        "label": "",
+        "id": "txnReferenceNo"
+    },
+    "externalReferenceNo": {
+        "type": "text",
+        "required": false,
+        "label": "",
+        "id": "externalReferenceNo"
+    },
+    "paymentReferenceNo": {
+        "type": "text",
+        "required": false,
+        "label": "Payment Reference No",
+        "id": "paymentReferenceNo"
+    },
+    "operationObjective": {
+        "type": "select",
+        "required": true,
+        "label": "Operation Objective",
+        "id": "operationObjective",
+        "defaultValue": "CASH_AUTHORIZATION"
+    },
+    "transferType": {
+        "type": "select",
+        "required": false,
+        "label": "Transfer Type",
+        "id": "transferType",
+        "defaultValue": "TRANSFER_INTERNAL_OWN"
+    },
+    "accountBalanceTypeFrom": {
+        "type": "select",
+        "required": false,
+        "label": "From Account Balance Type",
+        "id": "accountBalanceTypeFrom"
+    },
+    "accountBalanceTypeTo": {
+        "type": "select",
+        "required": false,
+        "label": "To Account Balance Type",
+        "id": "accountBalanceTypeTo"
+    },
+    "stockTransferStatus": {
+        "type": "select",
+        "required": false,
+        "label": "Status",
+        "id": "stockTransferStatus"
+    },
+    "dataSource": {
+        "type": "select",
+        "required": false,
+        "label": "Data Source",
+        "id": "dataSource"
+    }
+}

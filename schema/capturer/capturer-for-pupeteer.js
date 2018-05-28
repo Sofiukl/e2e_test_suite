@@ -45,7 +45,8 @@ proxy.on('proxyReq', function (proxyRes, req, res) {
 
 proxy.on('proxyRes', function (proxyRes, req, res) {
   
-  if(((req.url.indexOf('/init')>0) && (req.url.indexOf('/popup/')<0) ) ||  req.url.indexOf('/query/submit')){
+  
+  if(((req.url.indexOf('/init')>0) && (req.url.indexOf('/popup/')<0) ) ||  req.url.indexOf('/query/submit')>0){
 
     var body = new Buffer('');
     proxyRes.on('data', function (data) {
@@ -97,6 +98,7 @@ var body = new Buffer('');
 
 
     function processPostRequest(msg,url){
+      console.log(selVal);
 
       var tokens = msg.split('&')
       var keys = {};
@@ -199,8 +201,11 @@ function processResponse(url,response){
     
 
   });
-
-  //console.log(selVal);
+  console.log("------------------------------------------- Response of Init ----------------------------------");
+  console.log(url );
+  
+  console.log(selVal);
+  console.log("-------------------------------------------  ----------------------------------");
   
 
 }

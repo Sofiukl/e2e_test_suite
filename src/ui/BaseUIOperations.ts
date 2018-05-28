@@ -63,7 +63,6 @@ export abstract class BaseUIOperations {
 
         // var nav = this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
          for(var i=0;i<elements.length;i++){
-             winston.silly("Click ->  : " + elements[i])
              await elements[i].click()
              await PageContext.getInstance().sleep(50)
          }
@@ -155,6 +154,12 @@ export abstract class BaseUIOperations {
         }else if(operation == WizardAction.QueryCompleteConfirm){
             winston.silly("Start the click for <div.compCnfBtn input>")
             await this._page.click('div.compCnfBtn input')
+        }else if(operation == WizardAction.Authorize){
+            winston.silly("Start the click for <div.submitBtn input.authorizeBtn>")
+            await this._page.click('div.submitBtn input.authorizeBtn')
+        }else if(operation == WizardAction.AuthorizeConfirm){
+            winston.silly("Start the click for <div.authorizeConfirmBtn input>")
+            await this._page.click('div.authorizeConfirmBtn input')
         }
 
          await PageContext.getInstance().waitToNavigate()
@@ -178,6 +183,8 @@ export enum WizardAction {
     QuerySubmit,
     QueryCompleteSubmit,
     QueryCompleteConfirm,
+    Authorize,
+    AuthorizeConfirm
 
     //Previous,
 }
