@@ -8,8 +8,8 @@ export class TaxAndCommCalculator extends ExecuteBatch {
         return "TRD/TaxAndCommCalculator"
     }
 
-    private _date: string = ""
-    private _account: string = ""
+    private _date: string = undefined
+    private _account: string = undefined
     
     defaultArguments(): string[] {
         let args: string[] = []

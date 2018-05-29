@@ -2,6 +2,9 @@ import  child  from "child_process";
 import {Constants} from "../Constants";
 import { Context } from "../context/Context";
 
+const imageGenerate = require("../utils/ImageGenerate")
+
+
 
 /*
 Execute Batch Constract exports a single interface that must be implemented by all
@@ -33,9 +36,10 @@ export abstract class  ExecuteBatch {
         try{
             
             
-        const result = await child.execSync(command , {stdio:[0,1,2]});
+        const result = await child.execSync(command );
 
-        console.log("stdout  " + result);
+        imageGenerate.saveImg(result.toString())
+        console.log("stdout  " + result.toString());
         //stdout.pipe(process.stdout);
         //stderr.pipe(process.stdout);
         

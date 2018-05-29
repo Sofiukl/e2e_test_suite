@@ -7,7 +7,7 @@ import { Customer } from "./rest/Customer";
 import { Context } from "./context/Context";
 import { BalanceQuery } from "./ui/query/cam/BalanceQuery";
 import { RiskParameterQuery } from "./ui/query/cam/RiskParameterQuery";
-import { expect } from "chai"
+
 import winston from "winston"
 import { ClientPayPayInEntry } from "./rest/ClientPayPayInEntry";
 import { CompletionEntry } from "./ui/entry/stl/CompletionEntry";
@@ -21,6 +21,9 @@ import { AbstractCashTransferAuthorization } from "./ui/query/stl/AbstractCashTr
 import { TaxAndCommCalculator } from "./batch/trd/TaxAndCommCalculator";
 import { ExecutionToTrade } from "./batch/trd/ExecutionToTrade";
 import { MarginPurchasePowerCalculator } from "./batch/cam/MarginPurchasePowerCalculator";
+import { Assert } from "./utils/Assert";
+
+
 
 
 
@@ -70,10 +73,11 @@ export class TestRIskParameterConditon {
 
         let results = await riskParameterQuery.where("Account No").equalTo("C012345699-8").fetch('Cash Balance', 'Action');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("0.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results.length,1)
+        Assert.equals(results[0]['Cash Balance'],"0.00")
+        
+        Assert.equals(results[0]['Action'],"No Action")
 
         winston.info("Test for testCreditBalanceAccountCreatedTodayShouldAppearInScreen  SUCCESS");
 
@@ -105,10 +109,12 @@ export class TestRIskParameterConditon {
         let rpqsResult = await riskParameterQuery
             .where("Account No").equalTo("C012345699-8").fetch('Cash Balance', 'Action');
 
-        expect(rpqsResult).not.null
-        expect(rpqsResult).to.have.lengthOf(1)
-        expect(rpqsResult[0]['Cash Balance']).to.equal("0.00")
-        expect(rpqsResult[0]['Action']).to.equal("No Action")
+            Assert.notNullArr(rpqsResult)
+            Assert.equals(rpqsResult.length,1)
+
+        
+        Assert.equals(rpqsResult[0]['Cash Balance'],"0.00")
+        Assert.equals(rpqsResult[0]['Action'],"No Action")
 
 
         let completion = new CompletionEntry()
@@ -129,20 +135,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("5,000.00")
-        expect(results[0]['Running Cash Balance']).to.equal("5,000.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("5,000.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("5,000.00")
-        expect(results[0]['Equity']).to.equal("5,000.00")
-        expect(results[0]['Excess Equity']).to.equal("5,000.00")
-        expect(results[0]['Call Amount']).to.equal("5,000.00")
-        expect(results[0]['Force Amount']).to.equal("5,000.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"5,000.00")
+        Assert.equals(results[0]['Running Cash Balance'],"5,000.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"5,000.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"5,000.00")
+        Assert.equals(results[0]['Equity'],"5,000.00")
+        Assert.equals(results[0]['Excess Equity'],"5,000.00")
+        Assert.equals(results[0]['Call Amount'],"5,000.00")
+        Assert.equals(results[0]['Force Amount'],"5,000.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
 
@@ -178,20 +184,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("5,000.00")
-        expect(results[0]['Running Cash Balance']).to.equal("2,000.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("3,000.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("2,000.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("2,000.00")
-        expect(results[0]['Equity']).to.equal("2,000.00")
-        expect(results[0]['Excess Equity']).to.equal("2,000.00")
-        expect(results[0]['Call Amount']).to.equal("2,000.00")
-        expect(results[0]['Force Amount']).to.equal("2,000.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"5,000.00")
+        Assert.equals(results[0]['Running Cash Balance'],"2,000.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"3,000.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"2,000.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"2,000.00")
+        Assert.equals(results[0]['Equity'],"2,000.00")
+        Assert.equals(results[0]['Excess Equity'],"2,000.00")
+        Assert.equals(results[0]['Call Amount'],"2,000.00")
+        Assert.equals(results[0]['Force Amount'],"2,000.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
 
@@ -210,20 +216,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("2,000.00")
-        expect(results[0]['Running Cash Balance']).to.equal("2,000.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("2,000.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("2,000.00")
-        expect(results[0]['Equity']).to.equal("2,000.00")
-        expect(results[0]['Excess Equity']).to.equal("2,000.00")
-        expect(results[0]['Call Amount']).to.equal("2,000.00")
-        expect(results[0]['Force Amount']).to.equal("2,000.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"2,000.00")
+        Assert.equals(results[0]['Running Cash Balance'],"2,000.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"2,000.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"2,000.00")
+        Assert.equals(results[0]['Equity'],"2,000.00")
+        Assert.equals(results[0]['Excess Equity'],"2,000.00")
+        Assert.equals(results[0]['Call Amount'],"2,000.00")
+        Assert.equals(results[0]['Force Amount'],"2,000.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
 
@@ -253,20 +259,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("2,000.00")
-        expect(results[0]['Running Cash Balance']).to.equal("2,000.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("2,000.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("2,000.00")
-        expect(results[0]['Equity']).to.equal("2,000.00")
-        expect(results[0]['Excess Equity']).to.equal("2,000.00")
-        expect(results[0]['Call Amount']).to.equal("2,000.00")
-        expect(results[0]['Force Amount']).to.equal("2,000.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"2,000.00")
+        Assert.equals(results[0]['Running Cash Balance'],"2,000.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"2,000.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"2,000.00")
+        Assert.equals(results[0]['Equity'],"2,000.00")
+        Assert.equals(results[0]['Excess Equity'],"2,000.00")
+        Assert.equals(results[0]['Call Amount'],"2,000.00")
+        Assert.equals(results[0]['Force Amount'],"2,000.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
         await clientFeePaymentConfirmDecided
@@ -289,20 +295,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("2,000.00")
-        expect(results[0]['Running Cash Balance']).to.equal("1,500.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("1,500.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("1,500.00")
-        expect(results[0]['Equity']).to.equal("1,500.00")
-        expect(results[0]['Excess Equity']).to.equal("1,500.00")
-        expect(results[0]['Call Amount']).to.equal("1,500.00")
-        expect(results[0]['Force Amount']).to.equal("1,500.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"2,000.00")
+        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"1,500.00")
+        Assert.equals(results[0]['Equity'],"1,500.00")
+        Assert.equals(results[0]['Excess Equity'],"1,500.00")
+        Assert.equals(results[0]['Call Amount'],"1,500.00")
+        Assert.equals(results[0]['Force Amount'],"1,500.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
         //Mark for completion
@@ -320,20 +326,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("1,500.00")
-        expect(results[0]['Running Cash Balance']).to.equal("1,500.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("1,500.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("1,500.00")
-        expect(results[0]['Equity']).to.equal("1,500.00")
-        expect(results[0]['Excess Equity']).to.equal("1,500.00")
-        expect(results[0]['Call Amount']).to.equal("1,500.00")
-        expect(results[0]['Force Amount']).to.equal("1,500.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"1,500.00")
+        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"1,500.00")
+        Assert.equals(results[0]['Equity'],"1,500.00")
+        Assert.equals(results[0]['Excess Equity'],"1,500.00")
+        Assert.equals(results[0]['Call Amount'],"1,500.00")
+        Assert.equals(results[0]['Force Amount'],"1,500.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
 
@@ -364,20 +370,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("1,500.00")
-        expect(results[0]['Running Cash Balance']).to.equal("1,500.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("1,500.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("1,500.00")
-        expect(results[0]['Equity']).to.equal("1,500.00")
-        expect(results[0]['Excess Equity']).to.equal("1,500.00")
-        expect(results[0]['Call Amount']).to.equal("1,500.00")
-        expect(results[0]['Force Amount']).to.equal("1,500.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"1,500.00")
+        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"1,500.00")
+        Assert.equals(results[0]['Equity'],"1,500.00")
+        Assert.equals(results[0]['Excess Equity'],"1,500.00")
+        Assert.equals(results[0]['Call Amount'],"1,500.00")
+        Assert.equals(results[0]['Force Amount'],"1,500.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
         await clientFeePaymentConfirmDecided.clear()
@@ -405,20 +411,20 @@ export class TestRIskParameterConditon {
                 , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
                 , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-        expect(results).not.null
-        expect(results).to.have.lengthOf(1)
-        expect(results[0]['Cash Balance']).to.equal("1,500.00")
-        expect(results[0]['Running Cash Balance']).to.equal("1,500.00")
-        expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-        expect(results[0]['Liability']).to.equal("0.00")
-        expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("1,500.00")
-        expect(results[0]['Purchase Power']).to.equal("0.00")
-        expect(results[0]['Asset']).to.equal("1,500.00")
-        expect(results[0]['Equity']).to.equal("1,500.00")
-        expect(results[0]['Excess Equity']).to.equal("1,500.00")
-        expect(results[0]['Call Amount']).to.equal("1,500.00")
-        expect(results[0]['Force Amount']).to.equal("1,500.00")
-        expect(results[0]['Action']).to.equal("No Action")
+        Assert.notNullArr(results)
+        Assert.equals(results,1)
+        Assert.equals(results[0]['Cash Balance'],"1,500.00")
+        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
+        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+        Assert.equals(results[0]['Liability'],"0.00")
+        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
+        Assert.equals(results[0]['Purchase Power'],"0.00")
+        Assert.equals(results[0]['Asset'],"1,500.00")
+        Assert.equals(results[0]['Equity'],"1,500.00")
+        Assert.equals(results[0]['Excess Equity'],"1,500.00")
+        Assert.equals(results[0]['Call Amount'],"1,500.00")
+        Assert.equals(results[0]['Force Amount'],"1,500.00")
+        Assert.equals(results[0]['Action'],"No Action")
 
 
 
@@ -456,20 +462,20 @@ export class TestRIskParameterConditon {
             , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
             , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-    expect(results).not.null
-    expect(results).to.have.lengthOf(1)
-    expect(results[0]['Cash Balance']).to.equal("1,500.00")
-    expect(results[0]['Running Cash Balance']).to.equal("1,500.00")
-    expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-    expect(results[0]['Liability']).to.equal("0.00")
-    expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("1,500.00")
-    expect(results[0]['Purchase Power']).to.equal("0.00")
-    expect(results[0]['Asset']).to.equal("1,500.00")
-    expect(results[0]['Equity']).to.equal("1,500.00")
-    expect(results[0]['Excess Equity']).to.equal("1,500.00")
-    expect(results[0]['Call Amount']).to.equal("1,500.00")
-    expect(results[0]['Force Amount']).to.equal("1,500.00")
-    expect(results[0]['Action']).to.equal("No Action")
+    Assert.notNullArr(results)
+    Assert.equals(results,1)
+    Assert.equals(results[0]['Cash Balance'],"1,500.00")
+    Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
+    Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+    Assert.equals(results[0]['Liability'],"0.00")
+    Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
+    Assert.equals(results[0]['Purchase Power'],"0.00")
+    Assert.equals(results[0]['Asset'],"1,500.00")
+    Assert.equals(results[0]['Equity'],"1,500.00")
+    Assert.equals(results[0]['Excess Equity'],"1,500.00")
+    Assert.equals(results[0]['Call Amount'],"1,500.00")
+    Assert.equals(results[0]['Force Amount'],"1,500.00")
+    Assert.equals(results[0]['Action'],"No Action")
 
 
     }
@@ -489,20 +495,20 @@ export class TestRIskParameterConditon {
             , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
             , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
 
-    expect(results).not.null
-    expect(results).to.have.lengthOf(1)
-    expect(results[0]['Cash Balance']).to.equal("1,700.00")
-    expect(results[0]['Running Cash Balance']).to.equal("1,700.00")
-    expect(results[0]['Unsettled Withdraw Latest']).to.equal("0.00")
-    expect(results[0]['Liability']).to.equal("0.00")
-    expect(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)']).to.equal("1,700.00")
-    expect(results[0]['Purchase Power']).to.equal("0.00")
-    expect(results[0]['Asset']).to.equal("1,700.00")
-    expect(results[0]['Equity']).to.equal("1,700.00")
-    expect(results[0]['Excess Equity']).to.equal("1,700.00")
-    expect(results[0]['Call Amount']).to.equal("1,700.00")
-    expect(results[0]['Force Amount']).to.equal("1,700.00")
-    expect(results[0]['Action']).to.equal("No Action")
+    Assert.notNullArr(results)
+    Assert.equals(results,1)
+    Assert.equals(results[0]['Cash Balance'],"1,700.00")
+    Assert.equals(results[0]['Running Cash Balance'],"1,700.00")
+    Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
+    Assert.equals(results[0]['Liability'],"0.00")
+    Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,700.00")
+    Assert.equals(results[0]['Purchase Power'],"0.00")
+    Assert.equals(results[0]['Asset'],"1,700.00")
+    Assert.equals(results[0]['Equity'],"1,700.00")
+    Assert.equals(results[0]['Excess Equity'],"1,700.00")
+    Assert.equals(results[0]['Call Amount'],"1,700.00")
+    Assert.equals(results[0]['Force Amount'],"1,700.00")
+    Assert.equals(results[0]['Action'],"No Action")
 
     }
 
@@ -512,7 +518,7 @@ export class TestRIskParameterConditon {
         //Add execution
 
 
-       /*
+    //    /*
 
         let executionEntry : ExecutionEntry = new ExecutionEntry()
 
@@ -536,12 +542,41 @@ export class TestRIskParameterConditon {
 
           
 
-*/
+            
+            let marginPurchasePowerCalculator : MarginPurchasePowerCalculator = new MarginPurchasePowerCalculator()
+            await marginPurchasePowerCalculator.accountno("C012345699-8").rundate("20180703").lmvrequired("Y").execute()
+            
+            // */
 
-        let marginPurchasePowerCalculator : MarginPurchasePowerCalculator = new MarginPurchasePowerCalculator()
-        await marginPurchasePowerCalculator.accountno("C012345699-8").rundate("20180703").lmvrequired("Y").execute()
+         let riskParameterQuery = new RiskParameterQuery()
+        //Check in RPQS
+        await riskParameterQuery.accountClass('')
+            .accountNo("C012345699-8")
+            .execute()
+            
+            let  results = await   riskParameterQuery.query().where('Account No').equalTo("C012345699-8").fetch('Cash Balance', 'Action', 'Running Cash Balance'
+            ,'LMV (Sellable)'
+           , 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)',
+            'MR (Sellable)'
+            , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount')
+
+            Assert.notNullArr(results)
+                Assert.equals(results,1)
+            Assert.equals(results[0]['Cash Balance'],"1,700.00")
+            Assert.equals(results[0]['Running Cash Balance'],"-404.15")
+            Assert.equals(results[0]['LMV (Sellable)'],"3,000.00")
+            Assert.equals(results[0]['Liability'],"404.15")
+            Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"195.85")
+
+            Assert.equals(results[0]['MR (Sellable)'],"2,400.00")
+            Assert.equals(results[0]['Purchase Power'],"0.00")
+            Assert.equals(results[0]['Asset'],"3,000.00")
+            Assert.equals(results[0]['Equity'],"2,595.85")
+            Assert.equals(results[0]['Excess Equity'],"195.85")
+            Assert.equals(results[0]['Call Amount'],"1,395.85")
+            Assert.equals(results[0]['Force Amount'],"1,695.85")
+            Assert.equals(results[0]['Action'],"No Action")
         
-
 
 
     }
@@ -561,15 +596,20 @@ export class TestRIskParameterConditon {
 
 winston.level = 'debug';
 
-let t = new TestRIskParameterConditon()
+ let t = new TestRIskParameterConditon()
 
+
+// t.testCreditBalanceAccountCreatedTodayShouldAppearInScreen()
+
+
+///*
 t.setup().then(()=>{
     t.testAddExecutionThenRunEODBatch().then(()=>{
-        t.destroy()
+       // t.destroy()
     })
 })
 
-
+//*/
 
 // ///*
 // t.setup().then(() => {
@@ -605,7 +645,6 @@ try {
 }
 
 */
-
 
 
 

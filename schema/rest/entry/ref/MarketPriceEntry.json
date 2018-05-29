@@ -4,28 +4,27 @@
         "required": true,
         "label": "Base Date",
         "id": "baseDate",
-        "defaultValue": "03-07-2018"
+        "defaultValue": ""
     },
     "marketId": {
         "type": "text",
         "required": false,
         "label": "Market",
-        "id": "marketId",
-        "defaultValue": "SET"
+        "id": "marketId"
     },
     "securityCode": {
         "type": "text",
         "required": true,
         "label": "Security Code",
         "id": "securityCode",
-        "defaultValue": "AAV"
+        "defaultValue": ""
     },
     "inputPriceStr": {
         "type": "text",
         "required": true,
         "label": "Input Price",
         "id": "inputPriceStr",
-        "defaultValue": "40"
+        "defaultValue": ""
     },
     "accountNo": {
         "type": "text",
@@ -44,7 +43,7 @@
         "required": true,
         "label": "Data Source",
         "id": "dataSource",
-        "defaultValue": "SCREEN"
+        "defaultValue": "SET"
     },
     "priceType": {
         "type": "select",

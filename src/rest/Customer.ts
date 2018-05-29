@@ -3,6 +3,9 @@ import {Constants} from "../Constants"
 import { Context } from "../context/Context"
 import winston from "winston"
 
+
+const ImageGenerate = require("../utils/ImageGenerate")
+
 export  class Customer {
 
 	private _applicationDate : string
@@ -19,6 +22,14 @@ export  class Customer {
 		return new Promise( (resolve) => {
 
 			winston.debug("Creating Customer...")
+			winston.debug(JSON.stringify(this.getRequest()))
+			
+            //save to image
+			 ImageGenerate.saveImg(JSON.stringify(this.getRequest()))
+			
+
+			
+
 		
 			request.post(Constants.restBasePath + '/ref/clientonboarding/1/entry/all' , {
 				json: JSON.parse(this.getRequest())

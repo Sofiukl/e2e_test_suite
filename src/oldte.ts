@@ -18,6 +18,6 @@ class TC{
 
 }
 
-// var tc = new TC()
-// tc.tcBasicEntryTrade().then()
+ var tc = new TC()
+ tc.tcBasicEntryTrade().then()
 

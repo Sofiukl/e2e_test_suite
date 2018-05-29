@@ -2,6 +2,8 @@ import request from "request"
 import winston from "winston"
 import { Constants } from "../Constants";
 
+const ImageGenerate = require("../utils/ImageGenerate")
+
 export abstract class AbstractRestService{
 
     protected post() : Promise<any>{
@@ -10,6 +12,10 @@ export abstract class AbstractRestService{
 
             winston.debug("Request : " )
             console.log(this.getRequest());
+
+            //save to image
+            ImageGenerate.saveImg(JSON.stringify(this.getRequest()))
+
 
             request.post(Constants.restBasePath +this.getPath() , {
                 json: this.getRequest()
@@ -20,6 +26,8 @@ export abstract class AbstractRestService{
                     winston.debug( err)
                     winston.debug("Body : " )
                     winston.debug(body)
+
+                    //save to screenshot
     
                 if(err!=undefined || !body.success){
 
