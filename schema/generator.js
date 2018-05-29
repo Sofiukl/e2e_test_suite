@@ -17,7 +17,7 @@ if(fileName!="ExecutionEntry"){
         classData = `
 
 import { BaseUIOperations } from "../../BaseUIOperations";
-import { Assert } from "../../common/Assert";
+import { Assert } from "../../../utils/Assert";
 
 export abstract class Abstract${fileName}  extends BaseUIOperations {
 

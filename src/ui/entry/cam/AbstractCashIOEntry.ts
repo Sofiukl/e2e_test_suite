@@ -1,7 +1,8 @@
 
 
 import { BaseUIOperations } from "../../BaseUIOperations";
-import { Assert } from "../../common/Assert";
+import { Assert } from "../../../utils/Assert";
+
 
 export abstract class AbstractCashIOEntry  extends BaseUIOperations {
 

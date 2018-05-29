@@ -602,7 +602,7 @@ winston.level = 'debug';
 // t.testCreditBalanceAccountCreatedTodayShouldAppearInScreen()
 
 
-///*
+/*
 t.setup().then(()=>{
     t.testAddExecutionThenRunEODBatch().then(()=>{
        // t.destroy()
@@ -616,7 +616,7 @@ t.setup().then(()=>{
 //     t.testCashTransferAfterAuthorization()
 // })
 
-/*
+// /*
  
 try {
     t.setup().then(() => {
@@ -627,7 +627,9 @@ try {
                         t.testFeePaymentThoughEpaymentNoImpactToRPQS().then(() => {
                             t.testCashTransferBeforeAuthorization().then(() => {
                                 t.testCashTransferAfterAuthorization().then(() => {
-                                    t.destroy().then(() => { })
+                                    t.testAddExecutionThenRunEODBatch().then(() => {
+                                        t.destroy().then(() => { })
+                                    })
                                 })
                             })
                         })
@@ -635,16 +637,16 @@ try {
                 })
             })
         });
-    })    
+    })
 } catch (error) {
-    console.log("ERROR" );
+    console.log("ERROR");
     console.log(error);
-    
-    
+
+
     t.destroy()
 }
 
-*/
+// */
 
 
 
