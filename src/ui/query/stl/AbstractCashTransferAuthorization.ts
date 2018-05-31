@@ -2,6 +2,7 @@
 
 import { BaseUIOperations } from "../../BaseUIOperations";
 import { Assert } from "../../../utils/Assert";
+
 export abstract class AbstractCashTransferAuthorization  extends BaseUIOperations {
 
     async doValidate() : Promise<any>{

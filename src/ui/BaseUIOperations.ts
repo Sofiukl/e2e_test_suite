@@ -1,6 +1,7 @@
 import {Page} from "puppeteer";
 import {PageContext} from "../context/PageContext"
 import winston from "winston"
+import { TestCaseContext } from "../utils/TestCaseContext";
 
 
 export abstract class BaseUIOperations {
@@ -25,7 +26,8 @@ export abstract class BaseUIOperations {
     protected async screenshot(name? : string)    {
         
         winston.silly("Taking a screenshot")
-        await this._page.screenshot({path : ((name == undefined) ? Date.now()+"" : name )+".png"})
+        
+        await this._page.screenshot({path : ((name == undefined) ? TestCaseContext.getTCId() + Date.now() + "" : name )+".png"})
     }
 
 

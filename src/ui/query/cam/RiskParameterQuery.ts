@@ -1,4 +1,3 @@
-import { AbstractBalanceQuery } from "./AbstractBalanceQuery";
 import { WizardAction } from "../../BaseUIOperations";
 import { PageContext } from "../../../context/PageContext";
 import { Page } from "puppeteer"
@@ -89,8 +88,9 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
         }
 
         await this.screenshot()
+        
 
-
+        await page.click("a.ui-dialog-titlebar-close.ui-corner-all")
         
         
         

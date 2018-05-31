@@ -1,4 +1,5 @@
 import fs from "fs";
+import { TestCaseContext } from "./utils/TestCaseContext";
 
 
 var files = fs.readdirSync("./src")
@@ -6,7 +7,8 @@ var files = fs.readdirSync("./src")
 
 files.forEach(element => {
     
-    if(element.indexOf("reet")>0){
+    
+    if(element.indexOf("greet")>-1){
 
         //console.log(element);
         let testClassFileName = "./"+element.replace(".ts",".js");
@@ -27,7 +29,7 @@ files.forEach(element => {
                   let setup :string= null
                   let destroy :string= null
                   let testCases : string[] = []
-                  for (let i = 0; i<methods.length;i++){
+                  for (let i = 0; i<methods.length;i++) {
 
                     if(methods[i]=="setup"){
                         setup = methods[i]
@@ -42,11 +44,15 @@ files.forEach(element => {
                   }
 
                   if(setup!=null){
+                        let k=0;
                       console.log("Calling : Setup " );
+                      protoOfTest[setup]().then(()=>{
+                        execute(instance , testCases , k)
+                      })
                   }
 
-                  let k=0;
-                  execute(instance , testCases , k)
+                  
+                  
 
                 //   testCases.forEach(element => {
                 //       console.log("Starting execution for " + element);
@@ -79,6 +85,7 @@ files.forEach(element => {
 function execute(instance : any, testCases :string[] , k : number){
     if(k<testCases.length){
         let element = testCases[k]
+        TestCaseContext.next()
         console.log("Starting execution for " + element);
         instance[element]().then(() => {
             k++

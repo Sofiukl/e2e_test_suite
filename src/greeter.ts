@@ -5,7 +5,7 @@ import { Login } from "./ui/common/LoginOperation"
 import { ExecutionEntry } from "./ui/entry/trd/ExecutionEntry";
 import { Customer } from "./rest/Customer";
 import { Context } from "./context/Context";
-import { BalanceQuery } from "./ui/query/cam/BalanceQuery";
+
 import { RiskParameterQuery } from "./ui/query/cam/RiskParameterQuery";
 
 import winston from "winston"
@@ -22,6 +22,7 @@ import { TaxAndCommCalculator } from "./batch/trd/TaxAndCommCalculator";
 import { ExecutionToTrade } from "./batch/trd/ExecutionToTrade";
 import { MarginPurchasePowerCalculator } from "./batch/cam/MarginPurchasePowerCalculator";
 import { Assert } from "./utils/Assert";
+import { CamBalanceQuery } from "./ui/query/cam/CamBalanceQuery";
 
 
 
@@ -29,25 +30,6 @@ import { Assert } from "./utils/Assert";
 
 
 export class TestRIskParameterConditon {
-
-    // login: Login = new Login()
-    // riskParameterQuery: RiskParameterQuery = new RiskParameterQuery()
-    // cust: Customer = new Customer()
-
-    // completion: CompletionEntry = new CompletionEntry()
-
-    // clientReceipt: ClientPayPayInEntry = new ClientPayPayInEntry()
-    // clientWithdrawEntry: ClientWithdrawEntry = new ClientWithdrawEntry()
-
-    // clientFeePaymentUndecidedEntry: ClientFeePaymentUndecidedEntry = new ClientFeePaymentUndecidedEntry()
-
-    // clientFeePaymentConfirmDecided: ClientFeePaymentConfirmDecided = new ClientFeePaymentConfirmDecided();
-
-    // cashTransferEntry : CashTransferEntry = new CashTransferEntry()
-
-    // cashTransferAuthorization : CashTransferAuthorization = new CashTransferAuthorization();
-
-
 
     async setup() {
         //login
@@ -57,27 +39,25 @@ export class TestRIskParameterConditon {
     }
 
     async testCreditBalanceAccountCreatedTodayShouldAppearInScreen() {
-
         winston.info("Test for testCreditBalanceAccountCreatedTodayShouldAppearInScreen ");
-
         //Create a customer
         let cust = new Customer()
         await cust.applicationDate("03-07-2018").customerCode("12345699").create()
 
         let riskParameterQuery = new RiskParameterQuery()
         //Check in RPQS
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
 
-        let results = await riskParameterQuery.where("Account No").equalTo("C012345699-8").fetch('Cash Balance', 'Action');
+        let results = await riskParameterQuery.where("Account No").equalTo("C012345699-8").fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action);
 
         Assert.notNullArr(results)
         Assert.equals(results.length,1)
         Assert.equals(results[0]['Cash Balance'],"0.00")
         
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
         winston.info("Test for testCreditBalanceAccountCreatedTodayShouldAppearInScreen  SUCCESS");
 
@@ -102,19 +82,19 @@ export class TestRIskParameterConditon {
 
         //check the RPQS
         await riskParameterQuery
-            .accountClass('')
+            .accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
         let rpqsResult = await riskParameterQuery
-            .where("Account No").equalTo("C012345699-8").fetch('Cash Balance', 'Action');
+            .where(RiskParameterQuery.ResultColumns.Account_No).equalTo("C012345699-8").fetch(RiskParameterQuery.ResultColumns.Cash_Balance,RiskParameterQuery.ResultColumns.Action);
 
             Assert.notNullArr(rpqsResult)
             Assert.equals(rpqsResult.length,1)
 
         
-        Assert.equals(rpqsResult[0]['Cash Balance'],"0.00")
-        Assert.equals(rpqsResult[0]['Action'],"No Action")
+        Assert.equals(rpqsResult[0][RiskParameterQuery.ResultColumns.Cash_Balance],"0.00")
+        Assert.equals(rpqsResult[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
         let completion = new CompletionEntry()
@@ -126,29 +106,33 @@ export class TestRIskParameterConditon {
         //check the RPQS
 
         await riskParameterQuery
-            .accountClass('')
+            .accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
-        let results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+        let results = await riskParameterQuery.where(RiskParameterQuery.ResultColumns.Account_No).equalTo("C012345699-8")
+            .fetch(RiskParameterQuery.ResultColumns.Cash_Balance, RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, 
+                RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, 
+                RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
-        Assert.equals(results[0]['Cash Balance'],"5,000.00")
-        Assert.equals(results[0]['Running Cash Balance'],"5,000.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"5,000.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"5,000.00")
-        Assert.equals(results[0]['Equity'],"5,000.00")
-        Assert.equals(results[0]['Excess Equity'],"5,000.00")
-        Assert.equals(results[0]['Call Amount'],"5,000.00")
-        Assert.equals(results[0]['Force Amount'],"5,000.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Cash_Balance],"5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"5,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
 
@@ -175,29 +159,31 @@ export class TestRIskParameterConditon {
 
         //check the RPQS
         let riskParameterQuery = new RiskParameterQuery()
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
         let results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+            .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
         Assert.equals(results[0]['Cash Balance'],"5,000.00")
-        Assert.equals(results[0]['Running Cash Balance'],"2,000.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"3,000.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"2,000.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"2,000.00")
-        Assert.equals(results[0]['Equity'],"2,000.00")
-        Assert.equals(results[0]['Excess Equity'],"2,000.00")
-        Assert.equals(results[0]['Call Amount'],"2,000.00")
-        Assert.equals(results[0]['Force Amount'],"2,000.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"3,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
 
@@ -205,31 +191,33 @@ export class TestRIskParameterConditon {
         await completion.settlementReferenceNo(settlementReferenceNumber).execute();
 
         //navigate to RPQS 
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
 
 
         results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+            .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
         Assert.equals(results[0]['Cash Balance'],"2,000.00")
-        Assert.equals(results[0]['Running Cash Balance'],"2,000.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"2,000.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"2,000.00")
-        Assert.equals(results[0]['Equity'],"2,000.00")
-        Assert.equals(results[0]['Excess Equity'],"2,000.00")
-        Assert.equals(results[0]['Call Amount'],"2,000.00")
-        Assert.equals(results[0]['Force Amount'],"2,000.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
 
@@ -250,29 +238,31 @@ export class TestRIskParameterConditon {
             .execute()
 
         let riskParameterQuery = new RiskParameterQuery();
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
         let results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+            .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
         Assert.equals(results[0]['Cash Balance'],"2,000.00")
-        Assert.equals(results[0]['Running Cash Balance'],"2,000.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"2,000.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"2,000.00")
-        Assert.equals(results[0]['Equity'],"2,000.00")
-        Assert.equals(results[0]['Excess Equity'],"2,000.00")
-        Assert.equals(results[0]['Call Amount'],"2,000.00")
-        Assert.equals(results[0]['Force Amount'],"2,000.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"2,000.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
         await clientFeePaymentConfirmDecided
@@ -286,60 +276,64 @@ export class TestRIskParameterConditon {
             .payInSlipFileReferenceName("")
             .execute()
 
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
         results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+            .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
         Assert.equals(results[0]['Cash Balance'],"2,000.00")
-        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"1,500.00")
-        Assert.equals(results[0]['Equity'],"1,500.00")
-        Assert.equals(results[0]['Excess Equity'],"1,500.00")
-        Assert.equals(results[0]['Call Amount'],"1,500.00")
-        Assert.equals(results[0]['Force Amount'],"1,500.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
         //Mark for completion
         await completion.settlementReferenceNo('').chequeNo("2018091112345699").execute();
 
         //navigate to RPQS 
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
 
 
         results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+            .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
         Assert.equals(results[0]['Cash Balance'],"1,500.00")
-        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"1,500.00")
-        Assert.equals(results[0]['Equity'],"1,500.00")
-        Assert.equals(results[0]['Excess Equity'],"1,500.00")
-        Assert.equals(results[0]['Call Amount'],"1,500.00")
-        Assert.equals(results[0]['Force Amount'],"1,500.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
 
@@ -361,29 +355,31 @@ export class TestRIskParameterConditon {
             .externalReferenceNo("08153220180123456992")
             .execute()
 
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
         let results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+            .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
         Assert.equals(results[0]['Cash Balance'],"1,500.00")
-        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"1,500.00")
-        Assert.equals(results[0]['Equity'],"1,500.00")
-        Assert.equals(results[0]['Excess Equity'],"1,500.00")
-        Assert.equals(results[0]['Call Amount'],"1,500.00")
-        Assert.equals(results[0]['Force Amount'],"1,500.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
         await clientFeePaymentConfirmDecided.clear()
@@ -402,29 +398,31 @@ export class TestRIskParameterConditon {
             .payInSlipFileReferenceName("")
             .execute()
 
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
 
         results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-            .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-                , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-                , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+            .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+                , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+                , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+                RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
         Assert.notNullArr(results)
         Assert.equals(results,1)
         Assert.equals(results[0]['Cash Balance'],"1,500.00")
-        Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
-        Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-        Assert.equals(results[0]['Liability'],"0.00")
-        Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
-        Assert.equals(results[0]['Purchase Power'],"0.00")
-        Assert.equals(results[0]['Asset'],"1,500.00")
-        Assert.equals(results[0]['Equity'],"1,500.00")
-        Assert.equals(results[0]['Excess Equity'],"1,500.00")
-        Assert.equals(results[0]['Call Amount'],"1,500.00")
-        Assert.equals(results[0]['Force Amount'],"1,500.00")
-        Assert.equals(results[0]['Action'],"No Action")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+            "1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"1,500.00")
+        Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
 
@@ -453,29 +451,31 @@ export class TestRIskParameterConditon {
         //Perform Cash Transfer
         await cashTransferEntry.fromAccount("C012345699-7").toAccount("C012345699-8").transferAmount("200").execute()
 
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
         .accountNo("C012345699-8")
         .execute()
 
  let   results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-        .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-            , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-            , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+        .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+            , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+            , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+            RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
     Assert.notNullArr(results)
     Assert.equals(results,1)
     Assert.equals(results[0]['Cash Balance'],"1,500.00")
-    Assert.equals(results[0]['Running Cash Balance'],"1,500.00")
-    Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-    Assert.equals(results[0]['Liability'],"0.00")
-    Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,500.00")
-    Assert.equals(results[0]['Purchase Power'],"0.00")
-    Assert.equals(results[0]['Asset'],"1,500.00")
-    Assert.equals(results[0]['Equity'],"1,500.00")
-    Assert.equals(results[0]['Excess Equity'],"1,500.00")
-    Assert.equals(results[0]['Call Amount'],"1,500.00")
-    Assert.equals(results[0]['Force Amount'],"1,500.00")
-    Assert.equals(results[0]['Action'],"No Action")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"1,500.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"1,500.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"1,500.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"1,500.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+        "1,500.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"1,500.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"1,500.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
 
     }
@@ -486,29 +486,31 @@ export class TestRIskParameterConditon {
         //authorize previous transaction
        await  cashTransferAuthorization.fromAccountNo("C012345699-7").toAccountNo("C012345699-8").execute()
 
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
         .accountNo("C012345699-8")
         .execute()
 
  let  results = await riskParameterQuery.where("Account No").equalTo("C012345699-8")
-        .fetch('Cash Balance', 'Action', 'Running Cash Balance'
-            , 'Unsettled Withdraw Latest', 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)'
-            , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount');
+        .fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
+            , RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest, RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day
+            , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+            RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount);
 
     Assert.notNullArr(results)
     Assert.equals(results,1)
     Assert.equals(results[0]['Cash Balance'],"1,700.00")
-    Assert.equals(results[0]['Running Cash Balance'],"1,700.00")
-    Assert.equals(results[0]['Unsettled Withdraw Latest'],"0.00")
-    Assert.equals(results[0]['Liability'],"0.00")
-    Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"1,700.00")
-    Assert.equals(results[0]['Purchase Power'],"0.00")
-    Assert.equals(results[0]['Asset'],"1,700.00")
-    Assert.equals(results[0]['Equity'],"1,700.00")
-    Assert.equals(results[0]['Excess Equity'],"1,700.00")
-    Assert.equals(results[0]['Call Amount'],"1,700.00")
-    Assert.equals(results[0]['Force Amount'],"1,700.00")
-    Assert.equals(results[0]['Action'],"No Action")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"1,700.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Unsettled_Withdraw_Latest],"0.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"0.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"1,700.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"1,700.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"1,700.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+        "1,700.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"1,700.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"1,700.00")
+    Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
 
     }
 
@@ -550,32 +552,34 @@ export class TestRIskParameterConditon {
 
          let riskParameterQuery = new RiskParameterQuery()
         //Check in RPQS
-        await riskParameterQuery.accountClass('')
+        await riskParameterQuery.accountClass(RiskParameterQuery.AccountClass.CREDIT_BALANCE__CREDIT_BALANCE)
             .accountNo("C012345699-8")
             .execute()
             
-            let  results = await   riskParameterQuery.query().where('Account No').equalTo("C012345699-8").fetch('Cash Balance', 'Action', 'Running Cash Balance'
+            let  results = await   riskParameterQuery.query().where('Account No').equalTo("C012345699-8").fetch('Cash Balance', RiskParameterQuery.ResultColumns.Action, RiskParameterQuery.ResultColumns.Running_Cash_Balance
             ,'LMV (Sellable)'
-           , 'Liability', 'Withdraw Limit/Withdraw Limit (Next Business Day)',
+           , RiskParameterQuery.ResultColumns.Liability, RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day,
             'MR (Sellable)'
-            , 'Purchase Power', 'Asset', 'Equity', 'Excess Equity', 'Call Amount', 'Force Amount')
+            , RiskParameterQuery.ResultColumns.Purchase_Power, RiskParameterQuery.ResultColumns.Asset, RiskParameterQuery.ResultColumns.Equity, RiskParameterQuery.ResultColumns.Excess_Equity, 
+            RiskParameterQuery.ResultColumns.Call_Amount, RiskParameterQuery.ResultColumns.Force_Amount)
 
             Assert.notNullArr(results)
                 Assert.equals(results,1)
             Assert.equals(results[0]['Cash Balance'],"1,700.00")
-            Assert.equals(results[0]['Running Cash Balance'],"-404.15")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Running_Cash_Balance],"-404.15")
             Assert.equals(results[0]['LMV (Sellable)'],"3,000.00")
-            Assert.equals(results[0]['Liability'],"404.15")
-            Assert.equals(results[0]['Withdraw Limit/Withdraw Limit (Next Business Day)'],"195.85")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Liability],"404.15")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Withdraw_Limit_Withdraw_Limit_Next_Business_Day],"195.85")
 
             Assert.equals(results[0]['MR (Sellable)'],"2,400.00")
-            Assert.equals(results[0]['Purchase Power'],"0.00")
-            Assert.equals(results[0]['Asset'],"3,000.00")
-            Assert.equals(results[0]['Equity'],"2,595.85")
-            Assert.equals(results[0]['Excess Equity'],"195.85")
-            Assert.equals(results[0]['Call Amount'],"1,395.85")
-            Assert.equals(results[0]['Force Amount'],"1,695.85")
-            Assert.equals(results[0]['Action'],"No Action")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Purchase_Power],"0.00")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Asset],"3,000.00")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Equity],"2,595.85")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Excess_Equity],
+                "195.85")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Call_Amount],"1,395.85")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Force_Amount],"1,695.85")
+            Assert.equals(results[0][RiskParameterQuery.ResultColumns.Action],"No Action")
         
 
 
@@ -596,7 +600,8 @@ export class TestRIskParameterConditon {
 
 winston.level = 'debug';
 
- let t = new TestRIskParameterConditon()
+
+ 
 
 
 // t.testCreditBalanceAccountCreatedTodayShouldAppearInScreen()
@@ -616,7 +621,7 @@ t.setup().then(()=>{
 //     t.testCashTransferAfterAuthorization()
 // })
 
-// /*
+/*
  
 try {
     t.setup().then(() => {
@@ -647,6 +652,3 @@ try {
 }
 
 // */
-
-
-
