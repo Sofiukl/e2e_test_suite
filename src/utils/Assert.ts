@@ -22,7 +22,7 @@ export  class Assert{
 
 
         static notNull(actual : any , message? : string){
-            if(!actual){
+            if(actual){
                 if(message){
                     winston.info(message)
                 }
@@ -37,7 +37,7 @@ export  class Assert{
 
         
         static notNullArr(actual : any[] , message? : string){
-            if(!actual){
+            if(actual){
                 if(message){
                     winston.info(message)
                 }
