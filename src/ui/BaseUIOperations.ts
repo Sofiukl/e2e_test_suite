@@ -2,6 +2,8 @@ import {Page} from "puppeteer";
 import {PageContext} from "../context/PageContext"
 import winston from "winston"
 import { TestCaseContext } from "../utils/TestCaseContext";
+import { ExcelUtils } from "../utils/ExcelUtils";
+import { QueryRetriever } from "./query/util/QueryRetriever";
 
 
 export abstract class BaseUIOperations {
@@ -27,7 +29,12 @@ export abstract class BaseUIOperations {
         
         winston.silly("Taking a screenshot")
         
-        await this._page.screenshot({path : ((name == undefined) ? TestCaseContext.getTCId() + Date.now() + "" : name )+".png"})
+        let imageName = ((name == undefined) ? TestCaseContext.getTCId()+"-" + Date.now() + "" : name )+".png"
+
+        await this._page.screenshot({path : imageName})
+
+        ExcelUtils.getInstance().addImage(imageName)
+
     }
 
 
@@ -170,6 +177,57 @@ export abstract class BaseUIOperations {
       }
 
 
+ 
+      
+      private _column : string;
+      private _matchingCriteria : any[] = []
+  
+  
+      /**
+       * query
+       */
+      public query() : BaseUIOperations{
+          return this
+      }
+  
+      /**
+       * where()
+       */
+      public where(v : string) : BaseUIOperations {
+  
+          this._column = v
+          return this;
+      }
+  
+      /**
+       * equalTo
+       */
+      public equalTo(v : string) : BaseUIOperations {
+          this._matchingCriteria.push({column : this._column , value : v})
+          //this._matchingCriteria =  undefined
+          return this
+      }
+  
+      /**
+       * 
+       * @param columnsToReturn - The columns which should be returned by this query
+       */
+      public async fetch( ...columnsToReturn : string[]) : Promise<any[]> {
+  
+  
+          let query = new QueryRetriever()
+          
+          query.setMatchingCriteria(this._matchingCriteria)
+          query.setReturnColumn(columnsToReturn)
+          var results=await query.fetch()
+          this._matchingCriteria=[]
+          return results;
+  
+  
+  
+      }
+
+      
       
 
       

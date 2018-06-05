@@ -64,7 +64,7 @@ export class TestRIskParameterConditon {
 
     }
 
-
+// /*
     async testCreditBalanceAccountCashIn() {
 
         winston.info("Test for testCreditBalanceAccountCashIn");
@@ -520,7 +520,7 @@ export class TestRIskParameterConditon {
         //Add execution
 
 
-    //    /*
+    
 
         let executionEntry : ExecutionEntry = new ExecutionEntry()
 
@@ -548,7 +548,7 @@ export class TestRIskParameterConditon {
             let marginPurchasePowerCalculator : MarginPurchasePowerCalculator = new MarginPurchasePowerCalculator()
             await marginPurchasePowerCalculator.accountno("C012345699-8").rundate("20180703").lmvrequired("Y").execute()
             
-            // */
+            
 
          let riskParameterQuery = new RiskParameterQuery()
         //Check in RPQS
@@ -585,7 +585,7 @@ export class TestRIskParameterConditon {
 
     }
 
-
+    //*/
     //CashTransferAuthorization
 
     async destroy() {

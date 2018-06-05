@@ -19,6 +19,7 @@
     "cheerio": "^1.0.0-rc.2",
     "decode-uri-component": "^0.2.0",
     "dts-gen": "^0.5.7",
+    "exceljs": "^1.4.7",
     "fs-walker": "^1.0.0",
     "http-proxy": "^1.17.0",
     "jimp": "^0.2.28",

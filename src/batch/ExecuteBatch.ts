@@ -40,13 +40,6 @@ export abstract class  ExecuteBatch {
 
         imageGenerate.saveImg(result.toString())
         console.log("stdout  " + result.toString());
-        //stdout.pipe(process.stdout);
-        //stderr.pipe(process.stdout);
-        
-        
-        
-        
-        
         console.log("Executed " + this.batchName() + "Successfully" );
         
         }catch(exception){

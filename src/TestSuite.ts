@@ -1,5 +1,6 @@
 import fs from "fs";
 import { TestCaseContext } from "./utils/TestCaseContext";
+import { ExcelUtils } from "./utils/ExcelUtils";
 
 
 var files = fs.readdirSync("./src")
@@ -7,8 +8,9 @@ var files = fs.readdirSync("./src")
 
 files.forEach(element => {
     
+    console.log(element);
     
-    if(element.indexOf("greet")>-1){
+    if(element.indexOf("CUSLONE-579")>-1){
 
         //console.log(element);
         let testClassFileName = "./"+element.replace(".ts",".js");
@@ -46,6 +48,7 @@ files.forEach(element => {
                   if(setup!=null){
                         let k=0;
                       console.log("Calling : Setup " );
+                      
                       protoOfTest[setup]().then(()=>{
                         execute(instance , testCases , k)
                       })
@@ -67,9 +70,9 @@ files.forEach(element => {
                       
                 //   })
 
-                  if(destroy!=null){
-                      console.log("Calling Destroy");
-                  }
+                //   if(destroy!=null){
+                //       console.log("Calling Destroy");
+                //   }
                     
                   
 
@@ -92,5 +95,7 @@ function execute(instance : any, testCases :string[] , k : number){
             console.log("Completed execution for " + element);
             execute(instance,testCases,k)
         })     
+    }else{
+        ExcelUtils.getInstance().save()
     }
 }

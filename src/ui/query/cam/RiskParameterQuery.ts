@@ -63,8 +63,6 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
 
         const popupResult = await executionContext.evaluate(() => {
             //$("div.slick-viewport").scrollLeft()
-            
-            
 
             let resultPosition = []
 
@@ -87,7 +85,7 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
 
         }
 
-        await this.screenshot()
+        //await this.screenshot()
         
 
         await page.click("a.ui-dialog-titlebar-close.ui-corner-all")
@@ -100,52 +98,5 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
         
     }
 
-    private _column : string;
-    private _matchingCriteria : any[] = []
-
-
-    /**
-     * query
-     */
-    public query() : RiskParameterQuery{
-        return this
-    }
-
-    /**
-     * where()
-     */
-    public where(v : string) : RiskParameterQuery {
-
-        this._column = v
-        return this;
-    }
-
-    /**
-     * equalTo
-     */
-    public equalTo(v : string) : RiskParameterQuery {
-        this._matchingCriteria.push({column : this._column , value : v})
-        //this._matchingCriteria =  undefined
-        return this
-    }
-
-    /**
-     * 
-     * @param columnsToReturn - The columns which should be returned by this query
-     */
-    public async fetch( ...columnsToReturn : string[]) : Promise<any[]> {
-
-
-        let query = new QueryRetriever()
-        
-        query.setMatchingCriteria(this._matchingCriteria)
-        query.setReturnColumn(columnsToReturn)
-        var results=await query.fetch()
-        this._matchingCriteria=[]
-        return results;
-
-
-
-    }
 
 }
