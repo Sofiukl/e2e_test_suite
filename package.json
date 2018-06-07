@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bundledDependencies" : [
+  "chai","cheerio","decode-uri-component","dts-gen","exceljs","fs-walker","http-proxy","jimp",
+  "line-by-line","line-by-line-promise","oracledb","puppeteer","readline","request","typescript","winston","xml2js"
+  ] ,
   "scripts": {
     "build": "npm run build-ts && npm run testcase ",
     "test": "jest --forceExit --coverage --verbose",
