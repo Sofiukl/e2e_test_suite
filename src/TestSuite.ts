@@ -3,21 +3,26 @@ import { TestCaseContext } from "./utils/TestCaseContext";
 import { ExcelUtils } from "./utils/ExcelUtils";
 
 
-var files = fs.readdirSync("./src")
+var files = fs.readdirSync("./src/test")
 
 
 files.forEach(element => {
     
     console.log(element);
     
-    if(element.indexOf("CUSLONE-579")>-1){
+    if(element.indexOf("CUSLONE_436")>-1){
 
         //console.log(element);
-        let testClassFileName = "./"+element.replace(".ts",".js");
+        let testClassFileName = "./test/"+element.replace(".ts",".js");
+        console.log(testClassFileName);
+        
+
 
 
         import(testClassFileName).then(testFile => {
+            
             for(let exportedClass in testFile){                
+                console.log("exportedClass" + exportedClass);
                 let instance = new testFile[exportedClass]()
                 //This is used to read any property of thenclass object
                 // for (var member in instance) {
@@ -55,25 +60,6 @@ files.forEach(element => {
                   }
 
                   
-                  
-
-                //   testCases.forEach(element => {
-                //       console.log("Starting execution for " + element);
-                      
-                //       console.log(element);
-                //      instance[element]()
-
-                      
-                      
-
-                //       console.log("Successfully executed " + element);
-                      
-                //   })
-
-                //   if(destroy!=null){
-                //       console.log("Calling Destroy");
-                //   }
-                    
                   
 
             }       

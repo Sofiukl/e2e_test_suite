@@ -524,14 +524,14 @@ export class TestRIskParameterConditon {
 
         let executionEntry : ExecutionEntry = new ExecutionEntry()
 
-        await executionEntry.execScreenDatacpAccountNo("C012345699-8")
-        .execScreenDataquantityStr("100")
-        .execScreenDatasecurityInfo("AAV")
-        .execScreenDatasenderReferenceNo("OD-0000000001")
-        .execScreenDatasourceReferenceNo("TD-0000000001")
-        .execScreenDatainputPriceStr("20")
-        .execScreenDatatradeDateStr("03-07-2018")
-        .execute()
+        // await executionEntry.execScreenDatacpAccountNo("C012345699-8")
+        // .execScreenDataquantityStr("100")
+        // .execScreenDatasecurityInfo("AAV")
+        // .execScreenDatasenderReferenceNo("OD-0000000001")
+        // .execScreenDatasourceReferenceNo("TD-0000000001")
+        // .execScreenDatainputPriceStr("20")
+        // .execScreenDatatradeDateStr("03-07-2018")
+        // .execute()
 
 
             let executionToTrade : ExecutionToTrade = new ExecutionToTrade();

@@ -8,6 +8,8 @@ export class PageContext {
 
     private static instance: PageContext;
 
+
+    
     private _browser : Browser
     private _page : Page;
 
@@ -35,10 +37,10 @@ export class PageContext {
         return this._page;
     }
 
-    public async initPage(){
+    public async initPage(hiddenChrome? : boolean){
         if(!this._initialized){
             this._initialized=true
-             this._browser = await launch({ headless : false , args : [ '--start-maximized']})
+             this._browser = await launch({ headless : hiddenChrome , args : [ '--start-maximized']})
             const page = await this._browser.newPage()
             
             page.setViewport({
