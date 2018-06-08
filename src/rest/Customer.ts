@@ -2,9 +2,8 @@ import request  from "request"
 import {Constants} from "../Constants"
 import { Context } from "../context/Context"
 import winston from "winston"
+import { ExcelUtils } from "../utils/ExcelUtils";
 
-
-const ImageGenerate = require("../utils/ImageGenerate")
 
 export  class Customer {
 
@@ -25,7 +24,7 @@ export  class Customer {
 			winston.debug(JSON.stringify(this.getRequest()))
 			
             //save to image
-			 ImageGenerate.saveImg(JSON.stringify(this.getRequest()))
+			ExcelUtils.getInstance().addText(this.getRequest())
 			
 
 			

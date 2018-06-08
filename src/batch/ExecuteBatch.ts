@@ -1,8 +1,8 @@
 import  child  from "child_process";
 import {Constants} from "../Constants";
 import { Context } from "../context/Context";
+import { ExcelUtils } from "../utils/ExcelUtils";
 
-const imageGenerate = require("../utils/ImageGenerate")
 
 
 
@@ -26,21 +26,15 @@ export abstract class  ExecuteBatch {
             });
         }
 
-        // if(args != undefined){
-        //     args.forEach(element => {
-        //         command += " "+element +" "    
-        //     });
-        // }
-
         console.log(" To Execute" + command );
+        ExcelUtils.getInstance().addCommand(command)
         try{
             
             
         const result = await child.execSync(command );
 
-        imageGenerate.saveImg(result.toString())
-        console.log("stdout  " + result.toString());
-        console.log("Executed " + this.batchName() + "Successfully" );
+
+        ExcelUtils.getInstance().addCommand(result.toString())
         
         }catch(exception){
             console.log(exception);
@@ -55,6 +49,6 @@ export abstract class  ExecuteBatch {
 
     abstract defaultArguments() : string[];
 
-   
+            
 
 }

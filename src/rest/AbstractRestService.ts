@@ -1,8 +1,9 @@
 import request from "request"
 import winston from "winston"
 import { Constants } from "../Constants";
+import { ExcelUtils } from "../utils/ExcelUtils";
 
-const ImageGenerate = require("../utils/ImageGenerate")
+
 
 export abstract class AbstractRestService{
 
@@ -14,7 +15,7 @@ export abstract class AbstractRestService{
             console.log(this.getRequest());
 
             //save to image
-            ImageGenerate.saveImg(JSON.stringify(this.getRequest()))
+            ExcelUtils.getInstance().addText(this.getRequest())
 
 
             request.post(Constants.restBasePath +this.getPath() , {

@@ -1,5 +1,6 @@
 import  Excel  from "exceljs";
 import fs from "fs"
+import { ImageGenerate } from "./ImageGenerate";
 
 //var Excel = require('exceljs');
 
@@ -40,16 +41,32 @@ export class ExcelUtils {
         this._location = 2
     }
 
-    addImage(imageName : string){
+    addImage(imageName : string, rows? : number){
         this.init()
         var imageId2 = this._workbook.addImage({
             buffer: fs.readFileSync(imageName),
             extension: 'png',
           });
         
-        let endLocation = this._location + 20
+        rows =  (rows==undefined || rows == 0) ? 20 : rows
+
+        let endLocation = this._location + rows
          this._currentWorksheet.addImage(imageId2, 'B'+this._location+':O'+endLocation);
          this._location = endLocation+2
+    }
+
+    addText(text : string){
+        this.init()
+        let imageName = ImageGenerate.createImage(text)
+        this.addImage(imageName,text.split('\n').length*2)
+       
+    }
+
+    addCommand(text : string){
+        this.init()
+        let imageName = ImageGenerate.createImage(text,true)
+        this.addImage(imageName,text.split('\n').length*2)
+       
     }
 
     save(){
