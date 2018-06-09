@@ -11,7 +11,10 @@ class TC{
   async tcBasicEntryTrade(){
 
 
-        await this.app.getCurrent()
+        let x = await this.app.getCurrent()
+
+        console.log( x);
+        
        
     }
 

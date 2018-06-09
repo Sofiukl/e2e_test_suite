@@ -1,27 +1,39 @@
-import { Connection, getConnection } from "oracledb"
+import { ConnectionPool } from "./common/ConnectionPool";
+import { ExcelUtils } from "../utils/ExcelUtils";
+
 
 
 export class ApplicationDate{
 
 
-    public async getCurrent(){
-        let connection = await getConnection({
-            user          : "gvth_dev_gmo_txn",
-            password      : "gvth_dev_gmo_txn",
-            connectString : "localhost/XE"
-          })
+    public  getCurrent() : string {
 
-        let result = await connection.execute("select application_date from ref_closing_status where enterprise_id = 'GMO' and component_id = 'CAM' and app_mode='OL'")
+        let sql = "SELECT to_char(MAX(APPLICATION_DATE),'DD-MM-YYYY') FROM REF_CLOSING_STATUS WHERE ENTERPRISE_ID = 'GMO'"
 
-        console.log(result);
+         let result  = ConnectionPool.getInstance().query(sql)
 
-        await connection.close()
-        
-        
+         
+         
+         return result[1][0]
 
+    }
+
+    /**
+     * 
+     * @param date Provide date in the DD-MM-YYYY format
+     */
+    public  updateApplicationDate(date : string){
+
+        let sql = "UPDATE REF_CLOSING_STATUS SET APPLICATION_DATE =  TO_DATE('"+date+"','DD-MM-YYYY')"
+
+        ConnectionPool.getInstance().update(sql)
+
+        ExcelUtils.getInstance().addText(sql)
 
 
     }
+
+
 
 
 

@@ -45,9 +45,9 @@ export abstract class  ExecuteBatch {
         return true
     }
 
-    abstract batchName() : string; 
+    protected abstract batchName() : string; 
 
-    abstract defaultArguments() : string[];
+    protected abstract defaultArguments() : string[];
 
             
 

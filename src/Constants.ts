@@ -9,10 +9,26 @@
     private static _uiBasePath :string = "http://localhost:8080/igv-tomcat/"
     private static _restBasePath :string = "http://localhost:8080/igv-rest/"
 
+    private static _dbuser = "gvth_dev_gmo_txn"
+    private static _dbpass = "gvth_dev_gmo_txn"
+    private static _url = "localhost:1521/XE"
+
     
 
 public static get restUser() : string {
     return this._restUser
+}
+
+public static get dbuser() : string {
+    return this._dbuser
+}
+
+public static get dbpass() : string {
+    return this._dbpass
+}
+
+public static get url() : string {
+    return this._url
 }
 
 
