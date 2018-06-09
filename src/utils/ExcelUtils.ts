@@ -70,7 +70,7 @@ export class ExcelUtils {
     }
 
     save(){
-        this._workbook.xlsx.writeFile("a.xlsx")
+        this._workbook.xlsx.writeFile("test_"+Date.now()+".xlsx")
     }
 
 }

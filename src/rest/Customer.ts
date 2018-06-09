@@ -1,6 +1,6 @@
 import request  from "request"
 import {Constants} from "../Constants"
-import { Context } from "../context/Context"
+
 import winston from "winston"
 import { ExcelUtils } from "../utils/ExcelUtils";
 
@@ -26,9 +26,6 @@ export  class Customer {
             //save to image
 			ExcelUtils.getInstance().addText(this.getRequest())
 			
-
-			
-
 		
 			request.post(Constants.restBasePath + '/ref/clientonboarding/1/entry/all' , {
 				json: JSON.parse(this.getRequest())
@@ -43,8 +40,6 @@ export  class Customer {
 				if(err!=undefined){
 					throw new Error("Unable to create customer - account ")
 				}
-				Context.getInstance().cashAccount(`C0${this._customerCode}-7`)
-				Context.getInstance().creditAccount(`C0${this._customerCode}-8`)
 				resolve()
 			}).auth(Constants.restUser ,Constants.restPassword ,false)
 		

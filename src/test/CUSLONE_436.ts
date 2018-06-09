@@ -6,6 +6,7 @@ import { TaxAndCommCalculator } from "../batch/trd/TaxAndCommCalculator";
 import { ExecutionQuery } from "../ui/query/trd/ExecutionQuery";
 import { ApplicationDate } from "../db/ApplicationDate";
 import { GenerateDailyConfirmation } from "../batch/trd/GenerateDailyConfirmation";
+import { DateUtils } from "../utils/DateUtils";
 
 
 
@@ -21,8 +22,9 @@ export class CUSLONE_436 {
          await PageContext.getInstance().initPage(false)
         let login = new Login()
         await login.execute()
-
+        
         let appDt = new ApplicationDate()
+        appDt.updateApplicationDate("04-07-2018")
         this.applicationDate = appDt.getCurrent()
 
     }
@@ -30,6 +32,8 @@ export class CUSLONE_436 {
 
     async testAddExecution(){
 
+        /*
+        
         let execution = new ExecutionEntry()
         await execution
             .cpAccountNo("C0000001-8")
@@ -93,12 +97,13 @@ export class CUSLONE_436 {
             .sourceReferenceNo("TD-0000000005")
         .execute()
 
-
+//*/
         let execTradeBatch = new ExecutionToTrade()
-        await execTradeBatch.account("C0000001-8").tradedate(this.applicationDate).execute()
+        
+        await execTradeBatch.account("C0000001-8").tradedate(DateUtils.convertToBatchFormat(this.applicationDate)).execute()
 
         let taxAndCommCalculator = new TaxAndCommCalculator()
-        await taxAndCommCalculator.account("C0000001-8").date(this.applicationDate).execute()
+        await taxAndCommCalculator.account("C0000001-8").date(DateUtils.convertToBatchFormat(this.applicationDate)).execute()
 
         let executionQuery : ExecutionQuery = new ExecutionQuery()
         await executionQuery.cpAccountNo("C0000001-8").tradeDateFrom(this.applicationDate).tradeDateTo(this.applicationDate).execute()
@@ -107,13 +112,13 @@ export class CUSLONE_436 {
         await generateDailyConfirmation
             .accountNo("C0000001-8")
             .reportId("TR002")
-            .tradeDate(this.applicationDate).execute()
+            .tradeDate(DateUtils.convertToBatchFormat(this.applicationDate)).execute()
 
 
 
 
         // let ad = new ApplicationDate()
-        // ad.updateApplicationDate("04-07-2018")
+        // 
         // this.applicationDate =  "04-07-2018"
 
     }

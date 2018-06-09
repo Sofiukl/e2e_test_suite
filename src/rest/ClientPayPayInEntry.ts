@@ -1,6 +1,5 @@
 import request  from "request"
 import {Constants} from "../Constants"
-import { Context } from "../context/Context"
 import fs from "fs";
 import winston from "winston"
 
