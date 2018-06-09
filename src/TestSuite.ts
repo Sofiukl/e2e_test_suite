@@ -50,6 +50,10 @@ files.forEach(element => {
                     
                   }
 
+                  if(destroy!=null){
+                    testCases.push(destroy)
+                  }
+
                   if(setup!=null){
                         let k=0;
                       console.log("Calling : Setup " );
