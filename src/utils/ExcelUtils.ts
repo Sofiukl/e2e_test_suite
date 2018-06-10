@@ -1,4 +1,4 @@
-import  Excel  from "exceljs";
+import  * as Excel  from "exceljs";
 import fs from "fs"
 import { ImageGenerate } from "./ImageGenerate";
 
@@ -37,12 +37,15 @@ export class ExcelUtils {
 
     addTestCase(testCaseId : string){
         this.init()
+        
         this._currentWorksheet = this._workbook.addWorksheet(testCaseId);
         this._location = 2
     }
 
     addImage(imageName : string, rows? : number){
         this.init()
+
+        // /*
         var imageId2 = this._workbook.addImage({
             buffer: fs.readFileSync(imageName),
             extension: 'png',
@@ -51,8 +54,35 @@ export class ExcelUtils {
         rows =  (rows==undefined || rows == 0) ? 20 : rows
 
         let endLocation = this._location + rows
+        
          this._currentWorksheet.addImage(imageId2, 'B'+this._location+':O'+endLocation);
+         
          this._location = endLocation+2
+         //*/
+    }
+
+
+    addHeading(text : string){
+        this.init()
+        this._currentWorksheet.mergeCells("A"+this._location+":M"+this._location)
+
+        this._currentWorksheet.getCell("A"+this._location).value=text
+        
+        this._currentWorksheet.getCell("A"+this._location).style={
+            fill : {
+                type: 'pattern',
+                pattern:'solid',
+                fgColor:{argb:'FFB8CCE4'}
+            },
+            font : {
+                bold : true
+            }
+
+        }
+
+
+        
+        this._location+=2
     }
 
     addText(text : string){
@@ -69,16 +99,13 @@ export class ExcelUtils {
        
     }
 
-    save(){
-        this._workbook.xlsx.writeFile("test_"+Date.now()+".xlsx")
+
+    
+    async save(){        
+        await this._workbook.xlsx.writeFile("test_"+Date.now()+".xlsx")
     }
 
 }
 
-
-
-
-
-// add image to workbook by buffer
 
 

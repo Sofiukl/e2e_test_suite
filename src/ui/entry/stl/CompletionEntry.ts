@@ -10,7 +10,7 @@ export class CompletionEntry extends AbstractCompletionEntry{
 
         await this.navigate('Settlement','Completion','Entry')
         //navigate
-        // await this.clearFields(this.fetchFields())
+        await this.clearFields(this.fetchFields())
         await this.populateFields(this.fetchFields())
         await this.screenshot()
         await this.wizardNavigate(WizardAction.QuerySubmit)

@@ -13,10 +13,15 @@
     private static _dbpass = "gvth_dev_gmo_txn"
     private static _url = "localhost:1521/XE"
 
+    private static _inputFileBasePath : string = "D:\\opt\\appsdata\\igv\\input\\GMO\\"
+
     
 
 public static get restUser() : string {
     return this._restUser
+}
+public static get inputFileBasePath() : string {
+    return this._inputFileBasePath
 }
 
 public static get dbuser() : string {

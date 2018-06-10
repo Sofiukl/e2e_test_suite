@@ -10,7 +10,7 @@ export class CamMovementQuery extends AbstractCamMovementQuery{
         
         await this.navigate(  'Position & Balances'  ,  'Beneficiary' , 'Movement Query', )
         //navigate
-        // await this.clearFields(this.fetchFields())
+        await this.clearFields(this.fetchFields())
         await this.populateFields(this.fetchFields())
         await this.screenshot()
         await this.wizardNavigate(WizardAction.QuerySubmit)

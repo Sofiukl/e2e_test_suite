@@ -1,26 +1,19 @@
-import { ApplicationDate } from "./db/ApplicationDate";
+import { ExcelUtils } from "./utils/ExcelUtils";
+
+ExcelUtils.getInstance().init()
+
+ExcelUtils.getInstance().addTestCase("TC")
+ExcelUtils.getInstance().addHeading("Risk Parameter Query for Account : AC01")
+ExcelUtils.getInstance().save().then(()=>{
+    console.log("Done");
+})
 
 
 
 
-class TC{
-  
-    app : ApplicationDate = new ApplicationDate()
-    
+//parse a test file.. 
 
-  async tcBasicEntryTrade(){
+//read a method
 
-
-        let x = await this.app.getCurrent()
-
-        console.log( x);
-        
-       
-    }
-
-
-}
-
- var tc = new TC()
- tc.tcBasicEntryTrade().then()
+//then do something which I have no clue about
 

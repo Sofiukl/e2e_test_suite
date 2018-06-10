@@ -10,7 +10,7 @@ export class CashIOEntry extends AbstractCashIOEntry{
 
         await this.navigate("Position & Balances", "Beneficiary" , 'Cash I/O','Cash In/Out Entry')
         //navigate
-        // await this.clearFields(this.fetchFields())
+        await this.clearFields(this.fetchFields())
         await this.populateFields(this.fetchFields())
         await this.screenshot()
         await this.wizardNavigate(WizardAction.Submit)

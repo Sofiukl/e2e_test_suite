@@ -13,15 +13,22 @@ implementations of batch
 export abstract class  ExecuteBatch {
     async execute() : Promise<boolean> {
 
+        this.init()
+
+
+
         var command = Constants.batchBasePath + " -e GMO " + this.batchName() + "" 
 
-        console.log(command);
+        ExcelUtils.getInstance().addHeading(`Executing Batch : ${this.batchName()}`)
         
 
         
         if(this.defaultArguments() != undefined) {
             this.defaultArguments().forEach(element => {
-                command += " "+element +" "    
+                if(element.indexOf(' ')>-1){
+                    element=`"${element}"`
+                }
+                command += " "+element +" "
             });
         }
 
@@ -32,6 +39,8 @@ export abstract class  ExecuteBatch {
             
         const result = await child.execSync(command );
 
+
+        ExcelUtils.getInstance().addHeading(`Results of Batch : ${this.batchName()}`)
 
         ExcelUtils.getInstance().addCommand(result.toString())
         
@@ -47,6 +56,11 @@ export abstract class  ExecuteBatch {
     protected abstract batchName() : string; 
 
     protected abstract defaultArguments() : string[];
+
+    
+    protected init() {
+
+    }
 
             
 

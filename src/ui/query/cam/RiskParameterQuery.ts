@@ -1,6 +1,7 @@
 import { PageContext } from "../../../context/PageContext";
 import { WizardAction } from "../../BaseUIOperations";
 import { AbstractRiskParameterQuery } from "./AbstractRiskParameterQuery";
+import { ExcelUtils } from "../../../utils/ExcelUtils";
 
 
 
@@ -12,7 +13,10 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
     async doExecute(): Promise<any> {
 
         await this.navigate("Position & Balances", "Beneficiary" , "Risk Parameter Query")
+        await this.clearFields(this.fetchFields());
         await this.populateFields(this.fetchFields());
+        let label = (this.accountNo == undefined) ? "" : `Account :  ${this.accountNo}`
+        ExcelUtils.getInstance().addHeading("Risk Parameter Query Screen "+ label)
         await this.screenshot()
         
         await this.wizardNavigate(WizardAction.QuerySubmit)
@@ -20,6 +24,7 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
         // //Determine the acual width
         // $("div.slick-viewport")[0].scrollWidth
 
+        ExcelUtils.getInstance().addHeading(`Risk Parameter Query Results : ${label}`)
         const page = PageContext.getInstance().getPage()
         
         const executionContext = await page.mainFrame().executionContext();
@@ -51,9 +56,13 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
 
         //take snapshot of popup
 
+
+
         await page.click("span.detail-view-hyperlink.popupIconBtn")
         await PageContext.getInstance().waitToNavigate()
         //scroll the height and then take screenshots
+
+        ExcelUtils.getInstance().addHeading(`Risk Parameter Popup : ${label}`)
 
         //$("div.ui-dialog-content.ui-widget-content")[0].scrollHeight
 

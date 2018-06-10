@@ -5,31 +5,29 @@ import { ExcelUtils } from "./utils/ExcelUtils";
 
 var files = fs.readdirSync("./src/test")
 
+if (process.argv.length !=3){
+    console.log("Usage:");    
+    console.log("node TestSuite.ts TEST_NAME ");
+    process.exit(-1)
+    
+}
+
+let testName =process.argv[2]
 
 files.forEach(element => {
     
-    console.log(element);
-    
-    if(element.indexOf("CUSLONE_436")>-1){
+    if(element.indexOf(testName)>-1){
 
         //console.log(element);
         let testClassFileName = "./test/"+element.replace(".ts",".js");
         console.log(testClassFileName);
         
-
-
-
         import(testClassFileName).then(testFile => {
             
             for(let exportedClass in testFile){                
                 console.log("exportedClass" + exportedClass);
                 let instance = new testFile[exportedClass]()
-                //This is used to read any property of thenclass object
-                // for (var member in instance) {
-                //     if (instance.hasOwnProperty(member)) {
-                     
-                //     }
-                //   }
+                
                   let protoOfTest = Object.getPrototypeOf(instance);
                   let methods = Object.getOwnPropertyNames(protoOfTest);
 
@@ -62,10 +60,6 @@ files.forEach(element => {
                         execute(instance , testCases , k)
                       })
                   }
-
-                  
-                  
-
             }       
 
         })
@@ -84,7 +78,10 @@ function execute(instance : any, testCases :string[] , k : number){
             k++
             console.log("Completed execution for " + element);
             execute(instance,testCases,k)
-        })     
+        }).catch(()=>{
+            console.log("Skiping This and all subsequent Step ... ")
+            ExcelUtils.getInstance().save()
+        })
     }else{
         ExcelUtils.getInstance().save()
     }

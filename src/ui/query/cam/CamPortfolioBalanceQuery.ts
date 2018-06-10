@@ -10,7 +10,7 @@ export class CamPortfolioBalanceQuery extends AbstractCamPortfolioBalanceQuery{
         
         await this.navigate(  'Position & Balances'  ,  'Beneficiary' , 'Portfolio Query', )
         //navigate
-        // await this.clearFields(this.fetchFields())
+        await this.clearFields(this.fetchFields())
         await this.populateFields(this.fetchFields())
         await this.screenshot()
         await this.wizardNavigate(WizardAction.QuerySubmit)

@@ -19,11 +19,6 @@ export abstract class BaseUIOperations {
          this._page = await PageContext.getInstance().getPage();
     }
 
-
-    // protected async waitTillNetwork() : Promise<any>{
-    //     await this._page.waitForNavigation({ waitUntil: 'networkidle0' }); 
-    // }
-    
     
     protected async screenshot(name? : string)    {
         

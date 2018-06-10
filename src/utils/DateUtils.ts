@@ -9,4 +9,15 @@ export class DateUtils {
     }
 
 
+    public static sleep(timeout : number) {
+
+        return new Promise( (resolve,reject) =>{
+            setTimeout(() => {
+                resolve()
+            }, timeout);
+        })
+
+    }
+
+
 }

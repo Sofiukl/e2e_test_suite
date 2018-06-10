@@ -164,8 +164,10 @@ private _sortField6 : SortField6 = undefined
 
 
 /**
-  Field with a default value of "03-07-2018"
+  Field with a default value of "29-03-2018"
 */
+
+
 public baseDate(v : string) : AbstractCamBalanceQuery{
     this._baseDate=v
     return this
@@ -179,6 +181,8 @@ public balanceBasis(v : BalanceBasis ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public accountNo(v : string) : AbstractCamBalanceQuery{
     this._accountNo=v
     return this
@@ -192,6 +196,8 @@ public accountBalanceType(v : AccountBalanceType ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public salesId(v : string) : AbstractCamBalanceQuery{
     this._salesId=v
     return this
@@ -200,6 +206,8 @@ public salesId(v : string) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public accountFrom(v : string) : AbstractCamBalanceQuery{
     this._accountFrom=v
     return this
@@ -207,6 +215,8 @@ public accountFrom(v : string) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public accountTo(v : string) : AbstractCamBalanceQuery{
     this._accountTo=v
     return this
@@ -220,6 +230,8 @@ public ledgerId(v : LedgerId ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public currency(v : string) : AbstractCamBalanceQuery{
     this._currency=v
     return this
@@ -228,6 +240,8 @@ public currency(v : string) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public securityCode(v : string) : AbstractCamBalanceQuery{
     this._securityCode=v
     return this
@@ -236,6 +250,8 @@ public securityCode(v : string) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public agentCode(v : string) : AbstractCamBalanceQuery{
     this._agentCode=v
     return this
@@ -244,6 +260,8 @@ public agentCode(v : string) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public instrumentType(v : string) : AbstractCamBalanceQuery{
     this._instrumentType=v
     return this
@@ -277,6 +295,8 @@ public complianceType(v : ComplianceType ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public counterPartyCode(v : string) : AbstractCamBalanceQuery{
     this._counterPartyCode=v
     return this
@@ -294,6 +314,8 @@ public displayLongShortBalance(v : DisplayLongShortBalance ) : AbstractCamBalanc
 /**
   Field with a default value of ""
 */
+
+
 public issueCurrency(v : string) : AbstractCamBalanceQuery{
     this._issueCurrency=v
     return this
@@ -312,6 +334,8 @@ public defaultAccountBalance(v : DefaultAccountBalance ) : AbstractCamBalanceQue
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder1(v : string) : AbstractCamBalanceQuery{
     this._sortFieldOrder1=v
     return this
@@ -324,6 +348,8 @@ public sortField1(v : SortField1 ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder2(v : string) : AbstractCamBalanceQuery{
     this._sortFieldOrder2=v
     return this
@@ -336,6 +362,8 @@ public sortField2(v : SortField2 ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder3(v : string) : AbstractCamBalanceQuery{
     this._sortFieldOrder3=v
     return this
@@ -348,6 +376,8 @@ public sortField3(v : SortField3 ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder4(v : string) : AbstractCamBalanceQuery{
     this._sortFieldOrder4=v
     return this
@@ -360,6 +390,8 @@ public sortField4(v : SortField4 ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder5(v : string) : AbstractCamBalanceQuery{
     this._sortFieldOrder5=v
     return this
@@ -372,6 +404,8 @@ public sortField5(v : SortField5 ) : AbstractCamBalanceQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder6(v : string) : AbstractCamBalanceQuery{
     this._sortFieldOrder6=v
     return this
@@ -392,7 +426,7 @@ public sortField6(v : SortField6 ) : AbstractCamBalanceQuery{
 }
 
 if(this._balanceBasis!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="balanceBasis"]' , value : this._balanceBasis});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="balanceBasis"]' , value : this._balanceBasis});
 }
 
 if(this._accountNo!=undefined){
@@ -400,7 +434,7 @@ if(this._accountNo!=undefined){
 }
 
 if(this._accountBalanceType!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountBalanceType"]' , value : this._accountBalanceType});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="accountBalanceType"]' , value : this._accountBalanceType});
 }
 
 if(this._salesId!=undefined){
@@ -415,7 +449,7 @@ if(this._accountTo!=undefined){
 }
 
 if(this._ledgerId!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="ledgerId"]' , value : this._ledgerId});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="ledgerId"]' , value : this._ledgerId});
 }
 
 if(this._currency!=undefined){
@@ -435,34 +469,34 @@ if(this._instrumentType!=undefined){
 }
 
 if(this._form!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="form"]' , value : this._form});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="form"]' , value : this._form});
 }
 
 if(this._displayByAcBalanceType!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="displayByAcBalanceType"]' , value : this._displayByAcBalanceType});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="displayByAcBalanceType"]' , value : this._displayByAcBalanceType});
 }
 
 if(this._displayZeroBalance!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="displayZeroBalance"]' , value : this._displayZeroBalance});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="displayZeroBalance"]' , value : this._displayZeroBalance});
 }
 
 if(this._ledgerLevelReqd!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="ledgerLevelReqd"]' , value : this._ledgerLevelReqd});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="ledgerLevelReqd"]' , value : this._ledgerLevelReqd});
 }
 
 if(this._complianceType!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="complianceType"]' , value : this._complianceType});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="complianceType"]' , value : this._complianceType});
 }
 
 if(this._counterPartyCode!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="counterPartyCode"]' , value : this._counterPartyCode});
 }
 if(this._counterPartyType!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="counterPartyType"]' , value : this._counterPartyType});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="counterPartyType"]' , value : this._counterPartyType});
 }
 
 if(this._displayLongShortBalance!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="displayLongShortBalance"]' , value : this._displayLongShortBalance});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="displayLongShortBalance"]' , value : this._displayLongShortBalance});
 }
 
 if(this._issueCurrency!=undefined){
@@ -470,53 +504,53 @@ if(this._issueCurrency!=undefined){
 }
 
 if(this._groupingLevel!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="groupingLevel"]' , value : this._groupingLevel});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="groupingLevel"]' , value : this._groupingLevel});
 }
 
 if(this._defaultAccountBalance!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="defaultAccountBalance"]' , value : this._defaultAccountBalance});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="defaultAccountBalance"]' , value : this._defaultAccountBalance});
 }
 
 if(this._sortFieldOrder1!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder1"]' , value : this._sortFieldOrder1});
 }
 if(this._sortField1!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField1"]' , value : this._sortField1});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField1"]' , value : this._sortField1});
 }
 
 if(this._sortFieldOrder2!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder2"]' , value : this._sortFieldOrder2});
 }
 if(this._sortField2!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField2"]' , value : this._sortField2});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField2"]' , value : this._sortField2});
 }
 
 if(this._sortFieldOrder3!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder3"]' , value : this._sortFieldOrder3});
 }
 if(this._sortField3!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField3"]' , value : this._sortField3});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField3"]' , value : this._sortField3});
 }
 
 if(this._sortFieldOrder4!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder4"]' , value : this._sortFieldOrder4});
 }
 if(this._sortField4!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField4"]' , value : this._sortField4});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField4"]' , value : this._sortField4});
 }
 
 if(this._sortFieldOrder5!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder5"]' , value : this._sortFieldOrder5});
 }
 if(this._sortField5!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField5"]' , value : this._sortField5});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField5"]' , value : this._sortField5});
 }
 
 if(this._sortFieldOrder6!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder6"]' , value : this._sortFieldOrder6});
 }
 if(this._sortField6!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField6"]' , value : this._sortField6});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField6"]' , value : this._sortField6});
 }
 
 

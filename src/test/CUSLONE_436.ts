@@ -19,20 +19,20 @@ export class CUSLONE_436 {
     
     async setup() {
         //login
-         await PageContext.getInstance().initPage(false)
+        await PageContext.getInstance().initPage(false)
         let login = new Login()
         await login.execute()
         
-        let appDt = new ApplicationDate()
-        appDt.updateApplicationDate("04-07-2018")
-        this.applicationDate = appDt.getCurrent()
+        
+        ApplicationDate.updateApplicationDate("04-07-2018")
+        this.applicationDate = ApplicationDate.getCurrent()
 
     }
 
 
     async testAddExecution(){
 
-        /*
+        // /*
         
         let execution = new ExecutionEntry()
         await execution
@@ -113,13 +113,6 @@ export class CUSLONE_436 {
             .accountNo("C0000001-8")
             .reportId("TR002")
             .tradeDate(DateUtils.convertToBatchFormat(this.applicationDate)).execute()
-
-
-
-
-        // let ad = new ApplicationDate()
-        // 
-        // this.applicationDate =  "04-07-2018"
 
     }
 

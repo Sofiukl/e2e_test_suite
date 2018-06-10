@@ -10,7 +10,7 @@ export class CashTransferAuthorization extends AbstractCashTransferAuthorization
 
         await this.navigate('Settlement','Cash Transfer','Query')
         //navigate
-        // await this.clearFields(this.fetchFields())
+        await this.clearFields(this.fetchFields())
         await this.populateFields(this.fetchFields())
         await this.screenshot()
         await this.wizardNavigate(WizardAction.QuerySubmit)
