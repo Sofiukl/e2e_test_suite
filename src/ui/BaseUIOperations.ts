@@ -1,4 +1,4 @@
-import {Page} from "puppeteer";
+import {Page, BoundingBox, ScreenshotOptions} from "puppeteer";
 import {PageContext} from "../context/PageContext"
 import winston from "winston"
 import { TestCaseContext } from "../utils/TestCaseContext";
@@ -20,13 +20,25 @@ export abstract class BaseUIOperations {
     }
 
     
-    protected async screenshot(name? : string)    {
+    protected async screenshot(selector? : string )    {
         
         winston.silly("Taking a screenshot")
-        
-        let imageName = ((name == undefined) ? TestCaseContext.getTCId()+"-" + Date.now() + "" : name )+".png"
 
-        await this._page.screenshot({path : imageName})
+        
+
+        let imageName = (TestCaseContext.getTCId()+"-" + Date.now())+".png"
+
+        let screenshotOptions : ScreenshotOptions = {path : imageName }
+        selector = selector ==undefined ? "#formContainer" : selector
+        if(selector!=undefined){
+            try {
+                let elementHandle = await this._page.$(selector)
+                screenshotOptions['clip'] = await elementHandle.boundingBox()    
+            } catch (error) {}
+        }
+        
+
+        await this._page.screenshot(screenshotOptions)
 
         ExcelUtils.getInstance().addImage(imageName)
 
