@@ -24,6 +24,10 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
         // $("div.slick-viewport")[0].scrollWidth
 
         ExcelUtils.getInstance().addHeading(`Risk Parameter Query Results `)
+
+        try {
+            
+        
         const page = PageContext.getInstance().getPage()
         
         const executionContext = await page.mainFrame().executionContext();
@@ -95,7 +99,9 @@ export class RiskParameterQuery extends AbstractRiskParameterQuery {
         await page.click("a.ui-dialog-titlebar-close.ui-corner-all")
         
         
-        
+    } catch (error) {
+            
+    }
         
 
         

@@ -24,13 +24,15 @@ export class CUSLONE_436 {
         await login.execute()
         
         
-        ApplicationDate.updateApplicationDate("04-07-2018")
-        this.applicationDate = ApplicationDate.getCurrent()
+        
 
     }
 
 
-    async testAddExecution(){
+    async tesTTC01(){
+
+        ApplicationDate.updateApplicationDate("14-03-2018")
+        this.applicationDate = ApplicationDate.getCurrent()
 
         // /*
         

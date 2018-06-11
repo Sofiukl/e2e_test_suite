@@ -12,6 +12,8 @@ import { UpdateProcessClosingStatus } from "../batch/ref/UpdateProcessClosingSta
 import { PostCashInterest } from "../batch/cam/PostCashInterest";
 import { ExcelUtils } from "../utils/ExcelUtils";
 import { TestUtils } from "./TestUtils";
+import { RiskParameterQuery } from "../ui/query/cam/RiskParameterQuery";
+import { MarginPurchasePowerCalculator } from "../batch/cam/MarginPurchasePowerCalculator";
 
 //UpdateInterestRate
 
@@ -25,6 +27,10 @@ export class CUSLONE_1077{
 delete from CAM_CASH_OFFSET_RATE where account_pk in (select account_pk from ref_account where account_no in ('C0000003-8' ,'C0000001-8','C9999999-8'));
 delete from ref_process_closing_status where closing_for_month = 3 and closing_for_year = 2018;
 delete from ref_process_closing_status where closing_for_month = 4 and closing_for_year = 2018;
+delete from CAM_INTEREST_ADVICE_DETAILS where INTEREST_AMOUNT_CALC_PK in (select INTEREST_AMOUNT_CALC_PK from CAM_CASH_ACCRUED_INTEREST where status = 'CANCEL');
+delete from CAM_ACCRUED_INTEREST_TAX_FEE where cam_cash_accrued_interest_pk in (select INTEREST_AMOUNT_CALC_PK from CAM_CASH_ACCRUED_INTEREST where status = 'CANCEL');
+delete from CAM_CASH_ACCRUED_INTEREST where status = 'CANCEL';
+
 //make sure cash balance is negative for 3 accounts on 29-mar-2018
 //'C0000003-8' ,'C0000001-8','C9999999-8'
 
@@ -39,14 +45,12 @@ async setup(){
 //test month end operation
 async testDataOn29th(){
 
-    ExcelUtils.getInstance().addHeading("Runnig Test Case for ")
-
     let appDate = "29-03-2018" 
     ApplicationDate.updateApplicationDate(appDate)
 
     //balance query for 29th
 
-    await new CamBalanceQuery().td("C0000003-8").execute()
+    // await new CamBalanceQuery().td("C0000003-8").execute()
     await new CamBalanceQuery().td("C9999999-8").execute()
 
 
@@ -67,7 +71,7 @@ async testDataOn29th(){
     await cashOffsetRateQuery.fromDateStr(appDate).execute()
 
     
-    await TestUtils.accruedEod("C0000003-8","C9999999-8")
+    await TestUtils.accruedEod("C9999999-8")
     //run accrual batch
 
 
@@ -85,7 +89,7 @@ public async test30th(){
 
     //balance query for 30th
 
-    await new CamBalanceQuery().td("C0000003-8").execute()
+    // await new CamBalanceQuery().td("C0000003-8").execute()
     await new CamBalanceQuery().td("C9999999-8").execute()
 
 
@@ -104,10 +108,12 @@ public async test30th(){
     let cashOffsetRateQuery  = new CashOffsetRateQuery()
     await cashOffsetRateQuery.fromDateStr(appDate).execute()
 
-    await TestUtils.accruedEod("C0000003-8","C9999999-8")
+    await TestUtils.accruedEod("C9999999-8")
+
+    
 
 }
-
+ 
 
 public async test31st(){
 
@@ -126,25 +132,22 @@ public async test31st(){
     
     let cashAccrual = new DailyCashAccrual()
     
-    await cashAccrual.credit("C0000003-8").execute()
+    // await cashAccrual.credit("C0000003-8").execute()
     await cashAccrual.credit("C9999999-8").execute()
 
     
     let accruedcash = new AccruedCashInterestQuery()
-    await accruedcash.accountNo("C0000003-8").fromDate(appDate).execute()
+    // await accruedcash.accountNo("C0000003-8").fromDate(appDate).execute()
     await accruedcash.accountNo("C9999999-8").fromDate(appDate).execute()
 
-
+    await DateUtils.sleep(2000)
     //post interest
-
-    let postCashInterest = new PostCashInterest()
-    await postCashInterest.date("20180331").execute()
 
     await DateUtils.sleep(2000)
 
     //run daily risk paramter
 
-    await TestUtils.risk("C0000003-8","C9999999-8")
+    await TestUtils.risk("C9999999-8")
 
 
 
@@ -155,7 +158,10 @@ public async test1st(){
     let appDate = "01-04-2018"
     ApplicationDate.updateApplicationDate(appDate)
 
-    await TestUtils.accruedHoliday("C0000003-8","C9999999-8")
+    let postCashInterest = new PostCashInterest()
+    await postCashInterest.date("20180401").execute()
+
+    await TestUtils.accruedHoliday("C9999999-8")
     
 
 }
@@ -167,14 +173,14 @@ public async test2nd(){
     ApplicationDate.updateApplicationDate(appDate)
 
 
-     await TestUtils.risk("C0000003-8","C9999999-8")
+     await TestUtils.risk("C9999999-8")
 
     //perform actual closing
     let updateProcessClosingStatus = new UpdateProcessClosingStatus()
     await updateProcessClosingStatus.noOfMonthlyBusinessDays("1").execute()
 
     //////////////////////////////////
-    await new CamBalanceQuery().td("C0000003-8").execute()
+    // await new CamBalanceQuery().td("C0000003-8").execute()
     await new CamBalanceQuery().td("C9999999-8").execute()
 
     
@@ -194,7 +200,7 @@ public async test2nd(){
     await cashOffsetRateQuery.fromDateStr(appDate).execute()
 
     //Run  EOD Time Batches and Screen Shots for Accrued Use Case
-    await TestUtils.accruedEod("C0000003-8","C9999999-8")
+    await TestUtils.accruedEod("C9999999-8")
 
 
 }
@@ -208,7 +214,7 @@ public async test3rd(){
     ApplicationDate.updateApplicationDate(appDate)
 
 
-     await TestUtils.risk("C0000003-8","C9999999-8")
+     await TestUtils.risk("C9999999-8")
 
         
     //Upload a file
@@ -227,7 +233,7 @@ public async test3rd(){
     await cashOffsetRateQuery.fromDateStr(appDate).execute()
 
     //Run  EOD Time Batches and Screen Shots for Accrued Use Case
-    await TestUtils.accruedEod("C0000003-8","C9999999-8")
+    await TestUtils.accruedEod("C9999999-8")
 
 
 }
@@ -255,7 +261,7 @@ public async test4th(){
     await cashOffsetRateQuery.fromDateStr(appDate).execute()
 
     //Run  EOD Time Batches and Screen Shots for Accrued Use Case
-    await TestUtils.accruedEod("C0000003-8","C9999999-8")
+    await TestUtils.accruedEod("C9999999-8")
 
 
 }
@@ -265,7 +271,7 @@ public async test5th(){
 
     let appDate = "05-04-2018"
     ApplicationDate.updateApplicationDate(appDate)
-
+// /*
         
     //Upload a file
     // 30-Mar-2018
@@ -273,23 +279,40 @@ public async test5th(){
     let updateInterestRate  = new UpdateInterestRate();
     await updateInterestRate
     
-    .addRecord("C0000003-8","20180404",null,"D","6.059")
-    .addRecord("C0000001-8","20180402",null,"D","5.059") //provided a record after 4 days
-    .addRecord("C9999999-8","20180404",null,"D","6.059")
+    .addRecord("C0000003-8","20180405",null,"D","6.059")
+    .addRecord("C0000001-8","20180405",null,"D","5.059") //provided a record after 4 days
+    .addRecord("C9999999-8","20180405",null,"D","6.059")
     .execute()
 
 
     let cashOffsetRateQuery  = new CashOffsetRateQuery()
     await cashOffsetRateQuery.fromDateStr(appDate).execute()
+    let cashAccrual = new DailyCashAccrual()
+
+    await cashAccrual.credit(undefined).execute()
+
+    let riskParameter = new MarginPurchasePowerCalculator()
+    await riskParameter.evening("C9999999-8").execute()
+
+    let accruedcashQuery = new AccruedCashInterestQuery()
+        
+    await accruedcashQuery.accountNo("C9999999-8").fromDate(appDate).execute()
+        //screen shots of risk paramter
+
+        let rpqs = new RiskParameterQuery()
+        await rpqs.accountNo("C9999999-8").execute()
+        
 
     //Run  EOD Time Batches and Screen Shots for Accrued Use Case
-    await TestUtils.accruedEod()
     
-
+    
+// */
 
 }
 
 
+
+//*/
 
 async destroy(){
      await PageContext.getInstance().close()

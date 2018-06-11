@@ -3,6 +3,7 @@ import { MarginPurchasePowerCalculator } from "../batch/cam/MarginPurchasePowerC
 import { ApplicationDate } from "../db/ApplicationDate";
 import { AccruedCashInterestQuery } from "../ui/query/cam/AccruedCashInterestQuery";
 import { RiskParameterQuery } from "../ui/query/cam/RiskParameterQuery";
+import { DateUtils } from "../utils/DateUtils";
 
 export class TestUtils{
     
@@ -28,35 +29,30 @@ export class TestUtils{
         allAccounts.push(...creditAccounts)
         allAccounts.push(...cashAccounts)
 
-        if(accounts.length==0){
-            creditAccounts.push(undefined)
-            cashAccounts.push(undefined)
-            allAccounts.push(undefined)
-        }
+       
             
 
         let cashAccrual = new DailyCashAccrual()
 
-        // Credit Balance accrual Batch
-        for(var i=0; i<creditAccounts.length;i++){
-            await cashAccrual.credit(creditAccounts[i]).execute()
-        }
+      
 
         // Cash Balance accrual Batch
         for(var i=0; i<cashAccounts.length;i++){
             await cashAccrual.cash(cashAccounts[i]).execute()
         }
 
+        // Credit Balance accrual Batch
+          for(var i=0; i<creditAccounts.length;i++){
+            await cashAccrual.credit(creditAccounts[i]).execute()
+        }
+
+        await DateUtils.sleep(2000)
+
         // Margin Purchase Batch
         let riskParameter = new MarginPurchasePowerCalculator()
     
         for(var i=0; i<allAccounts.length;i++){
-            if(eod){
-                await riskParameter.evening(allAccounts[i]).execute()
-            }else{
-                await riskParameter.morning(allAccounts[i]).execute()
-            }
-            
+            await riskParameter.evening(allAccounts[i]).execute()
         }
         
         
