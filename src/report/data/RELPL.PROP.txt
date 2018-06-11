@@ -1,0 +1,1 @@
+account_no|in_ref_no|in_qty|out_ref_no|out_qty|close_out_qty|pl
