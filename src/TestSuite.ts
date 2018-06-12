@@ -1,7 +1,9 @@
 import fs from "fs";
+import winston from "winston";
 import { TestCaseContext } from "./utils/TestCaseContext";
 import { ExcelUtils } from "./utils/ExcelUtils";
 
+winston.level="debug"
 
 var files = fs.readdirSync("./src/test")
 
@@ -78,8 +80,10 @@ function execute(instance : any, testCases :string[] , k : number){
             k++
             console.log("Completed execution for " + element);
             execute(instance,testCases,k)
-        }).catch(()=>{
+        }).catch((err : any)=>{
             console.log("Skiping This and all subsequent Step ... ")
+            console.error(err);
+            
             ExcelUtils.getInstance().save()
         })
     }else{

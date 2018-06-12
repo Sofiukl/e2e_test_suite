@@ -37,5 +37,12 @@ export class CamBalanceQuery extends AbstractCamBalanceQuery{
         .balanceBasis(CamBalanceQuery.BalanceBasis.VALUE_DATE_BALANCE)
         return this
     }
+    
+    public sd( account : string) : CamBalanceQuery{
+        this
+         .accountNo(account)
+        .balanceBasis(CamBalanceQuery.BalanceBasis.SETTLE_DATE_BALANCE)
+        return this
+    }
 
 }

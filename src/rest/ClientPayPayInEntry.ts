@@ -2,6 +2,8 @@ import request  from "request"
 import {Constants} from "../Constants"
 import fs from "fs";
 import winston from "winston"
+import { ApplicationDate } from "../db/ApplicationDate";
+import { CompletionEntry } from "../ui/entry/stl/CompletionEntry";
 
 export  class ClientPayPayInEntry {
 
@@ -23,7 +25,15 @@ export  class ClientPayPayInEntry {
 			//to be fetched from CAM_CONFIG later
 
 			//
-
+			try {
+				!fs.existsSync("/opt/") && fs.mkdirSync("/opt/")
+				!fs.existsSync("/opt/appsdata/") && fs.mkdirSync("/opt/appsdata/")
+				!fs.existsSync("/opt/appsdata/tmp/") && fs.mkdirSync("/opt/appsdata/tmp/")	
+			} catch (error) {
+				winston.error(error)
+				winston.error("Unable to create folders '/opt/appsdata/tmp/'")
+			}
+			
 			fs.writeFileSync("/opt/appsdata/tmp/ABCD.pdf","text")
 		
 			request.post(Constants.restBasePath + '/stl/clientreceipt/1/entry' , {
@@ -122,6 +132,23 @@ private getRequest() : string {
 }
 
 
+public static async cashIn(account : string , amount : string ){
+	let clientReceipt = new ClientPayPayInEntry();
+		winston.debug("In cash In for account",account)
+
+		let appDate = ApplicationDate.getCurrent()
+		winston.debug("appDate : ",appDate)	
+        //Create Client Receipt Pay-In
+        var settlementReferenceNo = await clientReceipt
+            .receivedAmount(amount)
+            .valueDate(appDate)
+            .receivedDate(appDate)
+            .accountNo(account)
+			.execute()
+		let completion = new CompletionEntry()
+		await completion.settlementReferenceNo(settlementReferenceNo).execute();
+			
+}
 
 
 }

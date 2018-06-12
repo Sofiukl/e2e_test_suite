@@ -49,6 +49,7 @@ export class PageContext {
             })
             this._page=page
             
+            
             this._page.on('request', ()=>{ 
                 this._openConnections++ 
                 this._lastRequest = Date.now()
@@ -81,7 +82,7 @@ export class PageContext {
           await this.sleep(1000)
           delta = Date.now() - this._lastRequest
 
-          if(delta>60*1000){
+          if(delta>5*60*1000){
               error("Exiting the connection wait  due to timeout...");
               break;
           }

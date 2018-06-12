@@ -12,6 +12,6 @@ export class Login extends BaseUIOperations {
         await this._page.type('#j_password', Constants.appPassword)
         await this._page.click('.loginButton input'); 
         await PageContext.getInstance().waitToNavigate()
-        await this.screenshot()
+        //await this.screenshot()
     }
 }
