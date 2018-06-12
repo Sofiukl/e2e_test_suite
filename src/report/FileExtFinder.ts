@@ -2,6 +2,7 @@ import { ReportType } from "./IReportType";
 
 export let fn = (reportType: any) => {
     let ext = '';
+	
     switch (reportType) {
         case ReportType.DELIMETER_SEPARATED:
             ext = '.txt'
