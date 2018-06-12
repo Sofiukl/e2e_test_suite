@@ -4,57 +4,57 @@ import { BaseUIOperations } from "../../BaseUIOperations";
 
 //Define the results Enum
 
-export enum ResultColumns {
+enum ResultColumns {
     Order_Reference_No = "Order Reference No",Client_Order_No = "Client Order No",Cross_Reference_No = "Cross Reference No",Account_No = "Account No",Account_Name = "Account Name",Market = "Market",Order_Type = "Order Type",Order_Matched_Status = "Order Matched Status",Security_Id = "Security Id",Trade_Currency = "Trade Currency",Original_Quantity = "Original Quantity",Matched_Quantity = "Matched Quantity",Remaining_Quantity = "Remaining Quantity",Order_Date = "Order Date",Expiry_Date = "Expiry Date",Brokerage = "Brokerage",Buy_Sell_Flag = "Buy/Sell Flag",GST_Included = "GST Included",Brokerage_Rate = "Brokerage Rate",Minimum_Brokerage = "Minimum Brokerage",Status = "Status",Price = "Price",Data_Source = "Data Source",Commission_Category = "Commission Category",Settlement_Method = "Settlement Method",SRN = "SRN",Sender_Reference_No = "Sender Reference No",FO_Reference_No = "FO Reference No",Owner_Type = "Owner Type",Broker_Time = "Broker Time",Show_Price = "Show Price",Order_Status = "Order Status",
 }
 
 
-        export enum OrderStatus {
+        enum OrderStatus {
                Normal ="NORMAL",   Cancel ="CANCEL", 
         }
-        export enum OrderType {
+        enum OrderType {
                Market ="MARKET",   Limit ="LIMIT",   ATO ="A",   MP ="M",   MKT ="O",   MTL ="L",   ATC ="C", 
         }
-        export enum BuySellFlag {
+        enum BuySellFlag {
                BUY ="B",   SELL ="S", 
         }
-        export enum OrderMatchedStatus {
+        enum OrderMatchedStatus {
               Fully_Matched ="MATCHED",   Partially_Matched ="PARTIAL",   Unmatched ="OUTSTANDING", 
         }
-        export enum TimeInForce {
+        enum TimeInForce {
                GTC ="GTC",   GTD ="GTD", 
         }
-        export enum DataSource {
+        enum DataSource {
                CDS ="CDS",   REST_SERVICE ="REST_SERVICE",   SCREEN ="SCREEN",   SETTRADE ="SETTRADE",   UPLOAD ="UPLOAD", 
         }
-        export enum CommissionCategory {
-               BOX ="BOX",   BOX1 ="BOX1",   ZERO ="ZERO",   BOX25 ="BOX025",   BOX20 ="BOX20",   BOX05 ="BOX05",   BOX10 ="BOX10",   BOX30 ="BOX30",   BOX40 ="BOX40",   BOX50 ="BOX50",   BOX60 ="BOX60",   BOX70 ="BOX70",   BOX80 ="BOX80"
+        enum CommissionCategory {
+               BOX ="BOX",   BOX1 ="BOX1",   ZERO ="ZERO",   BOX025 ="BOX025",   BOX20 ="BOX20",   BOX05 ="BOX05",   BOX10 ="BOX10",   BOX30 ="BOX30",   BOX40 ="BOX40",   BOX50 ="BOX50",   BOX60 ="BOX60",   BOX70 ="BOX70",   BOX80 ="BOX80",   BOX90 ="BOX90",   BOX110 ="BOX110",   BOX120 ="BOX120",   BOX130 ="BOX130",   BOX140 ="BOX140",   BOX150 ="BOX150",   FIX120 ="FIX120",   FIX025 ="FIX025",   FIX05 ="FIX05",   FIX10 ="FIX10",   FIX20 ="FIX20",   FIX30 ="FIX30",   FIX40 ="FIX40",   FIX50 ="FIX50",   FIX60 ="FIX60",   FIX70 ="FIX70",   FIX80 ="FIX80",   FIX90 ="FIX90",   FIX110 ="FIX110",   FIX130 ="FIX130",   FIX140 ="FIX140",   FIX150 ="FIX150",   FIX280 ="FIX280", 
         }
-        export enum SettlementMethod {
+        enum SettlementMethod {
                DVP ="DVP",   HIN ="HIN",   ISSUER ="ISSUER", 
         }
-        export enum OwnerType {
+        enum OwnerType {
                CUSTOMER ="C",   FOREIGN ="F",   INSTITUTION ="I",   PRINCIPAL ="P", 
         }
-        export enum Status {
+        enum Status {
                SX___Queuing_Order ="SX",   CX___Cancelled_Order ="CX",   DX___Cancelled_by_SET ="DX",   RS___Rejected_Order ="RS",   M___Matched_Order ="M",   MP___Matched_Partially ="MP",   CP___Cancelled_Partially ="CP", 
         }
-        export enum SortField1 {
+        enum SortField1 {
               Order_Expiry_Date ="EXPIRY_DATE",   Order_Quantity ="QUANTITY",   Security_Id ="INSTRUMENT", 
         }
-        export enum SortField2 {
+        enum SortField2 {
                Order_Expiry_Date ="EXPIRY_DATE",   Order_Quantity ="QUANTITY",   Security_Id ="INSTRUMENT", 
         }
-        export enum SortField3 {
+        enum SortField3 {
                Order_Expiry_Date ="EXPIRY_DATE",   Order_Quantity ="QUANTITY",   Security_Id ="INSTRUMENT", 
         }
-        export enum SortField4 {
+        enum SortField4 {
                Order_Expiry_Date ="EXPIRY_DATE",   Order_Quantity ="QUANTITY",   Security_Id ="INSTRUMENT", 
         }
-        export enum SortField5 {
+        enum SortField5 {
                Order_Expiry_Date ="EXPIRY_DATE",   Order_Quantity ="QUANTITY",   Security_Id ="INSTRUMENT", 
         }
-        export enum SortField6 {
+        enum SortField6 {
                Order_Expiry_Date ="EXPIRY_DATE",   Order_Quantity ="QUANTITY",   Security_Id ="INSTRUMENT", 
         }
 
@@ -164,7 +164,7 @@ private _sortField6 : SortField6 = undefined
 
 
 /**
-  Field with a default value of "23-06-2018"
+  Field with a default value of "25-03-2018"
 */
 
 
@@ -173,7 +173,7 @@ public orderDateFrom(v : string) : AbstractOrderQuery{
     return this
 }
 /**
-  Field with a default value of "03-07-2018"
+  Field with a default value of "04-04-2018"
 */
 
 
@@ -325,12 +325,6 @@ public orderExpiryDate(v : string) : AbstractOrderQuery{
     this._orderExpiryDate=v
     return this
 }
-
-/**
-  Field with a default value of "1"
-*/
-
-
 
 public orderMatchedStatus(v : OrderMatchedStatus ) : AbstractOrderQuery{
     this._orderMatchedStatus=v
@@ -509,7 +503,7 @@ if(this._clientAccountNo!=undefined){
 }
 
 if(this._orderStatus!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="orderStatus"]' , value : this._orderStatus});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="orderStatus"]' , value : this._orderStatus});
 }
 
 if(this._clientName!=undefined){
@@ -536,24 +530,23 @@ if(this._currencyCode!=undefined){
 }
 
 if(this._orderType!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="orderType"]' , value : this._orderType});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="orderType"]' , value : this._orderType});
 }
 
 if(this._buySellFlag!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="buySellFlag"]' , value : this._buySellFlag});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="buySellFlag"]' , value : this._buySellFlag});
 }
 
 if(this._orderExpiryDate!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="orderExpiryDate"]' , value : this._orderExpiryDate});
 }
 
-
 if(this._orderMatchedStatus!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="orderMatchedStatus"]' , value : this._orderMatchedStatus});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="orderMatchedStatus"]' , value : this._orderMatchedStatus});
 }
 
 if(this._timeInForce!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="timeInForce"]' , value : this._timeInForce});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="timeInForce"]' , value : this._timeInForce});
 }
 
 if(this._instrumentType!=undefined){
@@ -561,15 +554,15 @@ if(this._instrumentType!=undefined){
 }
 
 if(this._dataSource!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="dataSource"]' , value : this._dataSource});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="dataSource"]' , value : this._dataSource});
 }
 
 if(this._commissionCategory!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="commissionCategory"]' , value : this._commissionCategory});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="commissionCategory"]' , value : this._commissionCategory});
 }
 
 if(this._settlementMethod!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="settlementMethod"]' , value : this._settlementMethod});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="settlementMethod"]' , value : this._settlementMethod});
 }
 
 if(this._srn!=undefined){
@@ -577,53 +570,53 @@ if(this._srn!=undefined){
 }
 
 if(this._ownerType!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="ownerType"]' , value : this._ownerType});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="ownerType"]' , value : this._ownerType});
 }
 
 if(this._status!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="status"]' , value : this._status});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="status"]' , value : this._status});
 }
 
 if(this._sortFieldOrder1!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder1"]' , value : this._sortFieldOrder1});
 }
 if(this._sortField1!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField1"]' , value : this._sortField1});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField1"]' , value : this._sortField1});
 }
 
 if(this._sortFieldOrder2!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder2"]' , value : this._sortFieldOrder2});
 }
 if(this._sortField2!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField2"]' , value : this._sortField2});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField2"]' , value : this._sortField2});
 }
 
 if(this._sortFieldOrder3!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder3"]' , value : this._sortFieldOrder3});
 }
 if(this._sortField3!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField3"]' , value : this._sortField3});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField3"]' , value : this._sortField3});
 }
 
 if(this._sortFieldOrder4!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder4"]' , value : this._sortFieldOrder4});
 }
 if(this._sortField4!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField4"]' , value : this._sortField4});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField4"]' , value : this._sortField4});
 }
 
 if(this._sortFieldOrder5!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder5"]' , value : this._sortFieldOrder5});
 }
 if(this._sortField5!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField5"]' , value : this._sortField5});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField5"]' , value : this._sortField5});
 }
 
 if(this._sortFieldOrder6!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder6"]' , value : this._sortFieldOrder6});
 }
 if(this._sortField6!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField6"]' , value : this._sortField6});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField6"]' , value : this._sortField6});
 }
 
 

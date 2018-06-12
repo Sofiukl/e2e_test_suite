@@ -4,6 +4,7 @@ import fs from "fs";
 import winston from "winston"
 import { ApplicationDate } from "../db/ApplicationDate";
 import { CompletionEntry } from "../ui/entry/stl/CompletionEntry";
+import { ExcelUtils } from "../utils/ExcelUtils";
 
 export  class ClientPayPayInEntry {
 
@@ -35,11 +36,16 @@ export  class ClientPayPayInEntry {
 			}
 			
 			fs.writeFileSync("/opt/appsdata/tmp/ABCD.pdf","text")
+
+			//save to image
+			ExcelUtils.getInstance().addHeading("Create Client Receipt Pay-In")
+			
+			ExcelUtils.getInstance().addText(this.getRequest())
 		
 			request.post(Constants.restBasePath + '/stl/clientreceipt/1/entry' , {
 				json: JSON.parse(this.getRequest())
 			} , function(err,response , body){
-				
+	
 					winston.debug("The response : ")
 					winston.debug("Error : ")
 					winston.debug( err)
@@ -52,7 +58,8 @@ export  class ClientPayPayInEntry {
 				
 
 				if(body.success){
-					console.log(body.value[0].settlementReferenceNumber);
+					ExcelUtils.getInstance().addHeading("Create Client Receipt Pay-In Response")
+					ExcelUtils.getInstance().addText(JSON.stringify(body.value))
 					resolve(body.value[0].settlementReferenceNumber)
 				}
 				

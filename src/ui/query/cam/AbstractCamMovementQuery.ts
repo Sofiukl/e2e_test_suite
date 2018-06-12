@@ -13,7 +13,7 @@ enum ResultColumns {
                ALLOCABLE_BALANCE ="ALLOCABLE BALANCE",   EARLY_CREDIT ="EARLY CREDIT",   RIGHTS_BALANCE ="RIGHTS BALANCE",   SETTLE_DATE_BALANCE ="SETTLEMENT DATE",   TRADE_DATE_BALANCE ="TRADE DATE",   VALUE_DATE_BALANCE ="VALUE DATE", 
         }
         enum AccountBalanceType {
-               _Free ="10",   _Margin ="11",   _Pledge ="12",   _Collateral ="13",   _Physical ="14",   _IPO ="15",   _Register ="16",   _Expect_Rights ="17",   _Rights ="18",   _Blocked ="19", 
+               Zero0_Free ="10",   Zero1_Margin ="11",   Zero2_Pledge ="12",   Zero3_Collateral ="13",   Zero4_Physical ="14",   Zero5_IPO ="15",   Zero6_Register ="16",   Zero7_Expect_Rights ="17",   Zero8_Rights ="18",   Zero9_Blocked ="19", 
         }
         enum Form {
                BOOK_ENTRY ="BOOK ENTRY", 
@@ -99,15 +99,19 @@ public movementBasis(v : MovementBasis ) : AbstractCamMovementQuery{
 }
 
 /**
-  Field with a default value of "18-06-2018"
+  Field with a default value of "20-03-2018"
 */
+
+
 public dateFrom(v : string) : AbstractCamMovementQuery{
     this._dateFrom=v
     return this
 }
 /**
-  Field with a default value of "18-07-2018"
+  Field with a default value of "19-04-2018"
 */
+
+
 public dateTo(v : string) : AbstractCamMovementQuery{
     this._dateTo=v
     return this
@@ -116,6 +120,8 @@ public dateTo(v : string) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public accountNo(v : string) : AbstractCamMovementQuery{
     this._accountNo=v
     return this
@@ -124,6 +130,8 @@ public accountNo(v : string) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public agentCode(v : string) : AbstractCamMovementQuery{
     this._agentCode=v
     return this
@@ -132,6 +140,8 @@ public agentCode(v : string) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public currency(v : string) : AbstractCamMovementQuery{
     this._currency=v
     return this
@@ -140,6 +150,8 @@ public currency(v : string) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public instrumentType(v : string) : AbstractCamMovementQuery{
     this._instrumentType=v
     return this
@@ -153,6 +165,8 @@ public accountBalanceType(v : AccountBalanceType ) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public securityCode(v : string) : AbstractCamMovementQuery{
     this._securityCode=v
     return this
@@ -166,6 +180,8 @@ public form(v : Form ) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public appUpdDate(v : string) : AbstractCamMovementQuery{
     this._appUpdDate=v
     return this
@@ -174,6 +190,8 @@ public appUpdDate(v : string) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public accountFrom(v : string) : AbstractCamMovementQuery{
     this._accountFrom=v
     return this
@@ -181,6 +199,8 @@ public accountFrom(v : string) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public accountTo(v : string) : AbstractCamMovementQuery{
     this._accountTo=v
     return this
@@ -189,6 +209,8 @@ public accountTo(v : string) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder1(v : string) : AbstractCamMovementQuery{
     this._sortFieldOrder1=v
     return this
@@ -201,6 +223,8 @@ public sortField1(v : SortField1 ) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder2(v : string) : AbstractCamMovementQuery{
     this._sortFieldOrder2=v
     return this
@@ -213,6 +237,8 @@ public sortField2(v : SortField2 ) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder3(v : string) : AbstractCamMovementQuery{
     this._sortFieldOrder3=v
     return this
@@ -225,6 +251,8 @@ public sortField3(v : SortField3 ) : AbstractCamMovementQuery{
 /**
   Field with a default value of ""
 */
+
+
 public sortFieldOrder4(v : string) : AbstractCamMovementQuery{
     this._sortFieldOrder4=v
     return this
@@ -241,7 +269,7 @@ public sortField4(v : SortField4 ) : AbstractCamMovementQuery{
         let fields :any[] = []
 
         if(this._movementBasis!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="movementBasis"]' , value : this._movementBasis});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="movementBasis"]' , value : this._movementBasis});
 }
 
 if(this._dateFrom!=undefined){
@@ -268,7 +296,7 @@ if(this._instrumentType!=undefined){
 }
 
 if(this._accountBalanceType!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="accountBalanceType"]' , value : this._accountBalanceType});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="accountBalanceType"]' , value : this._accountBalanceType});
 }
 
 if(this._securityCode!=undefined){
@@ -276,7 +304,7 @@ if(this._securityCode!=undefined){
 }
 
 if(this._form!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="form"]' , value : this._form});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="form"]' , value : this._form});
 }
 
 if(this._appUpdDate!=undefined){
@@ -294,28 +322,28 @@ if(this._sortFieldOrder1!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder1"]' , value : this._sortFieldOrder1});
 }
 if(this._sortField1!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField1"]' , value : this._sortField1});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField1"]' , value : this._sortField1});
 }
 
 if(this._sortFieldOrder2!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder2"]' , value : this._sortFieldOrder2});
 }
 if(this._sortField2!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField2"]' , value : this._sortField2});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField2"]' , value : this._sortField2});
 }
 
 if(this._sortFieldOrder3!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder3"]' , value : this._sortFieldOrder3});
 }
 if(this._sortField3!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField3"]' , value : this._sortField3});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField3"]' , value : this._sortField3});
 }
 
 if(this._sortFieldOrder4!=undefined){
   fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortFieldOrder4"]' , value : this._sortFieldOrder4});
 }
 if(this._sortField4!=undefined){
-  fields.push({ 'type' : 'text' , 'selector' : 'input[name="sortField4"]' , value : this._sortField4});
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="sortField4"]' , value : this._sortField4});
 }
 
 

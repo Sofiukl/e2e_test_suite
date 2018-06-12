@@ -65,3 +65,5 @@ dist/
 *.png
 *.jpg
 *.xlsx
+library/delscript.sql
+et.bat

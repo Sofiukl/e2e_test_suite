@@ -8,6 +8,7 @@
     "test": "jest --forceExit --coverage --verbose",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
+    "run" : " tsc && node dist\\TestSuite.js",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "testcase": "node dist\\greeter.js"
   },

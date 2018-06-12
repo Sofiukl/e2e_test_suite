@@ -190,6 +190,7 @@ export class ExcelUtils {
 
     addText(text : string){
         this.init()
+        text = text.replace("\r","").replace("\t"," ")
         let imageName = ImageGenerate.createImage(text)
         this.addImage(imageName)
        

@@ -16,7 +16,7 @@ enum ResultColumns {
              
         }
         enum OfficeId {
-                DefaultOfficeId ="001", 
+               Zero01 ="001", 
         }
         enum CounterPartyType {
                BROKER ="BROKER",   CLIENT ="CLIENT",   FIRM ="INTERNAL", 
@@ -34,7 +34,7 @@ enum ResultColumns {
                Agency ="A",   Principal ="P", 
         }
         enum AccountBalanceType {
-               _Free ="10",   _Margin ="11",   _Pledge ="12",   _Collateral ="13",   _Physical ="14",   _IPO ="15",   _Register ="16",   _Expect_Rights ="17",   _Rights ="18",   _Blocked ="19", 
+               One0_Free ="10",   One1_Margin ="11",   One2_Pledge ="12",   One3_Collateral ="13",   One4_Physical ="14",   One5_IPO ="15",   One6_Register ="16",   One7_Expect_Rights ="17",   One8_Rights ="18",   One9_Blocked ="19", 
         }
         enum ChannelStr {
                INTERNET ="INTERNET",   DEALER ="DEALER", 
@@ -181,7 +181,6 @@ private _netAmountFrom : string = undefined
 private _netAmountTo : string = undefined 
 
 private _excludePending : string = undefined 
-
 
 private _channelStr : ChannelStr = undefined 
 
@@ -349,7 +348,7 @@ public settlementCcy(v : string) : AbstractTradeQuery{
 }
 
 /**
-  Field with a default value of "11-06-2018"
+  Field with a default value of ""
 */
 
 
@@ -358,7 +357,7 @@ public tradeDateFrom(v : string) : AbstractTradeQuery{
     return this
 }
 /**
-  Field with a default value of "11-06-2018"
+  Field with a default value of ""
 */
 
 
@@ -507,7 +506,6 @@ public excludePending(v : string) : AbstractTradeQuery{
     this._excludePending=v
     return this
 }
-
 
 public channelStr(v : ChannelStr ) : AbstractTradeQuery{
     this._channelStr=v
@@ -1013,9 +1011,3 @@ if(this._sortField6!=undefined){
 
 
 }
-
-
-
-
-
-
