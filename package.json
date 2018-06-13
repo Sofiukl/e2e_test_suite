@@ -8,7 +8,7 @@
     "test": "jest --forceExit --coverage --verbose",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "run" : " tsc && node dist\\TestSuite.js",
+    "run": " tsc && node dist\\TestSuite.js",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "testcase": "node dist\\greeter.js"
   },
@@ -16,11 +16,13 @@
   "license": "ISC",
   "dependencies": {
     "@types/image-size": "0.0.29",
+    "@types/inquirer": "0.0.41",
     "@types/node": "^10.1.2",
     "@types/puppeteer": "^1.3.3",
     "cheerio": "^1.0.0-rc.2",
     "exceljs": "^1.4.10",
     "image-size": "^0.6.2",
+    "inquirer": "^6.0.0",
     "puppeteer": "^1.4.0",
     "request": "^2.87.0",
     "typescript": "^2.8.3",

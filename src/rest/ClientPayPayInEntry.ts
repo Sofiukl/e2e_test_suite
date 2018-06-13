@@ -139,21 +139,21 @@ private getRequest() : string {
 }
 
 
-public static async cashIn(account : string , amount : string ){
-	let clientReceipt = new ClientPayPayInEntry();
+public async cashIn(account : string , amount : string ){
+	
 		winston.debug("In cash In for account",account)
 
 		let appDate = ApplicationDate.getCurrent()
 		winston.debug("appDate : ",appDate)	
         //Create Client Receipt Pay-In
-        var settlementReferenceNo = await clientReceipt
+        var settlementReferenceNo = await this
             .receivedAmount(amount)
             .valueDate(appDate)
             .receivedDate(appDate)
             .accountNo(account)
 			.execute()
-		let completion = new CompletionEntry()
-		await completion.settlementReferenceNo(settlementReferenceNo).execute();
+		
+		await new CompletionEntry().settlementReferenceNo(settlementReferenceNo).execute();
 			
 }
 

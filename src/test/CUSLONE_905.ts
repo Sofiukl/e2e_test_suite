@@ -2,7 +2,6 @@ import { PageContext } from "../context/PageContext";
 import { Login } from "../ui/common/LoginOperation";
 import { Customer } from "../rest/Customer";
 import { ApplicationDate } from "../db/ApplicationDate";
-import { CashIOEntry } from "../ui/entry/cam/CashIOEntry";
 import { ClientPayPayInEntry } from "../rest/ClientPayPayInEntry";
 import { CamBalanceQuery } from "../ui/query/cam/CamBalanceQuery";
 import { ExecutionEntry } from "../ui/entry/trd/ExecutionEntry";
@@ -19,6 +18,7 @@ import { RiskParameterQuery } from "../ui/query/cam/RiskParameterQuery";
 import { AutoCompletion } from "../batch/stl/AutoCompletion";
 import { MultipurposeReportQuery } from "../ui/report/MultipurposeReportQuery";
 import { WithdrawalLimit } from "../rest/query/cam/WithdrawalLimit";
+import { Assert } from "../utils/Assert";
 
 
 export class CUSLONE_905 {
@@ -39,22 +39,17 @@ export class CUSLONE_905 {
 
 
     public async test02May2018(){
-        //create Customer
-        //cash in 20000
-        //accrual batch
-        //margin batch
-        //GLE transaction query
-
-        let appDate = "02-04-2018"
         
-        ApplicationDate.updateApplicationDate(appDate)
+    let appDate = "02-04-2018"
+       
+    ApplicationDate.updateApplicationDate(appDate)
 
-         let customer = new Customer()
-        await customer.customerCode("12345699").applicationDate(appDate).create()
-        await ClientPayPayInEntry.cashIn(this.accountNo,"20000")
+//   /*  
+    await  new Customer().customerCode("12345699").applicationDate(appDate).create()
+    await new ClientPayPayInEntry().cashIn(this.accountNo,"50000")
         
         //create an execution
-       await new ExecutionEntry().cpAccountNo(this.accountNo)
+    await new ExecutionEntry().cpAccountNo(this.accountNo)
                 .tradeDateStr(appDate)
                 .securityInfo("STAR")
                 .quantityStr("2000")
@@ -69,13 +64,34 @@ export class CUSLONE_905 {
     await new ExecutionToTrade().account(this.accountNo).tradedate(DateUtils.convertToBatchFormat(appDate)).execute()
     await new TaxAndCommCalculator().account(this.accountNo).date(DateUtils.convertToBatchFormat(appDate)).execute()
     await new TradeQuery().accountNo(this.accountNo).tradeDateFrom(appDate).tradeDateTo(appDate).execute()
+//*/
+
     await new CamBalanceQuery().td(this.accountNo).execute()
+    let tdBalanceOfStar : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("STAR").fetch(CamBalanceQuery.ResultColumns.Balance)
+    let tdBalanceOfTHB : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("THB").fetch(CamBalanceQuery.ResultColumns.Balance)
+
+    console.log(tdBalanceOfStar);
+    console.log(tdBalanceOfTHB);
+    
+    Assert.equals("2,000",tdBalanceOfStar[0][CamBalanceQuery.ResultColumns.Balance])
+    Assert.equals("29,894.54",tdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
+    
     await new CamBalanceQuery().vd(this.accountNo).execute()
+    let vdBalanceOfTHB : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("THB").fetch(CamBalanceQuery.ResultColumns.Balance)
+    Assert.equals("50,000",vdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
     await new CamBalanceQuery().sd(this.accountNo).execute() 
+    let sdBalanceOfTHB : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("THB").fetch(CamBalanceQuery.ResultColumns.Balance)
+    Assert.equals("50,000",sdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
+
+
+
+
+
     await new FIFOPLCalculator().accountNo(this.accountNo).execute()
     await new DailyCashAccrual().cash(this.accountNo).execute()
     await new MarginPurchasePowerCalculator().evening(this.accountNo).execute()
 
+    
     //TODO  - Add GLE 
     await new AccruedCashInterestQuery().accountNo(this.accountNo).fromDate(appDate).execute()
     await new RiskParameterQuery().accountClass(RiskParameterQuery.AccountClass.CASH_BALANCE__CASH_BALANCE).accountNo(this.accountNo).execute()
@@ -92,8 +108,11 @@ export class CUSLONE_905 {
         await new MarginPurchasePowerCalculator().morning(this.accountNo).execute()
         await new WithdrawalLimit().accountNumber(this.accountNo).baseDate(appDate).execute()
         await new CamBalanceQuery().td(this.accountNo).execute()
-        await new CamBalanceQuery().vd(this.accountNo).execute()
-        await new CamBalanceQuery().sd(this.accountNo).execute() 
+       
+
+
+
+
         //Day Ops
         await new FIFOPLCalculator().accountNo(this.accountNo).execute()
         await new DailyCashAccrual().cash(this.accountNo).execute()
