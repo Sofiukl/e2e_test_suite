@@ -31,7 +31,7 @@ export class GenerateBorLor8Report extends ExecuteBatch {
     }
 
     
-        public reportId(v: string): GenerateBorLor8Report {     
+        public reportId(v: string): GenerateBorLor8Report {
                 this._reportId = v                                 
                 return this                                    
             }

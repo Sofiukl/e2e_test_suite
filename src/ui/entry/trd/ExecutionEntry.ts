@@ -44,10 +44,20 @@ export class ExecutionEntry extends AbstractExecutionEntry {
         .buySellOrientation("FB")
         .senderReferenceNo("OD-0000000001")
         .sourceReferenceNo("TD-0000000001")
-        .accountBalanceTypeStr("18")
+        .accountBalanceTypeStr("12")
         .tradeDateStr(date).cpAccountNo(account).quantityStr(qnty).securityInfo(security).inputPriceStr(cost).execute()
    
     }
+    public async buyRights(date : string,account : string , security : string , qnty : string , cost : string) {
+
+        await this.salesCode(Constants.salesCode)
+       .buySellOrientation("FB")
+       .senderReferenceNo("OD-0000000001")
+       .sourceReferenceNo("TD-0000000001")
+       .accountBalanceTypeStr("18")
+       .tradeDateStr(date).cpAccountNo(account).quantityStr(qnty).securityInfo(security).inputPriceStr(cost).execute()
+  
+   }
     public async sell(date : string , account : string , security : string , qnty : string , cost : string) {
 
         await this.salesCode(Constants.salesCode)

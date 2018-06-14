@@ -32,4 +32,13 @@ export class CashIOEntry extends AbstractCashIOEntry{
         .cashInAccountCode(CashIOEntry.CashInAccountCode.Six00005CASH_TRANSFER_CONTROL).cashInAccountNo(account).execute()
     }
 
+
+    public async inCollateral(account : string , amount : string){
+
+        await this.inOut(CashIOEntry.Entry_InOut.IN).currency("THB").amountStr(amount)
+        .cashInAccountBalanceTypeStr(CashIOEntry.CashInAccountBalanceTypeStr.One3_Collateral)
+        .cashInReason(CashIOEntry.CashInReason.CREDIT_NOTECREDIT_NOTE)
+        .cashInAccountCode(CashIOEntry.CashInAccountCode.Six00005CASH_TRANSFER_CONTROL).cashInAccountNo(account).execute()
+    }
+
 }
