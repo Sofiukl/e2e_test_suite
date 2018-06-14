@@ -7,6 +7,8 @@ import { ExcelUtils } from "../../../utils/ExcelUtils";
 
 export class CamBalanceQuery extends AbstractCamBalanceQuery{
 
+    private _balanceType : string = undefined
+
     async doExecute() : Promise<any>{
         
         await this.navigate( 'Position & Balances' ,  'Beneficiary' ,  'Balance Query' , )
@@ -15,30 +17,33 @@ export class CamBalanceQuery extends AbstractCamBalanceQuery{
         
         await this.clearFields(this.fetchFields())
         await this.populateFields(this.fetchFields())
-        ExcelUtils.getInstance().addHeading("Cam Balance Query Screen ")
+        ExcelUtils.getInstance().addHeading("Cam Balance Query Screen  " + (this._balanceType==undefined ? "":this._balanceType) )
         await this.screenshot()
         await this.wizardNavigate(WizardAction.QuerySubmit)
-        ExcelUtils.getInstance().addHeading("Cam Balance Results " )
+        ExcelUtils.getInstance().addHeading("Cam Balance Results "+ (this._balanceType==undefined ? "":this._balanceType) )
         await this.screenshot()
 
     }
 
 
-    public td( account : string) : CamBalanceQuery{
+    public td( account? : string) : CamBalanceQuery{
+        this._balanceType = CamBalanceQuery.BalanceBasis.TRADE_DATE_BALANCE
         this
          .accountNo(account)
         .balanceBasis(CamBalanceQuery.BalanceBasis.TRADE_DATE_BALANCE)
         return this
     }
 
-    public vd( account : string) : CamBalanceQuery{
+    public vd( account? : string) : CamBalanceQuery{
+        this._balanceType = CamBalanceQuery.BalanceBasis.VALUE_DATE_BALANCE
         this
          .accountNo(account)
         .balanceBasis(CamBalanceQuery.BalanceBasis.VALUE_DATE_BALANCE)
         return this
     }
     
-    public sd( account : string) : CamBalanceQuery{
+    public sd( account? : string) : CamBalanceQuery{
+        this._balanceType = CamBalanceQuery.BalanceBasis.SETTLE_DATE_BALANCE
         this
          .accountNo(account)
         .balanceBasis(CamBalanceQuery.BalanceBasis.SETTLE_DATE_BALANCE)

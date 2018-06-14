@@ -6,7 +6,7 @@ import inquirer from "inquirer";
 
 
 
-winston.level="info"
+winston.level="debug"
 
 var files = fs.readdirSync("./src/test")
 
@@ -14,6 +14,8 @@ if (process.argv.length ==3){
     // console.log("Usage:");    
     // console.log("node TestSuite.ts TEST_NAME ");
     // process.exit(-1)
+
+    
 
     let testName =process.argv[2]
     executeTestCase(testName)
@@ -32,7 +34,7 @@ name : 'tc'
 
 }).then((result : any) =>{
 
-    console.log("Running ... " + JSON.stringify(result));
+    //console.log("Running ... " + JSON.stringify(result,null,2));
     executeTestCase(result.tc)
     
 })
@@ -60,7 +62,7 @@ function executeTestCase(testCase : string){
         import(testClassFileName).then(testFile => {
             
             for(let exportedClass in testFile){                
-                console.log("exportedClass" + exportedClass);
+                
                 let instance = new testFile[exportedClass]()
                 
                   let protoOfTest = Object.getPrototypeOf(instance);

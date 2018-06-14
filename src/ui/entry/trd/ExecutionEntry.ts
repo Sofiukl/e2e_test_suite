@@ -1,6 +1,9 @@
 import {BaseUIOperations, WizardAction} from "../../BaseUIOperations"
 import { AbstractExecutionEntry } from "./AbstractExecutionEntry";
 import { ExcelUtils } from "../../../utils/ExcelUtils";
+import { Constants } from "../../../Constants";
+import { ExecutionToTrade } from "../../../batch/trd/ExecutionToTrade";
+import { TaxAndCommCalculator } from "../../../batch/trd/TaxAndCommCalculator";
 
 
 export class ExecutionEntry extends AbstractExecutionEntry {
@@ -24,6 +27,40 @@ export class ExecutionEntry extends AbstractExecutionEntry {
         //return something what we havent decided
     }
 
+
+
+    public async buy(date : string,account : string , security : string , qnty : string , cost : string) {
+
+         await this.salesCode(Constants.salesCode)
+        .buySellOrientation("FB")
+        .senderReferenceNo("OD-0000000001")
+        .sourceReferenceNo("TD-0000000001")
+        .tradeDateStr(date).cpAccountNo(account).quantityStr(qnty).securityInfo(security).inputPriceStr(cost).execute()
+   
+    }
+    public async buyPledge(date : string,account : string , security : string , qnty : string , cost : string) {
+
+         await this.salesCode(Constants.salesCode)
+        .buySellOrientation("FB")
+        .senderReferenceNo("OD-0000000001")
+        .sourceReferenceNo("TD-0000000001")
+        .accountBalanceTypeStr("18")
+        .tradeDateStr(date).cpAccountNo(account).quantityStr(qnty).securityInfo(security).inputPriceStr(cost).execute()
+   
+    }
+    public async sell(date : string , account : string , security : string , qnty : string , cost : string) {
+
+        await this.salesCode(Constants.salesCode)
+       .buySellOrientation("FS")
+       .senderReferenceNo("OD-0000000001")
+       .sourceReferenceNo("TD-0000000001")
+       .tradeDateStr(date).cpAccountNo(account).quantityStr(qnty).securityInfo(security).inputPriceStr(cost).execute()
+
+   }
+   
+   //book trade
+
+   
    
 
 }

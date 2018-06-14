@@ -1,5 +1,6 @@
 import {debug} from "winston"
 import { AbstractClientWithdrawEntry } from "./AbstractClientWithdrawEntry";
+import { CompletionEntry } from "../../../ui/entry/stl/CompletionEntry";
 
 export class ClientWithdrawEntry extends AbstractClientWithdrawEntry {
 
@@ -16,5 +17,14 @@ export class ClientWithdrawEntry extends AbstractClientWithdrawEntry {
         getPath() : string{
 
             return '/stl/clientpayment/1/entry'
+        }
+
+
+        public async withdraw(appDate : string , account : string , amount  : string){
+            let withdrawResponse = await this.accountNo(account).withdrawableAmount(amount).paymentDate(appDate).transactionDate(appDate).execute()
+            let settlementReferenceNumber = withdrawResponse[0].settlementReferenceNumber
+            let completion = new CompletionEntry()
+            //Mark for completion
+            await completion.settlementReferenceNo(settlementReferenceNumber).execute();
         }
 }

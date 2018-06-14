@@ -12,11 +12,13 @@ export abstract class AbstractRestService{
         return new Promise<any>( (resolve,reject) => {
 
             winston.debug("Request : " )
-            console.log(this.getRequest());
+            
+            
+
 
             //save to image
-            ExcelUtils.getInstance().addHeading("Sending Request for : " +this.constructor.name)
-            ExcelUtils.getInstance().addText(JSON.stringify(this.getRequest()))
+            ExcelUtils.getInstance().addHeading("Sending Request for  " +this.constructor.name)
+            ExcelUtils.getInstance().addText(JSON.stringify(this.getRequest(),null,2))
 
 
             request.post(Constants.restBasePath +this.getPath() , {
@@ -38,7 +40,7 @@ export abstract class AbstractRestService{
     
                 if(body.success){
                     ExcelUtils.getInstance().addHeading("Received Response for : "+this.constructor.name)
-                    ExcelUtils.getInstance().addText(JSON.stringify(body.value))
+                    ExcelUtils.getInstance().addText(JSON.stringify(body.value,null,2))
                     winston.debug(body.value);
                     resolve(body.value)
                 }

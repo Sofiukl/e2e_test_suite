@@ -9,6 +9,7 @@ export  class Customer {
 
 	private _applicationDate : string
 	private _customerCode : string
+	private _salesCode : string
 
 
 	constructor(){}
@@ -16,7 +17,7 @@ export  class Customer {
 
 	public create() : Promise<any>  {
 
-
+		this._salesCode=Constants.salesCode
 		
 		return new Promise( (resolve) => {
 
@@ -24,6 +25,7 @@ export  class Customer {
 			let resp = this.getRequest()
 			resp=resp.replace("\t"," ")
 			//resp=resp.replace("\\n","\n")
+			
 
 			winston.debug(resp)
 			
@@ -256,7 +258,7 @@ return `{
 				],
 				"salesInformation": [{
 						"salesRole": "MAIN",
-						"salesCode": "9999"
+						"salesCode": "${this._salesCode}"
 					}
 				],
 				"commissionCategory": "BOX",
@@ -327,7 +329,7 @@ return `{
 				],
 				"salesInformation": [{
 						"salesRole": "MAIN",
-						"salesCode": "9999"
+						"salesCode": "${this._salesCode}"
 					}
 				],
 				"commissionCategory": "BOX",

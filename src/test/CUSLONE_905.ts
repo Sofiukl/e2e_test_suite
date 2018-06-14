@@ -19,6 +19,11 @@ import { AutoCompletion } from "../batch/stl/AutoCompletion";
 import { MultipurposeReportQuery } from "../ui/report/MultipurposeReportQuery";
 import { WithdrawalLimit } from "../rest/query/cam/WithdrawalLimit";
 import { Assert } from "../utils/Assert";
+import { CashBaseRateQuery } from "../ui/query/ref/CashBaseRateQuery";
+import { ClientWithdrawEntry } from "../rest/entry/stl/ClientWithdrawEntry";
+import { GLEJournalQuery } from "../ui/query/gle/GLEJournalQuery";
+import { GLEBalanceQuery } from "../ui/query/gle/GLEBalanceQuery";
+import { GLETransactionQuery } from "../ui/query/gle/GLETransactionQuery";
 
 
 export class CUSLONE_905 {
@@ -44,7 +49,10 @@ export class CUSLONE_905 {
        
     ApplicationDate.updateApplicationDate(appDate)
 
-//   /*  
+
+    await new CashBaseRateQuery().execute()
+
+
     await  new Customer().customerCode("12345699").applicationDate(appDate).create()
     await new ClientPayPayInEntry().cashIn(this.accountNo,"50000")
         
@@ -64,27 +72,22 @@ export class CUSLONE_905 {
     await new ExecutionToTrade().account(this.accountNo).tradedate(DateUtils.convertToBatchFormat(appDate)).execute()
     await new TaxAndCommCalculator().account(this.accountNo).date(DateUtils.convertToBatchFormat(appDate)).execute()
     await new TradeQuery().accountNo(this.accountNo).tradeDateFrom(appDate).tradeDateTo(appDate).execute()
-//*/
+
 
     await new CamBalanceQuery().td(this.accountNo).execute()
     let tdBalanceOfStar : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("STAR").fetch(CamBalanceQuery.ResultColumns.Balance)
     let tdBalanceOfTHB : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("THB").fetch(CamBalanceQuery.ResultColumns.Balance)
 
-    console.log(tdBalanceOfStar);
-    console.log(tdBalanceOfTHB);
-    
     Assert.equals("2,000",tdBalanceOfStar[0][CamBalanceQuery.ResultColumns.Balance])
     Assert.equals("29,894.54",tdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
     
     await new CamBalanceQuery().vd(this.accountNo).execute()
     let vdBalanceOfTHB : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("THB").fetch(CamBalanceQuery.ResultColumns.Balance)
-    Assert.equals("50,000",vdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
     await new CamBalanceQuery().sd(this.accountNo).execute() 
     let sdBalanceOfTHB : any[] = await new CamBalanceQuery().query().where(CamBalanceQuery.ResultColumns.Security_Code_Default).equalTo("THB").fetch(CamBalanceQuery.ResultColumns.Balance)
-    Assert.equals("50,000",sdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
-
-
-
+    
+    Assert.equals("50,000.00",vdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
+    Assert.equals("50,000.00",sdBalanceOfTHB[0][CamBalanceQuery.ResultColumns.Balance])
 
 
     await new FIFOPLCalculator().accountNo(this.accountNo).execute()
@@ -93,11 +96,17 @@ export class CUSLONE_905 {
 
     
     //TODO  - Add GLE 
+    await new GLETransactionQuery().execute()
+    await new GLEJournalQuery().ledgerCodeFrom("299998").ledgerCodeTo("599999").subLedgerCode(this.accountNo).execute()
+    await new GLEBalanceQuery().ledgerCodeFrom("299998").ledgerCodeTo("599999").subLedgerCode(this.accountNo).execute()
+
     await new AccruedCashInterestQuery().accountNo(this.accountNo).fromDate(appDate).execute()
     await new RiskParameterQuery().accountClass(RiskParameterQuery.AccountClass.CASH_BALANCE__CASH_BALANCE).accountNo(this.accountNo).execute()
     await new WithdrawalLimit().accountNumber(this.accountNo).baseDate(appDate).execute()
     await new MultipurposeReportQuery().sqlId(MultipurposeReportQuery.SqlId.CAMMI___Monthly_Interest_Report).execute()
-    
+    await new MultipurposeReportQuery().sqlId(MultipurposeReportQuery.SqlId.RM001___Accrued_Interest).execute()
+    await new WithdrawalLimit().accountNumber(this.accountNo).baseDate(appDate).execute()
+
 
     }
 
@@ -108,7 +117,10 @@ export class CUSLONE_905 {
         await new MarginPurchasePowerCalculator().morning(this.accountNo).execute()
         await new WithdrawalLimit().accountNumber(this.accountNo).baseDate(appDate).execute()
         await new CamBalanceQuery().td(this.accountNo).execute()
-       
+        //TODO  - Add GLE 
+        await new GLETransactionQuery().execute()
+        await new GLEJournalQuery().ledgerCodeFrom("299998").ledgerCodeTo("599999").subLedgerCode(this.accountNo).execute()
+        await new GLEBalanceQuery().ledgerCodeFrom("299998").ledgerCodeTo("599999").subLedgerCode(this.accountNo).execute()
 
 
 
@@ -120,9 +132,11 @@ export class CUSLONE_905 {
         await new AccruedCashInterestQuery().accountNo(this.accountNo).fromDate(appDate).execute()
         await new RiskParameterQuery().accountClass(RiskParameterQuery.AccountClass.CASH_BALANCE__CASH_BALANCE).accountNo(this.accountNo).execute()
         await new MultipurposeReportQuery().sqlId(MultipurposeReportQuery.SqlId.CAMMI___Monthly_Interest_Report).execute()
+        await new MultipurposeReportQuery().sqlId(MultipurposeReportQuery.SqlId.RM001___Accrued_Interest).execute()
         await new WithdrawalLimit().accountNumber(this.accountNo).baseDate(appDate).execute()
     }
 
+    //Apply for unsettled withdraw
     public async test04May2018(){
         let appDate = "04-04-2018"
         
@@ -136,6 +150,18 @@ export class CUSLONE_905 {
         await new CamBalanceQuery().vd(this.accountNo).execute()
         await new CamBalanceQuery().sd(this.accountNo).execute()
 
+        //add unsetlled withdraw
+        await new ClientWithdrawEntry().accountNo(this.accountNo)
+        .withdrawableAmount("10000")
+        .paymentDate("05-04-2018")
+        .transactionDate("04-04-2018")
+        .execute()
+
+
+        await new CamBalanceQuery().td(this.accountNo).execute()
+        await new CamBalanceQuery().vd(this.accountNo).execute()
+        await new CamBalanceQuery().sd(this.accountNo).execute()
+
         //EOD
         await new AutoCompletion().eod()
         await new FIFOPLCalculator().accountNo(this.accountNo).execute()
@@ -144,7 +170,16 @@ export class CUSLONE_905 {
         await new AccruedCashInterestQuery().accountNo(this.accountNo).fromDate(appDate).execute()
         await new RiskParameterQuery().accountClass(RiskParameterQuery.AccountClass.CASH_BALANCE__CASH_BALANCE).accountNo(this.accountNo).execute()
         await new MultipurposeReportQuery().sqlId(MultipurposeReportQuery.SqlId.CAMMI___Monthly_Interest_Report).execute()
-        await new WithdrawalLimit().accountNumber(this.accountNo).baseDate(appDate).execute()
+        await new MultipurposeReportQuery().sqlId(MultipurposeReportQuery.SqlId.RM001___Accrued_Interest).execute()
+        let withdrawalLimitResponse : any = await new WithdrawalLimit().accountNumber(this.accountNo).baseDate(appDate).execute()
+        
+        
+        //TODO  - Add GLE 
+        await new GLETransactionQuery().execute()
+        await new GLEJournalQuery().ledgerCodeFrom("299998").ledgerCodeTo("599999").subLedgerCode(this.accountNo).execute()
+        await new GLEBalanceQuery().ledgerCodeFrom("299998").ledgerCodeTo("599999").subLedgerCode(this.accountNo).execute()
+        
+        Assert.equals("19,894.54",withdrawalLimitResponse[0]['THB'])
 
     }
 

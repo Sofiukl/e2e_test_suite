@@ -109,7 +109,7 @@ export class DailyCashAccrual extends ExecuteBatch {
             }
 
 
-            public cash(account : string) : DailyCashAccrual{
+            public cash(account? : string) : DailyCashAccrual{
                 
                 this.balanceType("SETTLEMENT DATE")
                     .accountClass("CASH BALANCE")
@@ -118,7 +118,7 @@ export class DailyCashAccrual extends ExecuteBatch {
                 return this               
             }
             
-            public credit(account : string) : DailyCashAccrual{
+            public credit(account? : string) : DailyCashAccrual{
                 
                 this.balanceType("TRADE DATE")
                     .accountClass("CREDIT BALANCE")

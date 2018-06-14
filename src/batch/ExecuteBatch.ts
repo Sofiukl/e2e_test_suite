@@ -1,6 +1,8 @@
 import  child  from "child_process";
 import {Constants} from "../Constants";
 import { ExcelUtils } from "../utils/ExcelUtils";
+import { PageContext } from "../context/PageContext";
+import { DateUtils } from "../utils/DateUtils";
 
 
 
@@ -32,7 +34,7 @@ export abstract class  ExecuteBatch {
             });
         }
 
-        console.log(" To Execute" + command );
+        //console.log(" To Execute" + command );
         ExcelUtils.getInstance().addCommand(command)
         try{
             
@@ -43,9 +45,12 @@ export abstract class  ExecuteBatch {
         ExcelUtils.getInstance().addHeading(`Results of Batch : ${this.batchName()}`)
 
         ExcelUtils.getInstance().addCommand(result.toString())
+
+        await DateUtils.sleep(2000)
         
         }catch(exception){
-            console.log(exception);
+            //console.log(exception);
+            
             return false
             
         }

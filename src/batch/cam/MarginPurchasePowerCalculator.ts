@@ -72,12 +72,12 @@ export class MarginPurchasePowerCalculator extends ExecuteBatch {
     }
 
 
-    public morning(account : string): MarginPurchasePowerCalculator {
+    public morning(account? : string): MarginPurchasePowerCalculator {
         this.lmvrequired("N").accountno(account)
         return this
     }
 
-    public evening(account : string): MarginPurchasePowerCalculator {
+    public evening(account? : string): MarginPurchasePowerCalculator {
         this.lmvrequired("Y").accountno(account)
         return this
     }

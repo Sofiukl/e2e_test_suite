@@ -96,8 +96,13 @@ export class PageContext {
     
 
     public async  close(){
-        await this._page.close()
-        await this._browser.close()
+        try {
+            await this._page.close()
+            await this._browser.close()    
+        } catch (error) {
+            
+        }
+        
     }
 
 

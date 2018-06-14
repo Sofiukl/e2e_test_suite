@@ -34,7 +34,7 @@ export class ConnectionPool {
             sql
         ] , {cwd:"./library"})
 
-        console.log(resp.toString());
+        //console.log(resp.toString());
         
 
     }

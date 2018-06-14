@@ -3,6 +3,7 @@ import { PageContext } from "../../../context/PageContext";
 import { Page } from "puppeteer";
 import winston from "winston";
 import { AbstractGLEBalanceQuery } from "./AbstractGLEBalanceQuery";
+import { ExcelUtils } from "../../../utils/ExcelUtils";
 
 export class GLEBalanceQuery extends AbstractGLEBalanceQuery{
 
@@ -12,8 +13,10 @@ export class GLEBalanceQuery extends AbstractGLEBalanceQuery{
         //navigate
         await this.clearFields(this.fetchFields())
         await this.populateFields(this.fetchFields())
+        ExcelUtils.getInstance().addHeading("Query for GLE Balance Query")
         await this.screenshot()
         await this.wizardNavigate(WizardAction.QuerySubmit)
+        ExcelUtils.getInstance().addHeading("Query Results for GLE Balance Query")
         await this.screenshot()
 
     }

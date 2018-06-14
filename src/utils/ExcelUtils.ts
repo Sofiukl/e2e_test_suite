@@ -2,7 +2,7 @@ import  * as Excel  from "exceljs";
 import fs from "fs"
 import { ImageGenerate } from "./ImageGenerate";
 import sizeOf from  'image-size';
-import { log } from "util";
+
  
 
 //var Excel = require('exceljs');
@@ -191,6 +191,7 @@ export class ExcelUtils {
     addText(text : string){
         this.init()
         let imageName = ImageGenerate.createImage(text)
+        
         this.addImage(imageName)
        
     }

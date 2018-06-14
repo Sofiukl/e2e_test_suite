@@ -1,368 +1,497 @@
 
-
 import { BaseUIOperations } from "../../BaseUIOperations";
-import { Assert } from "../../../utils/Assert";
 
 
-export abstract class AbstractCashIOEntry  extends BaseUIOperations {
+//Define the results Enum
 
-    async doValidate() : Promise<any>{
-Assert.notNull(this._cashInReason)
-                Assert.notNull(this._cashOutReason)
-                 } 
+enum ResultColumns {
+    
+}
 
-    /** private variable for cashInDateStr() */
-    private _cashInDateStr : string     
-    /** private variable for cashInTime() */
-    private _cashInTime : string     
-    /** private variable for cashOutDateStr() */
-    private _cashOutDateStr : string     
-    /** private variable for cashOutTime() */
-    private _cashOutTime : string     
-    /** private variable for entry.currency() */
-    private _entrycurrency : string     
-    /** private variable for entry.amountStr() */
-    private _entryamountStr : string     
-    /** private variable for entry.externalReferenceNo() */
-    private _entryexternalReferenceNo : string     
-    /** private variable for entry.chequeNo() */
-    private _entrychequeNo : string     
-    /** private variable for entry.custodianBank() */
-    private _entrycustodianBank : string     
-    /** private variable for entry.accountSubCodeDisp() */
-    private _entryaccountSubCodeDisp : string     
-    /** private variable for entry.sourceInstrument() */
-    private _entrysourceInstrument : string     
-    /** private variable for entry.remarks() */
-    private _entryremarks : string     
-    /** private variable for entry.remarksForReport() */
-    private _entryremarksForReport : string     
-    /** private variable for entry.statementDescription() */
-    private _entrystatementDescription : string     
-    /** private variable for cashInAccountNo() */
-    private _cashInAccountNo : string     
-    /** private variable for cashInOtherGleLedgerCode() */
-    private _cashInOtherGleLedgerCode : string     
-    /** private variable for cashOutAccountNo() */
-    private _cashOutAccountNo : string     
-    /** private variable for cashOutOtherGleLedgerCode() */
-    private _cashOutOtherGleLedgerCode : string     
-    /** private variable for entry.inOut() */
-    private _entryinOut : string     
-    /** private variable for entry.taxIncomeType() */
-    private _entrytaxIncomeType : string     
-    /** private variable for entry.wayOfSettlement() */
-    private _entrywayOfSettlement : string     
-    /** private variable for entry.mode() */
-    private _entrymode : string     
-    /** private variable for cashInReason() */
-    private _cashInReason : string     
-    /** private variable for cashOutReason() */
-    private _cashOutReason : string     
-    /** private variable for entry.noCam01Required() */
-    private _entrynoCam01Required : string     
-    /** private variable for cashInAccountCode() */
-    private _cashInAccountCode : string     
-    /** private variable for cashInAccountBalanceTypeStr() */
-    private _cashInAccountBalanceTypeStr : string     
-    /** private variable for cashOutAccountCode() */
-    private _cashOutAccountCode : string     
-    /** private variable for cashOutAccountBalanceTypeStr() */
-    private _cashOutAccountBalanceTypeStr : string     
-    /** This is the value of Cash In Date 
-     * with a default Value "" 
-     * of type select */
-    public cashInDateStr(v : string) : AbstractCashIOEntry {
-        this._cashInDateStr=v;
-        return this;
-    }
-    
-    /** This is the value of  
-     * with a default Value "" 
-     * of type select */
-    public cashInTime(v : string) : AbstractCashIOEntry {
-        this._cashInTime=v;
-        return this;
-    }
-    
-    /** This is the value of Cash Out Date 
-     * with a default Value "" 
-     * of type select */
-    public cashOutDateStr(v : string) : AbstractCashIOEntry {
-        this._cashOutDateStr=v;
-        return this;
-    }
-    
-    /** This is the value of  
-     * with a default Value "" 
-     * of type select */
-    public cashOutTime(v : string) : AbstractCashIOEntry {
-        this._cashOutTime=v;
-        return this;
-    }
-    
-    /** This is the value of Ccy 
-     * with a default Value "" 
-     * of type select */
-    public entrycurrency(v : string) : AbstractCashIOEntry {
-        this._entrycurrency=v;
-        return this;
-    }
-    
-    /** This is the value of Amount 
-     * with a default Value "" 
-     * of type select */
-    public entryamountStr(v : string) : AbstractCashIOEntry {
-        this._entryamountStr=v;
-        return this;
-    }
-    
-    /** This is the value of External Reference No 
-     * with a default Value "" 
-     * of type select */
-    public entryexternalReferenceNo(v : string) : AbstractCashIOEntry {
-        this._entryexternalReferenceNo=v;
-        return this;
-    }
-    
-    /** This is the value of Cheque/Reference Number 
-     * with a default Value "" 
-     * of type select */
-    public entrychequeNo(v : string) : AbstractCashIOEntry {
-        this._entrychequeNo=v;
-        return this;
-    }
-    
-    /** This is the value of Our Bank 
-     * with a default Value "" 
-     * of type select */
-    public entrycustodianBank(v : string) : AbstractCashIOEntry {
-        this._entrycustodianBank=v;
-        return this;
-    }
-    
-    /** This is the value of GLE Sub Code 
-     * with a default Value "" 
-     * of type select */
-    public entryaccountSubCodeDisp(v : string) : AbstractCashIOEntry {
-        this._entryaccountSubCodeDisp=v;
-        return this;
-    }
-    
-    /** This is the value of Security Code 
-     * with a default Value "" 
-     * of type select */
-    public entrysourceInstrument(v : string) : AbstractCashIOEntry {
-        this._entrysourceInstrument=v;
-        return this;
-    }
-    
-    /** This is the value of Remarks 
-     * with a default Value "" 
-     * of type select */
-    public entryremarks(v : string) : AbstractCashIOEntry {
-        this._entryremarks=v;
-        return this;
-    }
-    
-    /** This is the value of Remarks For Report 
-     * with a default Value "" 
-     * of type select */
-    public entryremarksForReport(v : string) : AbstractCashIOEntry {
-        this._entryremarksForReport=v;
-        return this;
-    }
-    
-    /** This is the value of Statement Description 
-     * with a default Value "" 
-     * of type select */
-    public entrystatementDescription(v : string) : AbstractCashIOEntry {
-        this._entrystatementDescription=v;
-        return this;
-    }
-    
-    /** This is the value of Account No 
-     * with a default Value "" 
-     * of type select */
-    public cashInAccountNo(v : string) : AbstractCashIOEntry {
-        this._cashInAccountNo=v;
-        return this;
-    }
-    
-    /** This is the value of Other GLE Ledger Code 
-     * with a default Value "" 
-     * of type select */
-    public cashInOtherGleLedgerCode(v : string) : AbstractCashIOEntry {
-        this._cashInOtherGleLedgerCode=v;
-        return this;
-    }
-    
-    /** This is the value of Account No 
-     * with a default Value "" 
-     * of type select */
-    public cashOutAccountNo(v : string) : AbstractCashIOEntry {
-        this._cashOutAccountNo=v;
-        return this;
-    }
-    
-    /** This is the value of Other GLE Ledger Code 
-     * with a default Value "" 
-     * of type select */
-    public cashOutOtherGleLedgerCode(v : string) : AbstractCashIOEntry {
-        this._cashOutOtherGleLedgerCode=v;
-        return this;
-    }
-    
-    /** This is the value of Cash In/Out 
-     * with a default Value "" 
-     * of type select */
-    public entryinOut(v : string) : AbstractCashIOEntry {
-        this._entryinOut=v;
-        return this;
-    }
-    
-    /** This is the value of Tax Income Type 
-     * with a default Value "" 
-     * of type select */
-    public entrytaxIncomeType(v : string) : AbstractCashIOEntry {
-        this._entrytaxIncomeType=v;
-        return this;
-    }
-    
-    /** This is the value of Way Of Settlement 
-     * with a default Value "" 
-     * of type select */
-    public entrywayOfSettlement(v : string) : AbstractCashIOEntry {
-        this._entrywayOfSettlement=v;
-        return this;
-    }
-    
-    /** This is the value of Mode 
-     * with a default Value "" 
-     * of type select */
-    public entrymode(v : string) : AbstractCashIOEntry {
-        this._entrymode=v;
-        return this;
-    }
-    
-    /** This is the value of Cash In Reason Code 
-     * with a default Value "" 
-     * of type select */
-    public cashInReason(v : string) : AbstractCashIOEntry {
-        this._cashInReason=v;
-        return this;
-    }
-    
-    /** This is the value of Cash Out Reason Code 
-     * with a default Value "" 
-     * of type select */
-    public cashOutReason(v : string) : AbstractCashIOEntry {
-        this._cashOutReason=v;
-        return this;
-    }
-    
-    /** This is the value of No CAM01 Required 
-     * with a default Value "" 
-     * of type select */
-    public entrynoCam01Required(v : string) : AbstractCashIOEntry {
-        this._entrynoCam01Required=v;
-        return this;
-    }
-    
-    /** This is the value of GLE Ledger Code 
-     * with a default Value "" 
-     * of type select */
-    public cashInAccountCode(v : string) : AbstractCashIOEntry {
-        this._cashInAccountCode=v;
-        return this;
-    }
-    
-    /** This is the value of Account Balance Type  
-     * with a default Value "" 
-     * of type select */
-    public cashInAccountBalanceTypeStr(v : string) : AbstractCashIOEntry {
-        this._cashInAccountBalanceTypeStr=v;
-        return this;
-    }
-    
-    /** This is the value of GLE Ledger Code 
-     * with a default Value "" 
-     * of type select */
-    public cashOutAccountCode(v : string) : AbstractCashIOEntry {
-        this._cashOutAccountCode=v;
-        return this;
-    }
-    
-    /** This is the value of Account Balance Type  
-     * with a default Value "" 
-     * of type select */
-    public cashOutAccountBalanceTypeStr(v : string) : AbstractCashIOEntry {
-        this._cashOutAccountBalanceTypeStr=v;
-        return this;
-    }
-    
-    protected fetchFields() : any[] {
-        let fields :any[] = []
-    if(this._cashInDateStr!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInDateStr"]' , value : this._cashInDateStr});
-        }if(this._cashInTime!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInTime"]' , value : this._cashInTime});
-        }if(this._cashOutDateStr!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutDateStr"]' , value : this._cashOutDateStr});
-        }if(this._cashOutTime!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutTime"]' , value : this._cashOutTime});
-        }if(this._entrycurrency!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.currency"]' , value : this._entrycurrency});
-        }if(this._entryamountStr!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.amountStr"]' , value : this._entryamountStr});
-        }if(this._entryexternalReferenceNo!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.externalReferenceNo"]' , value : this._entryexternalReferenceNo});
-        }if(this._entrychequeNo!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.chequeNo"]' , value : this._entrychequeNo});
-        }if(this._entrycustodianBank!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.custodianBank"]' , value : this._entrycustodianBank});
-        }if(this._entryaccountSubCodeDisp!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.accountSubCodeDisp"]' , value : this._entryaccountSubCodeDisp});
-        }if(this._entrysourceInstrument!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.sourceInstrument"]' , value : this._entrysourceInstrument});
-        }if(this._entryremarks!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.remarks"]' , value : this._entryremarks});
-        }if(this._entryremarksForReport!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.remarksForReport"]' , value : this._entryremarksForReport});
-        }if(this._entrystatementDescription!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.statementDescription"]' , value : this._entrystatementDescription});
-        }if(this._cashInAccountNo!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInAccountNo"]' , value : this._cashInAccountNo});
-        }if(this._cashInOtherGleLedgerCode!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInOtherGleLedgerCode"]' , value : this._cashInOtherGleLedgerCode});
-        }if(this._cashOutAccountNo!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutAccountNo"]' , value : this._cashOutAccountNo});
-        }if(this._cashOutOtherGleLedgerCode!=undefined){
-            fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutOtherGleLedgerCode"]' , value : this._cashOutOtherGleLedgerCode});
-        }if(this._entryinOut!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="entry.inOut"]' , value : this._entryinOut});
-        }if(this._entrytaxIncomeType!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="entry.taxIncomeType"]' , value : this._entrytaxIncomeType});
-        }if(this._entrywayOfSettlement!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="entry.wayOfSettlement"]' , value : this._entrywayOfSettlement});
-        }if(this._entrymode!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="entry.mode"]' , value : this._entrymode});
-        }if(this._cashInReason!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="cashInReason"]' , value : this._cashInReason});
-        }if(this._cashOutReason!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="cashOutReason"]' , value : this._cashOutReason});
-        }if(this._entrynoCam01Required!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="entry.noCam01Required"]' , value : this._entrynoCam01Required});
-        }if(this._cashInAccountCode!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="cashInAccountCode"]' , value : this._cashInAccountCode});
-        }if(this._cashInAccountBalanceTypeStr!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="cashInAccountBalanceTypeStr"]' , value : this._cashInAccountBalanceTypeStr});
-        }if(this._cashOutAccountCode!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="cashOutAccountCode"]' , value : this._cashOutAccountCode});
-        }if(this._cashOutAccountBalanceTypeStr!=undefined){
-            fields.push({ 'type' : 'select' , 'selector' : 'select[name="cashOutAccountBalanceTypeStr"]' , value : this._cashOutAccountBalanceTypeStr});
+
+        enum Entry_InOut {
+              IN ="I",   OUT ="O", 
         }
+        enum Entry_TaxIncomeType {
+              Cash_Adjustment ="CASH_ADJUSTMENT",   Non_taxable ="NON_TAXABLE", 
+        }
+        enum Entry_WayOfSettlement {
+              BANK_TRANSFER ="BANK TRANSFER",   BPAY ="BPAY",   CASH ="CASH",   CHEQUE ="CHEQUE", 
+        }
+        enum Entry_Mode {
+              Bank_Transfer ="BANK_TRANSFER",   Internal_Booking ="INTERNAL_BOOKING", 
+        }
+        enum CashInReason {
+               WRITE_OFFWRITE_OFF ="WRITE_OFF",   MARGIN_INTMargin_Interest ="MARGIN_INT",   TENDER_OFFERTransfer_For_Tender_Offer ="TENDER_OFFER",   CREDIT_NOTECREDIT_NOTE ="CREDIT_NOTE", 
+        }
+        enum CashOutReason {
+               WRITE_OFFWRITE_OFF ="WRITE_OFF",   MARGIN_INTMargin_Interest ="MARGIN_INT",   TENDER_OFFERTransfer_For_Tender_Offer ="TENDER_OFFER",   CREDIT_NOTECREDIT_NOTE ="CREDIT_NOTE", 
+        }
+        enum Entry_NoCam01Required {
+              No ="N",   Yes ="Y", 
+        }
+        enum CashInAccountCode {
+               One31299A_R_OTH_NON_RELATED__COLLSUSPENSE_ACC ="131299",   Two11103DEPOSITORY_FEE ="211103",   Two11104CLEARING_FEE ="211104",   Two11105SUSPENSE_PAYABLE ="211105",   Two11111Suspend_Payable_Refinance ="211111",   Two99977OVERDUE_INTEREST_SET_CHARGES ="299977",   Two99993VAT ="299993",   Two99997WITHHOLDING_TAX_PAYABLE___PND_2 ="299997",   Four99994OVERDUE_INTEREST_BROKER_CHARGES ="499994",   Four99997BROKERAGE_FEES ="499997",   Four99999INTEREST_INCOMES___CB ="499999",   Five99997DOUBTFUL_DEBT ="599997",   Six00005CASH_TRANSFER_CONTROL ="600005", 
+        }
+        enum CashInAccountBalanceTypeStr {
+               One0_Free ="10",   One1_Margin ="11",   One2_Pledge ="12",   One3_Collateral ="13",   One4_Physical ="14",   One5_IPO ="15",   One6_Register ="16",   One7_Expect_Rights ="17",   One8_Rights ="18",   One9_Blocked ="19", 
+        }
+        enum CashOutAccountCode {
+               One31299A_R_OTH_NON_RELATED__COLLSUSPENSE_ACC ="131299",   Two11103DEPOSITORY_FEE ="211103",   Two11104CLEARING_FEE ="211104",   Two11105SUSPENSE_PAYABLE ="211105",   Two11111Suspend_Payable_Refinance ="211111",   Two99977OVERDUE_INTEREST_SET_CHARGES ="299977",   Two99993VAT ="299993",   Four99994OVERDUE_INTEREST_BROKER_CHARGES ="499994",   Four99995OTHER_INCOME_NON_VAT ="499995",   Four99996OTHER_INCOME_VAT ="499996",   Four99997BROKERAGE_FEES ="499997",   Four99999INTEREST_INCOMES___CB ="499999",   Six00005CASH_TRANSFER_CONTROL ="600005", 
+        }
+        enum CashOutAccountBalanceTypeStr {
+               One0_Free ="10",   One1_Margin ="11",   One2_Pledge ="12",   One3_Collateral ="13",   One4_Physical ="14",   One5_IPO ="15",   One6_Register ="16",   One7_Expect_Rights ="17",   One8_Rights ="18",   One9_Blocked ="19", 
+        }
+
+
+export abstract class AbstractCashIOEntry extends BaseUIOperations {
+
+    static ResultColumns = ResultColumns
+    
+        static Entry_InOut = Entry_InOut;
+        static Entry_TaxIncomeType = Entry_TaxIncomeType;
+        static Entry_WayOfSettlement = Entry_WayOfSettlement;
+        static Entry_Mode = Entry_Mode;
+        static CashInReason = CashInReason;
+        static CashOutReason = CashOutReason;
+        static Entry_NoCam01Required = Entry_NoCam01Required;
+        static CashInAccountCode = CashInAccountCode;
+        static CashInAccountBalanceTypeStr = CashInAccountBalanceTypeStr;
+        static CashOutAccountCode = CashOutAccountCode;
+        static CashOutAccountBalanceTypeStr = CashOutAccountBalanceTypeStr;
+
+
+/**
+ *    Private members 
+*/
+
+
+private _inOut : Entry_InOut = undefined 
+
+private _cashInDateStr : string = undefined 
+private _cashInTime : string = undefined 
+
+private _cashOutDateStr : string = undefined 
+private _cashOutTime : string = undefined 
+
+private _currency : string = undefined 
+
+private _amountStr : string = undefined 
+
+private _externalReferenceNo : string = undefined 
+
+private _taxIncomeType : Entry_TaxIncomeType = undefined 
+
+private _wayOfSettlement : Entry_WayOfSettlement = undefined 
+
+private _chequeNo : string = undefined 
+
+private _mode : Entry_Mode = undefined 
+
+private _custodianBank : string = undefined 
+
+private _accountSubCodeDisp : string = undefined 
+
+private _cashInReason : CashInReason = undefined 
+
+private _cashOutReason : CashOutReason = undefined 
+
+private _sourceInstrument : string = undefined 
+
+private _noCam01Required : Entry_NoCam01Required = undefined 
+
+private _remarks : string = undefined 
+
+private _remarksForReport : string = undefined 
+
+private _statementDescription : string = undefined 
+
+private _cashInAccountNo : string = undefined 
+
+private _cashInAccountCode : CashInAccountCode = undefined 
+
+private _cashInAccountBalanceTypeStr : CashInAccountBalanceTypeStr = undefined 
+
+private _cashInOtherGleLedgerCode : string = undefined 
+
+private _cashOutAccountNo : string = undefined 
+
+private _cashOutAccountCode : CashOutAccountCode = undefined 
+
+private _cashOutAccountBalanceTypeStr : CashOutAccountBalanceTypeStr = undefined 
+
+private _cashOutOtherGleLedgerCode : string = undefined 
+
+
+
+/**
+ *   Accessor methods
+*/
+
+
+public inOut(v : Entry_InOut ) : AbstractCashIOEntry{
+    this._inOut=v
+    return this
+}
+
+/**
+  Field with a default value of "02-04-2018"
+*/
+
+
+public cashInDateStr(v : string) : AbstractCashIOEntry{
+    this._cashInDateStr=v
+    return this
+}
+/**
+  Field with a default value of ""
+*/
+
+
+public cashInTime(v : string) : AbstractCashIOEntry{
+    this._cashInTime=v
+    return this
+}
+
+/**
+  Field with a default value of "02-04-2018"
+*/
+
+
+public cashOutDateStr(v : string) : AbstractCashIOEntry{
+    this._cashOutDateStr=v
+    return this
+}
+/**
+  Field with a default value of ""
+*/
+
+
+public cashOutTime(v : string) : AbstractCashIOEntry{
+    this._cashOutTime=v
+    return this
+}
+
+/**
+  Field with a default value of "THB"
+*/
+
+
+public currency(v : string) : AbstractCashIOEntry{
+    this._currency=v
+    return this
+}
+
+/**
+  Field with a default value of "100"
+*/
+
+
+public amountStr(v : string) : AbstractCashIOEntry{
+    this._amountStr=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public externalReferenceNo(v : string) : AbstractCashIOEntry{
+    this._externalReferenceNo=v
+    return this
+}
+
+public taxIncomeType(v : Entry_TaxIncomeType ) : AbstractCashIOEntry{
+    this._taxIncomeType=v
+    return this
+}
+
+public wayOfSettlement(v : Entry_WayOfSettlement ) : AbstractCashIOEntry{
+    this._wayOfSettlement=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public chequeNo(v : string) : AbstractCashIOEntry{
+    this._chequeNo=v
+    return this
+}
+
+public mode(v : Entry_Mode ) : AbstractCashIOEntry{
+    this._mode=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public custodianBank(v : string) : AbstractCashIOEntry{
+    this._custodianBank=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public accountSubCodeDisp(v : string) : AbstractCashIOEntry{
+    this._accountSubCodeDisp=v
+    return this
+}
+
+public cashInReason(v : CashInReason ) : AbstractCashIOEntry{
+    this._cashInReason=v
+    return this
+}
+
+public cashOutReason(v : CashOutReason ) : AbstractCashIOEntry{
+    this._cashOutReason=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public sourceInstrument(v : string) : AbstractCashIOEntry{
+    this._sourceInstrument=v
+    return this
+}
+
+public noCam01Required(v : Entry_NoCam01Required ) : AbstractCashIOEntry{
+    this._noCam01Required=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public remarks(v : string) : AbstractCashIOEntry{
+    this._remarks=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public remarksForReport(v : string) : AbstractCashIOEntry{
+    this._remarksForReport=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public statementDescription(v : string) : AbstractCashIOEntry{
+    this._statementDescription=v
+    return this
+}
+
+/**
+  Field with a default value of "C0STFF001-7"
+*/
+
+
+public cashInAccountNo(v : string) : AbstractCashIOEntry{
+    this._cashInAccountNo=v
+    return this
+}
+
+public cashInAccountCode(v : CashInAccountCode ) : AbstractCashIOEntry{
+    this._cashInAccountCode=v
+    return this
+}
+
+public cashInAccountBalanceTypeStr(v : CashInAccountBalanceTypeStr ) : AbstractCashIOEntry{
+    this._cashInAccountBalanceTypeStr=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public cashInOtherGleLedgerCode(v : string) : AbstractCashIOEntry{
+    this._cashInOtherGleLedgerCode=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public cashOutAccountNo(v : string) : AbstractCashIOEntry{
+    this._cashOutAccountNo=v
+    return this
+}
+
+public cashOutAccountCode(v : CashOutAccountCode ) : AbstractCashIOEntry{
+    this._cashOutAccountCode=v
+    return this
+}
+
+public cashOutAccountBalanceTypeStr(v : CashOutAccountBalanceTypeStr ) : AbstractCashIOEntry{
+    this._cashOutAccountBalanceTypeStr=v
+    return this
+}
+
+/**
+  Field with a default value of ""
+*/
+
+
+public cashOutOtherGleLedgerCode(v : string) : AbstractCashIOEntry{
+    this._cashOutOtherGleLedgerCode=v
+    return this
+}
+
+
+
+
+ protected fetchFields() : any[] {
+        let fields :any[] = []
+
+        if(this._inOut!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="entry.inOut"]' , value : this._inOut});
+}
+
+if(this._cashInDateStr!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInDateStr"]' , value : this._cashInDateStr});
+}
+if(this._cashInTime!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInTime"]' , value : this._cashInTime});
+}
+
+if(this._cashOutDateStr!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutDateStr"]' , value : this._cashOutDateStr});
+}
+if(this._cashOutTime!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutTime"]' , value : this._cashOutTime});
+}
+
+if(this._currency!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.currency"]' , value : this._currency});
+}
+
+if(this._amountStr!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.amountStr"]' , value : this._amountStr});
+}
+
+if(this._externalReferenceNo!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.externalReferenceNo"]' , value : this._externalReferenceNo});
+}
+
+if(this._taxIncomeType!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="entry.taxIncomeType"]' , value : this._taxIncomeType});
+}
+
+if(this._wayOfSettlement!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="entry.wayOfSettlement"]' , value : this._wayOfSettlement});
+}
+
+if(this._chequeNo!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.chequeNo"]' , value : this._chequeNo});
+}
+
+if(this._mode!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="entry.mode"]' , value : this._mode});
+}
+
+if(this._custodianBank!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.custodianBank"]' , value : this._custodianBank});
+}
+
+if(this._accountSubCodeDisp!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.accountSubCodeDisp"]' , value : this._accountSubCodeDisp});
+}
+
+if(this._cashInReason!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="cashInReason"]' , value : this._cashInReason});
+}
+
+if(this._cashOutReason!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="cashOutReason"]' , value : this._cashOutReason});
+}
+
+if(this._sourceInstrument!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.sourceInstrument"]' , value : this._sourceInstrument});
+}
+
+if(this._noCam01Required!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="entry.noCam01Required"]' , value : this._noCam01Required});
+}
+
+if(this._remarks!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.remarks"]' , value : this._remarks});
+}
+
+if(this._remarksForReport!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.remarksForReport"]' , value : this._remarksForReport});
+}
+
+if(this._statementDescription!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="entry.statementDescription"]' , value : this._statementDescription});
+}
+
+if(this._cashInAccountNo!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInAccountNo"]' , value : this._cashInAccountNo});
+}
+
+if(this._cashInAccountCode!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="cashInAccountCode"]' , value : this._cashInAccountCode});
+}
+
+if(this._cashInAccountBalanceTypeStr!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="cashInAccountBalanceTypeStr"]' , value : this._cashInAccountBalanceTypeStr});
+}
+
+if(this._cashInOtherGleLedgerCode!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashInOtherGleLedgerCode"]' , value : this._cashInOtherGleLedgerCode});
+}
+
+if(this._cashOutAccountNo!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutAccountNo"]' , value : this._cashOutAccountNo});
+}
+
+if(this._cashOutAccountCode!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="cashOutAccountCode"]' , value : this._cashOutAccountCode});
+}
+
+if(this._cashOutAccountBalanceTypeStr!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'select[name="cashOutAccountBalanceTypeStr"]' , value : this._cashOutAccountBalanceTypeStr});
+}
+
+if(this._cashOutOtherGleLedgerCode!=undefined){
+  fields.push({ 'type' : 'text' , 'selector' : 'input[name="cashOutOtherGleLedgerCode"]' , value : this._cashOutOtherGleLedgerCode});
+}
+
+
     return fields;
 
-    }
+   }
+
+
 }
+
+
+
+
+
+

@@ -59,7 +59,7 @@ export  class ClientPayPayInEntry {
 
 				if(body.success){
 					ExcelUtils.getInstance().addHeading("Create Client Receipt Pay-In Response")
-					ExcelUtils.getInstance().addText(JSON.stringify(body.value))
+					ExcelUtils.getInstance().addText(JSON.stringify(body.value,null,2))
 					resolve(body.value[0].settlementReferenceNumber)
 				}
 				

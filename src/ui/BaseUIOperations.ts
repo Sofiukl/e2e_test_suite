@@ -117,7 +117,7 @@ export abstract class BaseUIOperations {
                   await this.typeInText(customCommands[i].selector,customCommands[i].value)
                 }
 
-             await PageContext.getInstance().sleep(50)
+             await PageContext.getInstance().sleep(100)
 
         }
         
@@ -176,6 +176,9 @@ export abstract class BaseUIOperations {
         }else if(operation == WizardAction.AuthorizeConfirm){
             winston.silly("Start the click for <div.authorizeConfirmBtn input>")
             await this._page.click('div.authorizeConfirmBtn input')
+        }else if(operation == WizardAction.StockTransferAuth){ 
+            winston.silly("Start the click for <div.authorizeConfirmBtn input>")
+            await this._page.click('div.submitBtn.authorizeBtn')
         }
 
          await PageContext.getInstance().waitToNavigate()
@@ -251,7 +254,8 @@ export enum WizardAction {
     QueryCompleteSubmit,
     QueryCompleteConfirm,
     Authorize,
-    AuthorizeConfirm
+    AuthorizeConfirm,
+    StockTransferAuth,
 
     //Previous,
 }
